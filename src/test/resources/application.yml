@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: challenge
+  profiles:
+    active: test
+
+logging:
+  level:
+    root: OFF
