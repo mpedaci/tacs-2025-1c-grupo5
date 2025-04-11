@@ -1,9 +1,9 @@
 package utn.tacs.grupo5.mapper;
 
-public interface IMapper<T, DTO> {
+public interface IMapper<T, InputDto, OutputDto> {
 
-    DTO toDto(T entity);
+    OutputDto toDto(T entity);
 
-    T toEntity(DTO dto);
+    T toEntity(InputDto dto);
 
 }

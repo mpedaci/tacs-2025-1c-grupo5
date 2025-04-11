@@ -1,17 +1,18 @@
-package utn.tacs.grupo5.dto;
+package utn.tacs.grupo5.dto.user;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Schema(name = "User Schema", description = "User schema")
-public class UserDto {
+@AllArgsConstructor
+public abstract class UserBaseDto {
+
     private String email;
     private String phone;
     private String firstName;
     private String lastName;
     private String username;
-    private String password;
+
 }
