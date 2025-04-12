@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import utn.tacs.grupo5.controller.response.CustomError;
 import utn.tacs.grupo5.controller.response.ResponseGenerator;
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
-import utn.tacs.grupo5.entity.Offer;
 import utn.tacs.grupo5.service.IOfferService;
 
 @RestController
