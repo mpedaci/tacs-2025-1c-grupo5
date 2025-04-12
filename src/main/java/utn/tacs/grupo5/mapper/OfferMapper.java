@@ -10,7 +10,7 @@ public class OfferMapper implements IMapper<Offer, OfferInputDto, OfferOutputDto
         OfferOutputDto dto = new OfferOutputDto();
         dto.setId(offer.getId());
         dto.setPublication(offer.getPublication());
-        dto.setCards(offer.getCards());
+        dto.setCards(offer.getOfferedCards());
         dto.setMoney(offer.getMoney());
         dto.setState(offer.getState());
         dto.setPublicationDate(offer.getPublicationDate());
@@ -22,7 +22,7 @@ public class OfferMapper implements IMapper<Offer, OfferInputDto, OfferOutputDto
     public Offer toEntity(OfferInputDto offerInputDto) {
         Offer offer = new Offer();
         offer.setPublication(offerInputDto.getPublication());
-        offer.setCards(offerInputDto.getCards());
+        offer.setOfferedCards(offerInputDto.getCards());
         offer.setMoney(offerInputDto.getMoney());
         offer.setState(offerInputDto.getState());
                 return offer;

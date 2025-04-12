@@ -11,7 +11,7 @@ public class Offer {
 
     private Long id;
     private Publication publication;
-    private List<Card> cards;
+    private List<OfferedCard> offeredCards;
     private Float money;
     private OfferState state;
     private LocalDateTime publicationDate;

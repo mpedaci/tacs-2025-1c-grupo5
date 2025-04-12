@@ -29,7 +29,7 @@ public class OfferController extends BaseController {
         this.offerService = offerService;
     }
 
-    @PostMapping(value = "post/{id}/offers", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/post/id/offers", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a new offer", description = "Create a new offer")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "409", content = {
