@@ -41,8 +41,7 @@ public class UserService implements IUserService {
 
         UserMapper userMapper = new UserMapper();
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(dto.getPassword());
+        String hashedPassword = hashPassword(dto.getPassword());
 
         User user = userMapper.toEntity(dto);
         user.setPassword(hashedPassword);
@@ -59,6 +58,8 @@ public class UserService implements IUserService {
 
         UserMapper userMapper = new UserMapper();
         User user = userMapper.toEntity(dto);
+        String hashedPassword = hashPassword(user.getPassword());
+        user.setPassword(hashedPassword);
         user.setId(id);
         user.setCreatedAt(existingUser.getCreatedAt());
         user.setUpdatedAt(LocalDateTime.now());
@@ -68,6 +69,11 @@ public class UserService implements IUserService {
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
+    }
+
+    private String hashPassword(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
     }
 
 }
