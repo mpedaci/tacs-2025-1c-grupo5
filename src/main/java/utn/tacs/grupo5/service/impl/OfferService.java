@@ -127,9 +127,20 @@ public class OfferService implements IOfferService {
 
     }
 
+    @Override
+    public void delete(Long offerId) {
+        inMemoryOfferRepository.deleteById(offerId);
+    }
 
     @Override
-    public void delete(Long aLong) {
+    public void delete(Long postId, Long offerId) {
+        if (inMemoryPostRepository.findById(postId).isEmpty()) {
+            throw new NotFoundException("Post not found");
+        }
+        if(inMemoryOfferRepository.findById(offerId).isEmpty()){
+            throw new NotFoundException("Offer not found");
+        }
 
+        this.delete(offerId);
     }
 }

@@ -67,9 +67,9 @@ public class OfferController extends BaseController {
             }),
             @ApiResponse(responseCode = "200", description = "OK")
     })
-    public ResponseEntity<String> delete(@PathVariable String offerId, @PathVariable String postId) {
-//        offerService.save(offerDto);
-        return ResponseGenerator.generateResponseOK("Offer saved successfully");
+    public ResponseEntity<String> delete(@PathVariable Long offerId, @PathVariable Long postId) {
+        offerService.delete(postId, offerId);
+        return ResponseGenerator.generateResponseOK("Offer delete successfully");
     }
 
     @GetMapping(value = "/post/{postId}/offers/{offerId}")

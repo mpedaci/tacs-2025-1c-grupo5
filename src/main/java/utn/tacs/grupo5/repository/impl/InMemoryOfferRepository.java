@@ -1,5 +1,6 @@
 package utn.tacs.grupo5.repository.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import utn.tacs.grupo5.entity.offer.Offer;
 import utn.tacs.grupo5.repository.OfferRepository;
@@ -12,6 +13,8 @@ public class InMemoryOfferRepository implements OfferRepository {
 
     private final List<Offer> offers = Collections.synchronizedList(new ArrayList<>());
     private final AtomicLong idGenerator = new AtomicLong();
+    @Autowired
+    private InMemoryOfferedCardRepository inMemoryOfferedCardRepository;
 
     @Override
     public Optional<Offer> findByPublicationId(Long publicationId) {
@@ -64,7 +67,11 @@ public class InMemoryOfferRepository implements OfferRepository {
     @Override
     public void deleteById(Long id) {
         synchronized (offers) {
-            offers.removeIf(user -> user.getId().equals(id));
+            Offer offerToDelete = findById(id).orElseThrow(() -> new IllegalArgumentException("Offer not found"));
+
+            offerToDelete.getOfferedCards().forEach(inMemoryOfferedCardRepository::deleteByCard);
+
+            offers.remove(offerToDelete);
         }
 
     }

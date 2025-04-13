@@ -11,4 +11,5 @@ public interface IOfferService extends ICRUDService<Offer, Long, OfferInputDto> 
     List<Offer> getAllByPublicationId(Long publicationId);
     Offer getById(Long publicationId, Long offerId);
     void patch(Long offerId, Long postId, OfferState offerState);
+    void delete(Long offerId, Long postId);
 }

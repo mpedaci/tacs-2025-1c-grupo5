@@ -49,5 +49,11 @@ public class InMemoryOfferedCardRepository implements OfferedCardRepository {
 
     }
 
+    public void deleteByCard(OfferedCard card) {
+        synchronized (cards) {
+            cards.remove(card);
+        }
+    }
+
 
 }

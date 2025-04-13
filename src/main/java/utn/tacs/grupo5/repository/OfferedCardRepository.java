@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OfferedCardRepository extends ICRUDRepository<OfferedCard, Long> {
-
+    void deleteByCard(OfferedCard card);
 }
