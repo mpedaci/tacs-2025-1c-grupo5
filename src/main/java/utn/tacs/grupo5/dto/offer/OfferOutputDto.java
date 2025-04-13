@@ -1,6 +1,7 @@
 package utn.tacs.grupo5.dto.offer;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,27 +19,30 @@ import java.util.List;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Schema(name = "Offer Output Schema", description = "Offer schema for output")
-public class OfferOutputDto extends OfferBaseDto{
-    public void setId(Long id) {
+public class OfferOutputDto extends OfferBaseDto {
+
+
+    @Schema(description = "Creation date of the publication", example = "YYYY-MM-DD")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime publicationDate;
+
+    @Schema(description = "End date of the offer", example = "YYYY-MM-DD")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime offerEndDate;
+
+    public OfferOutputDto(OfferBaseDto offerBaseDto,
+                          LocalDateTime publicationDate,
+                          LocalDateTime offerEndDate) {
+        super(offerBaseDto.getId(),
+                offerBaseDto.getOfferUser(),
+                offerBaseDto.getPublication(),
+                offerBaseDto.getOfferedCards(),
+                offerBaseDto.getMoney(),
+                offerBaseDto.getState(),
+                offerBaseDto.getPublicationDate(),
+                offerBaseDto.getFinished()
+        );
+               this.publicationDate = publicationDate;
+        this.offerEndDate = offerEndDate;
     }
-
-    public void setPublication(Publication publication) {
-    }
-
-    public void setCards(List<OfferedCard> offeredCards) {
-    }
-
-    public void setMoney(Float money) {
-    }
-
-    public void setState(OfferState state) {
-    }
-
-    public void setPublicationDate(LocalDateTime publicationDate) {
-    }
-
-    public void setFinished(LocalDateTime finished) {
-
-    }
-
 }

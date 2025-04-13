@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import utn.tacs.grupo5.entity.OfferState;
 import utn.tacs.grupo5.entity.OfferedCard;
 import utn.tacs.grupo5.entity.Publication;
+import utn.tacs.grupo5.entity.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public abstract class OfferBaseDto {
 
+    private Long id;
+    private User offerUser;
     private Publication publication;
     private List<OfferedCard> offeredCards;
     private Float money;

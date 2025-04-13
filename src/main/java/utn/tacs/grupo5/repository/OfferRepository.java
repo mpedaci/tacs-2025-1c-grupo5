@@ -2,10 +2,17 @@ package utn.tacs.grupo5.repository;
 
 import utn.tacs.grupo5.entity.Offer;
 
+import java.util.Optional;
+
 public interface OfferRepository extends ICRUDRepository<Offer, Long> {
-    Offer findByPublicationId(Long publicationId);
+
+    Optional<Offer> findByPublicationId(Long publicationId);
+
+    Optional<Offer> findById(Long id);
 
     void deleteByPublicationId(Long publicationId);
 
     void deleteByUserId(Long userId);
+
+
 }

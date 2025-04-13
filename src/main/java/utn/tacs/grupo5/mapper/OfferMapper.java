@@ -9,20 +9,22 @@ public class OfferMapper implements IMapper<Offer, OfferInputDto, OfferOutputDto
     public OfferOutputDto toDto(Offer offer) {
         OfferOutputDto dto = new OfferOutputDto();
         dto.setId(offer.getId());
+        dto.setOfferUser(offer.getOfferUser());
         dto.setPublication(offer.getPublication());
-        dto.setCards(offer.getOfferedCards());
+        dto.setOfferedCards(offer.getOfferedCards());
         dto.setMoney(offer.getMoney());
         dto.setState(offer.getState());
         dto.setPublicationDate(offer.getPublicationDate());
-        dto.setFinished(offer.getFinished());
+        dto.setFinished(offer.getOfferEndDate());
         return dto;
     }
 
     @Override
     public Offer toEntity(OfferInputDto offerInputDto) {
         Offer offer = new Offer();
+        offer.setOfferUser(offerInputDto.getOfferUser());
         offer.setPublication(offerInputDto.getPublication());
-        offer.setOfferedCards(offerInputDto.getCards());
+        offer.setOfferedCards(offerInputDto.getOfferedCards());
         offer.setMoney(offerInputDto.getMoney());
         offer.setState(offerInputDto.getState());
                 return offer;

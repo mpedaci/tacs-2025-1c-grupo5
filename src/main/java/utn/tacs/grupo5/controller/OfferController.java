@@ -41,4 +41,8 @@ public class OfferController extends BaseController {
         offerService.save(offerDto);
         return ResponseGenerator.generateResponseOK("Offer saved successfully");
     }
+
+    //TODO : Implement the rest of the methods
+
+
 }

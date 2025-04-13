@@ -10,13 +10,13 @@ import java.util.List;
 public class Offer {
 
     private Long id;
+    private User offerUser;
     private Publication publication;
     private List<OfferedCard> offeredCards;
     private Float money;
     private OfferState state;
     private LocalDateTime publicationDate;
-    private LocalDateTime finished;
-
+    private LocalDateTime offerEndDate;
 
 }
 

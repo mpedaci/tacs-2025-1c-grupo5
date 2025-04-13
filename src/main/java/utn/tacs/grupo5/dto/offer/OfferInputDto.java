@@ -17,20 +17,19 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Schema(name = "Offer Input Schema", description = "Offer schema for input")
+
 public class OfferInputDto extends OfferBaseDto {
-    public Publication getPublication() {
-        return null;
-    }
 
-    public List<OfferedCard> getCards() {
-        return List.of();
-    }
 
-    public Float getMoney() {
-        return 0f;
-    }
-
-    public OfferState getState() {
-        return null;
+    public OfferInputDto(OfferBaseDto offerBaseDto) {
+        super(offerBaseDto.getId(),
+                offerBaseDto.getOfferUser(),
+                offerBaseDto.getPublication(),
+                offerBaseDto.getOfferedCards(),
+                offerBaseDto.getMoney(),
+                offerBaseDto.getState(),
+                offerBaseDto.getPublicationDate(),
+                offerBaseDto.getFinished()
+        );
     }
 }
