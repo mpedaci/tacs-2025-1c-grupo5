@@ -69,7 +69,6 @@ public class OfferService implements IOfferService {
         return offerRepository.findAllByPublicationId(publicationId);
     }
 
-
     @Override
     public Offer save(OfferInputDto offerInputDto) {
 
@@ -108,19 +107,26 @@ public class OfferService implements IOfferService {
         return offerRepository.save(offer);
     }
 
+    @Override
+    public Offer update(Long aLong, OfferInputDto offerInputDto) {
+//        TODO: por ahora no es necesario el update de la offer
+        return null;
+    }
+
     //consultar funcionamiento de update para las ofertas y si lo recibe por parametro
     @Override
-    public Offer update(Long id, OfferInputDto offerInputDto) {
-//
-//        Offer existingOffer = offerRepository.findById(id)
-//                .orElseThrow(() -> new NotFoundException("Offer not found"));
-//
-//        OfferMapper offerMapper = new OfferMapper();
-//        Offer offerUpdate = offerMapper.toEntity(offerInputDto);
-//        offerUpdate.setState(offerInputDto.getState());
-//        return offerRepository.save(offerUpdate);
-        return new Offer();
+    public void patch(Long offerId, Long postId, OfferState offerState) {
+
+        if (inMemoryPostRepository.findById(postId).isEmpty()) {
+            throw new NotFoundException("Post not found");
+        }
+
+        Offer offer =
+                inMemoryOfferRepository.findById(offerId).orElseThrow(() -> new NotFoundException("Offer not found"));
+        offer.setState(offerState);
+
     }
+
 
     @Override
     public void delete(Long aLong) {

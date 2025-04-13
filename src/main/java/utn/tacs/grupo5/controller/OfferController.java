@@ -14,6 +14,7 @@ import utn.tacs.grupo5.controller.response.CustomError;
 import utn.tacs.grupo5.controller.response.ResponseGenerator;
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
 import utn.tacs.grupo5.entity.offer.Offer;
+import utn.tacs.grupo5.entity.offer.OfferState;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.service.IOfferService;
 
@@ -33,9 +34,6 @@ public class OfferController extends BaseController {
     @PostMapping(value = "/post/{id}/offers", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a new offer", description = "Create a new offer")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "409", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
-            }),
             @ApiResponse(responseCode = "404", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
             }),
@@ -50,13 +48,14 @@ public class OfferController extends BaseController {
     @PatchMapping(value = "/post/{postId}/offers/{offerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Change offer status", description = "Change offer status")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "409", content = {
+            @ApiResponse(responseCode = "404", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
             }),
             @ApiResponse(responseCode = "200", description = "OK")
     })
-    public ResponseEntity<String> patch(@PathVariable String offerId, @PathVariable String postId) {
-//        offerService.save(offerDto);
+    public ResponseEntity<String> patch(@PathVariable Long offerId, @PathVariable Long postId,
+                                        @RequestBody OfferState offerState) {
+        offerService.patch(offerId, postId, offerState);
         return ResponseGenerator.generateResponseOK("Offer saved successfully");
     }
 
