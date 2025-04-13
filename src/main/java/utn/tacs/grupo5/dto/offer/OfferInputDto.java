@@ -6,30 +6,18 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import utn.tacs.grupo5.entity.OfferedCard;
-import utn.tacs.grupo5.entity.OfferState;
-import utn.tacs.grupo5.entity.Publication;
+import utn.tacs.grupo5.dto.offeredCard.OfferedCardInputDto;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @Data
 @NoArgsConstructor
 @ToString
 @Schema(name = "Offer Input Schema", description = "Offer schema for input")
-
-public class OfferInputDto extends OfferBaseDto {
-
-
-    public OfferInputDto(OfferBaseDto offerBaseDto) {
-        super(offerBaseDto.getId(),
-                offerBaseDto.getOfferUser(),
-                offerBaseDto.getPublication(),
-                offerBaseDto.getOfferedCards(),
-                offerBaseDto.getMoney(),
-                offerBaseDto.getState(),
-                offerBaseDto.getPublicationDate(),
-                offerBaseDto.getFinished()
-        );
-    }
+public class OfferInputDto {
+    private Long offererId;
+    private Long postId;
+    private Float money;
+    private List<OfferedCardInputDto> offeredCards;
 }

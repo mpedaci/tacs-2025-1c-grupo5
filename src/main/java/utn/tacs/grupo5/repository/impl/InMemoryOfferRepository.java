@@ -1,7 +1,7 @@
 package utn.tacs.grupo5.repository.impl;
 
 import org.springframework.stereotype.Repository;
-import utn.tacs.grupo5.entity.Offer;
+import utn.tacs.grupo5.entity.offer.Offer;
 import utn.tacs.grupo5.repository.OfferRepository;
 
 import java.util.*;
@@ -17,21 +17,21 @@ public class InMemoryOfferRepository implements OfferRepository {
     public Optional<Offer> findByPublicationId(Long publicationId) {
 
         synchronized (offers) {
-            return offers.stream().filter(offer -> offer.getPublication().getId().equals(publicationId)).findFirst();
+            return offers.stream().filter(offer -> offer.getPost().getId().equals(publicationId)).findFirst();
         }
     }
 
     @Override
     public void deleteByPublicationId(Long publicationId) {
         synchronized (offers) {
-            offers.removeIf(offer -> offer.getPublication().getId().equals(publicationId));
+            offers.removeIf(offer -> offer.getPost().getId().equals(publicationId));
         }
     }
 
     @Override
     public void deleteByUserId(Long userId) {
         synchronized (offers) {
-            offers.removeIf(offer -> offer.getOfferUser().getId().equals(userId));
+            offers.removeIf(offer -> offer.getUser().getId().equals(userId));
         }
     }
 
@@ -74,7 +74,7 @@ public class InMemoryOfferRepository implements OfferRepository {
         synchronized (offers) {
             return new ArrayList<Offer>(
                     offers.stream()
-                            .filter(offer -> Objects.equals(offer.getPublication().getId(), publicationId))
+                            .filter(offer -> Objects.equals(offer.getPost().getId(), publicationId))
                             .toList());
         }
     }

@@ -7,20 +7,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.catalina.Store;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.controller.response.CustomError;
 import utn.tacs.grupo5.controller.response.ResponseGenerator;
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
-import utn.tacs.grupo5.entity.Offer;
+import utn.tacs.grupo5.entity.offer.Offer;
 import utn.tacs.grupo5.entity.post.Post;
-import utn.tacs.grupo5.repository.impl.InMemoryPostRepository;
 import utn.tacs.grupo5.service.IOfferService;
-import utn.tacs.grupo5.service.impl.PostService;
 
 import java.util.List;
 
@@ -46,7 +41,8 @@ public class OfferController extends BaseController {
             }),
             @ApiResponse(responseCode = "200", description = "OK")
     })
-    public ResponseEntity<String> save(@RequestBody OfferInputDto offerDto) {
+    public ResponseEntity<String> save(@RequestBody OfferInputDto offerDto, @PathVariable Long id) {
+        offerDto.setPostId(id);
         offerService.save(offerDto);
         return ResponseGenerator.generateResponseOK("Offer saved successfully");
     }

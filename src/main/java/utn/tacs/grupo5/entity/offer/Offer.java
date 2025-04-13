@@ -1,6 +1,9 @@
-package utn.tacs.grupo5.entity;
+package utn.tacs.grupo5.entity.offer;
 
 import lombok.Data;
+import utn.tacs.grupo5.entity.Publication;
+import utn.tacs.grupo5.entity.User;
+import utn.tacs.grupo5.entity.post.Post;
 
 
 import java.time.LocalDateTime;
@@ -10,8 +13,8 @@ import java.util.List;
 public class Offer {
 
     private Long id;
-    private User offerUser;
-    private Publication publication;
+    private User user;
+    private Post post;
     private List<OfferedCard> offeredCards;
     private Float money;
     private OfferState state;

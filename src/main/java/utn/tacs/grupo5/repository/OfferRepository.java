@@ -1,6 +1,6 @@
 package utn.tacs.grupo5.repository;
 
-import utn.tacs.grupo5.entity.Offer;
+import utn.tacs.grupo5.entity.offer.Offer;
 
 import java.util.List;
 import java.util.Optional;

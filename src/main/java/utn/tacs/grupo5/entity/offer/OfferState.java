@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.entity;
+package utn.tacs.grupo5.entity.offer;
 
 public enum OfferState {
     PENDING,
