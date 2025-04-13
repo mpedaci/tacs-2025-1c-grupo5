@@ -15,7 +15,7 @@ public class OfferMapper implements IMapper<Offer, OfferInputDto, OfferOutputDto
         dto.setMoney(offer.getMoney());
         dto.setState(offer.getState());
         dto.setPublicationDate(offer.getPublicationDate());
-        dto.setFinished(offer.getOfferEndDate());
+        dto.setOfferEndDate(offer.getOfferEndDate());
         return dto;
     }
 

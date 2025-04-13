@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import utn.tacs.grupo5.controller.response.CustomError;
 import utn.tacs.grupo5.controller.response.ResponseGenerator;
@@ -19,7 +20,7 @@ import utn.tacs.grupo5.dto.offer.OfferInputDto;
 import utn.tacs.grupo5.service.IOfferService;
 
 @RestController
-//@RescueMapping("/api")
+@RequestMapping("/api")
 @Tag(name = "Offers", description = "Offer operations")
 public class OfferController extends BaseController {
 
@@ -29,7 +30,7 @@ public class OfferController extends BaseController {
         this.offerService = offerService;
     }
 
-    @PostMapping(value = "/post/id/offers", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/posts/id/offers", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a new offer", description = "Create a new offer")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "409", content = {

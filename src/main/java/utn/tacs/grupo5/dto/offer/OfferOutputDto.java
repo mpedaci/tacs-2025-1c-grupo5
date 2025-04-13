@@ -40,7 +40,7 @@ public class OfferOutputDto extends OfferBaseDto {
                 offerBaseDto.getMoney(),
                 offerBaseDto.getState(),
                 offerBaseDto.getPublicationDate(),
-                offerBaseDto.getFinished()
+                offerBaseDto.getOfferEndDate()
         );
                this.publicationDate = publicationDate;
         this.offerEndDate = offerEndDate;

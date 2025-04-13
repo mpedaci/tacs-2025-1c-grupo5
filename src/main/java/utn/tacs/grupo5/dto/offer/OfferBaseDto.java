@@ -23,5 +23,5 @@ public abstract class OfferBaseDto {
     private Float money;
     private OfferState state;
     private LocalDateTime publicationDate;
-    private LocalDateTime finished;
+    private LocalDateTime offerEndDate;
 }

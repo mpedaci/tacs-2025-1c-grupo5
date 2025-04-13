@@ -29,7 +29,7 @@ public class OfferInputDto extends OfferBaseDto {
                 offerBaseDto.getMoney(),
                 offerBaseDto.getState(),
                 offerBaseDto.getPublicationDate(),
-                offerBaseDto.getFinished()
+                offerBaseDto.getOfferEndDate()
         );
     }
 }
