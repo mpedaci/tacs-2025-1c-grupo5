@@ -27,7 +27,7 @@ import utn.tacs.grupo5.mapper.UserMapper;
 import utn.tacs.grupo5.service.IUserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/users")
 @Tag(name = "Users", description = "User operations")
 public class UserController extends BaseController {
 
@@ -37,7 +37,7 @@ public class UserController extends BaseController {
                 this.userService = userService;
         }
 
-        @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+        @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
         @Operation(summary = "Register a new user", description = "Register a new user")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "409", content = {
@@ -50,7 +50,7 @@ public class UserController extends BaseController {
                 return ResponseGenerator.generateResponseOK("User saved successfully");
         }
 
-        @GetMapping(value = "/users/{id}")
+        @GetMapping(value = "/{id}")
         @Operation(summary = "Get user by id", description = "Get user by id")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {
@@ -67,7 +67,7 @@ public class UserController extends BaseController {
                 return ResponseGenerator.generateResponseOK(userMapper.toDto(user));
         }
 
-        @PutMapping(value = "/users/{id}")
+        @PutMapping(value = "/{id}")
         @Operation(summary = "Update user by id", description = "Update user by id")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {
@@ -82,7 +82,7 @@ public class UserController extends BaseController {
 
         // TODO: patch
 
-        @DeleteMapping(value = "/users/{id}")
+        @DeleteMapping(value = "/{id}")
         @Operation(summary = "Delete user by id", description = "Delete user by id")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {
