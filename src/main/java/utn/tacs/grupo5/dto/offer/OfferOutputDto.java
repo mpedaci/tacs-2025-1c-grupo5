@@ -7,12 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import utn.tacs.grupo5.entity.Publication;
-import utn.tacs.grupo5.entity.OfferedCard;
-import utn.tacs.grupo5.entity.OfferState;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -42,7 +38,7 @@ public class OfferOutputDto extends OfferBaseDto {
                 offerBaseDto.getPublicationDate(),
                 offerBaseDto.getOfferEndDate()
         );
-               this.publicationDate = publicationDate;
+        this.publicationDate = publicationDate;
         this.offerEndDate = offerEndDate;
     }
 }
