@@ -32,7 +32,7 @@ public class UserService implements IUserService {
     public User save(UserInputDto dto) {
         userRepository.findByEmail(dto.getEmail())
                 .ifPresent(user -> {
-                    throw new ConflictException("User alredy exists");
+                    throw new ConflictException("User already exists");
                 });
         userRepository.findByUsername(dto.getUsername())
                 .ifPresent(user -> {

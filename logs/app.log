@@ -1,0 +1,568 @@
+2025-04-13 02:09:18 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 10212 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:09:19 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:09:19 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:09:20 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:09:20 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:09:20 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:09:20 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:09:20 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:09:20 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1297 ms
+2025-04-13 02:09:20 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: b3d41fe7-27dc-42b5-9d7f-8a9fc6da86ac
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:09:20 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:09:20 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:09:21 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:09:21 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:09:21 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.709 seconds (process running for 3.694)
+2025-04-13 02:10:15 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:10:15 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:10:18 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 22664 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:10:18 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:10:18 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:10:19 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:10:19 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:10:19 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:10:19 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:10:19 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:10:19 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1324 ms
+2025-04-13 02:10:19 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 0dd0c43b-ad52-47e4-81ab-be6a2962dc4d
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:10:19 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:10:20 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:10:20 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:10:20 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:10:20 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.715 seconds (process running for 3.726)
+2025-04-13 02:11:53 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:11:53 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:11:56 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 19052 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:11:56 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:11:56 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:11:58 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:11:58 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:11:58 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:11:58 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:11:58 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:11:58 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1295 ms
+2025-04-13 02:11:58 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 91a3a47b-e880-4e5d-9256-fd24cf025f7e
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:11:58 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:11:58 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:11:58 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:11:58 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:11:58 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.684 seconds (process running for 3.716)
+2025-04-13 02:15:43 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:15:43 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:15:46 [main] ERROR o.s.boot.SpringApplication - Application run failed
+java.lang.IllegalStateException: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@28a0fd6c - There is no conversion supplier registered for conversion word [pid]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@28a0fd6c - [pid] is not a valid conversion word
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:347)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:298)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:246)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:223)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:353)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:313)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at utn.tacs.grupo5.Application.main(Application.java:10)
+Caused by: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@28a0fd6c - There is no conversion supplier registered for conversion word [pid]
+ERROR in ch.qos.logback.core.pattern.parser.Compiler@28a0fd6c - [pid] is not a valid conversion word
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reportConfigurationErrorsIfNecessary(LogbackLoggingSystem.java:291)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.loadConfiguration(LogbackLoggingSystem.java:269)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reinitialize(LogbackLoggingSystem.java:344)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initializeWithConventions(AbstractLoggingSystem.java:74)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initialize(AbstractLoggingSystem.java:61)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.initialize(LogbackLoggingSystem.java:197)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:332)
+	... 19 common frames omitted
+2025-04-13 02:17:02 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 12520 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:17:02 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:17:02 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:17:03 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:17:03 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:17:03 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:17:03 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:17:04 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:17:04 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1332 ms
+2025-04-13 02:17:04 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: a55923d7-afc4-455e-8a32-a2984f8634cf
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:17:04 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:17:04 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:17:04 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:17:04 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:17:04 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.712 seconds (process running for 3.677)
+2025-04-13 02:19:06 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:19:06 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:19:09 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 27836 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:19:09 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:19:09 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:19:10 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:19:10 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:19:10 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:19:10 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:19:10 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:19:10 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1299 ms
+2025-04-13 02:19:10 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 7b421b02-b69e-40fa-b8cb-23c04b9d23a7
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:19:10 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:19:11 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:19:11 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:19:11 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:19:11 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.669 seconds (process running for 3.632)
+2025-04-13 02:19:44 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:19:44 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:19:47 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 3916 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:19:47 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:19:47 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:19:48 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:19:48 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:19:48 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:19:48 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:19:48 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:19:48 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1345 ms
+2025-04-13 02:19:49 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 720c68fe-fd5d-4624-acc3-ce0e7a2d5ff8
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:19:49 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:19:49 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:19:49 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:19:49 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:19:49 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.698 seconds (process running for 3.626)
+2025-04-13 02:21:00 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:21:00 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:21:02 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 26824 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:21:02 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:21:02 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:21:03 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:21:03 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:21:03 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:21:03 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:21:04 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:21:04 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1287 ms
+2025-04-13 02:21:04 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 109f3198-0a80-4158-85a8-fd38a4b0d201
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:21:04 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:21:04 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:21:04 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:21:04 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:21:04 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.649 seconds (process running for 3.631)
+2025-04-13 02:22:14 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:22:14 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:22:16 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 28636 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:22:16 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:22:16 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:22:17 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:22:18 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:22:18 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:22:18 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:22:18 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:22:18 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1318 ms
+2025-04-13 02:22:18 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 93d7cf0e-0fec-4ef9-80d5-cdf5c914e881
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:22:18 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:22:18 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:22:18 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:22:18 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:22:18 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.706 seconds (process running for 3.722)
+2025-04-13 02:24:29 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:24:29 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:24:31 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 15788 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:24:31 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:24:31 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:24:33 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:24:33 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:24:33 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:24:33 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:24:33 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:24:33 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1312 ms
+2025-04-13 02:24:33 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 901fb099-1e58-4805-a613-8bf5d77e14ae
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:24:33 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:24:33 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:24:33 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:24:33 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:24:33 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.716 seconds (process running for 3.693)
+2025-04-13 02:25:47 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:25:47 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:25:49 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 10728 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:25:49 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:25:49 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:25:50 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:25:50 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:25:51 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:25:51 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:25:51 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:25:51 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1287 ms
+2025-04-13 02:25:51 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: d3c55771-ebe8-454b-9138-e78cd8aac217
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:25:51 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:25:51 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:25:51 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:25:51 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:25:51 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.652 seconds (process running for 3.601)
+2025-04-13 02:27:35 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:27:35 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:27:38 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 4220 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:27:38 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:27:38 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:27:39 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:27:39 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:27:39 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:27:39 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:27:39 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:27:39 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1282 ms
+2025-04-13 02:27:39 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 101051d3-e59b-4e02-95a3-2097a46e4ecd
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:27:39 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:27:39 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:27:40 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:27:40 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:27:40 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.635 seconds (process running for 3.574)
+2025-04-13 02:28:31 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:28:31 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:28:34 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 22020 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:28:34 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:28:34 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:28:35 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:28:35 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:28:35 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:28:35 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:28:35 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:28:35 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1284 ms
+2025-04-13 02:28:35 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: f411cd6e-a205-4056-a1ab-898c7cdc0e89
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:28:35 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:28:36 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:28:36 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:28:36 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:28:36 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.641 seconds (process running for 3.636)
+2025-04-13 02:30:57 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:30:57 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:31:00 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 17180 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:31:00 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:31:00 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:31:01 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:31:01 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:31:01 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:31:01 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:31:01 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:31:01 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1275 ms
+2025-04-13 02:31:01 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 1afedfcd-84bf-4262-9599-8ccc431dd07a
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:31:01 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:31:01 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:31:02 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:31:02 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:31:02 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.638 seconds (process running for 3.631)
+2025-04-13 02:31:30 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:31:30 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 02:31:33 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 27664 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 02:31:33 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 02:31:33 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 02:31:34 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 02:31:34 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:31:34 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 02:31:34 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 02:31:34 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 02:31:34 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1315 ms
+2025-04-13 02:31:34 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 7fc0c1ad-18d3-4286-b6eb-8631f8f585c9
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 02:31:34 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 02:31:34 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 02:31:35 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 02:31:35 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 02:31:35 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.66 seconds (process running for 3.575)
+2025-04-13 02:32:16 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 02:32:16 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 03:46:21 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 20948 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 03:46:21 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 03:46:21 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 03:46:22 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 03:46:22 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 03:46:22 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 03:46:22 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 03:46:22 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 03:46:22 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1398 ms
+2025-04-13 03:46:22 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 8cadcf39-46af-4741-a24b-65cfb4447945
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 03:46:22 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 03:46:23 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 03:46:23 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 03:46:23 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 03:46:23 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.796 seconds (process running for 3.779)
+2025-04-13 03:46:55 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-13 03:46:55 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-04-13 03:46:55 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-04-13 03:46:55 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/index.html
+2025-04-13 03:46:55 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/index.html | status: 200
+2025-04-13 03:46:55 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/swagger-ui.css
+2025-04-13 03:46:55 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/index.css
+2025-04-13 03:46:55 [http-nio-8080-exec-5] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/swagger-ui-standalone-preset.js
+2025-04-13 03:46:55 [http-nio-8080-exec-4] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/swagger-ui-bundle.js
+2025-04-13 03:46:55 [http-nio-8080-exec-6] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/swagger-initializer.js
+2025-04-13 03:46:55 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/index.css | status: 200
+2025-04-13 03:46:55 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/swagger-ui.css | status: 200
+2025-04-13 03:46:55 [http-nio-8080-exec-5] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/swagger-ui-standalone-preset.js | status: 200
+2025-04-13 03:46:55 [http-nio-8080-exec-4] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/swagger-ui-bundle.js | status: 200
+2025-04-13 03:46:55 [http-nio-8080-exec-6] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/swagger-initializer.js | status: 200
+2025-04-13 03:46:56 [http-nio-8080-exec-7] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/api-docs/swagger-config
+2025-04-13 03:46:56 [http-nio-8080-exec-8] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/favicon-32x32.png
+2025-04-13 03:46:56 [http-nio-8080-exec-8] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/favicon-32x32.png | status: 200
+2025-04-13 03:46:56 [http-nio-8080-exec-7] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/api-docs/swagger-config | status: 200
+2025-04-13 03:46:56 [http-nio-8080-exec-9] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/api-docs
+2025-04-13 03:46:56 [http-nio-8080-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 469 ms
+2025-04-13 03:46:56 [http-nio-8080-exec-9] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/api-docs | status: 200
+2025-04-13 03:48:12 [http-nio-8080-exec-4] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:48:12 [http-nio-8080-exec-4] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 03:48:26 [http-nio-8080-exec-6] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users
+2025-04-13 03:48:26 [http-nio-8080-exec-6] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/users | status: 200
+2025-04-13 03:48:35 [http-nio-8080-exec-8] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:48:35 [http-nio-8080-exec-8] INFO  u.t.g.c.e.ApplicationExceptionHandler - Bad Request: No enum constant utn.tacs.grupo5.entity.post.ConservationStatus.string
+2025-04-13 03:49:00 [http-nio-8080-exec-7] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:49:00 [http-nio-8080-exec-7] INFO  u.t.g.c.e.ApplicationExceptionHandler - Bad Request: No enum constant utn.tacs.grupo5.entity.post.PostStatus.string
+2025-04-13 03:50:02 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 03:50:02 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 03:50:06 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 2088 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 03:50:06 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 03:50:06 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 03:50:07 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 03:50:07 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 03:50:07 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 03:50:07 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 03:50:07 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 03:50:07 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1268 ms
+2025-04-13 03:50:08 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 8c220bc4-1b1d-4623-9def-9742d928ae3a
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 03:50:08 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 03:50:08 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 03:50:08 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 03:50:08 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 03:50:08 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.599 seconds (process running for 3.521)
+2025-04-13 03:50:12 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-13 03:50:12 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-04-13 03:50:12 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-04-13 03:50:12 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:50:12 [http-nio-8080-exec-1] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 03:50:22 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users
+2025-04-13 03:50:22 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/users | status: 200
+2025-04-13 03:50:37 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:50:37 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts | status: 200
+2025-04-13 03:50:51 [http-nio-8080-exec-4] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:50:51 [http-nio-8080-exec-4] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts | status: 200
+2025-04-13 03:51:18 [http-nio-8080-exec-5] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:51:18 [http-nio-8080-exec-5] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts | status: 200
+2025-04-13 03:52:13 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 03:52:13 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 03:52:18 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 13160 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 03:52:18 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 03:52:18 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 03:52:19 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 03:52:19 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 03:52:19 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 03:52:19 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 03:52:20 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 03:52:20 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1414 ms
+2025-04-13 03:52:20 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: b7c5e56d-8b31-4fdb-923e-a3db0c9557b8
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 03:52:20 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 03:52:20 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 03:52:20 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 03:52:20 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 03:52:20 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.871 seconds (process running for 3.836)
+2025-04-13 03:52:49 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-13 03:52:49 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-04-13 03:52:49 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-04-13 03:52:49 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/index.html
+2025-04-13 03:52:49 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/index.html | status: 200
+2025-04-13 03:52:49 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/swagger-ui.css
+2025-04-13 03:52:49 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/index.css
+2025-04-13 03:52:49 [http-nio-8080-exec-5] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/swagger-ui-standalone-preset.js
+2025-04-13 03:52:49 [http-nio-8080-exec-6] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/swagger-initializer.js
+2025-04-13 03:52:49 [http-nio-8080-exec-4] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/swagger-ui-bundle.js
+2025-04-13 03:52:49 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/index.css | status: 200
+2025-04-13 03:52:49 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/swagger-ui.css | status: 200
+2025-04-13 03:52:49 [http-nio-8080-exec-5] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/swagger-ui-standalone-preset.js | status: 200
+2025-04-13 03:52:49 [http-nio-8080-exec-4] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/swagger-ui-bundle.js | status: 200
+2025-04-13 03:52:49 [http-nio-8080-exec-6] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/swagger-initializer.js | status: 200
+2025-04-13 03:52:49 [http-nio-8080-exec-7] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/api-docs/swagger-config
+2025-04-13 03:52:49 [http-nio-8080-exec-8] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/swagger-ui/favicon-32x32.png
+2025-04-13 03:52:49 [http-nio-8080-exec-8] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/swagger-ui/favicon-32x32.png | status: 200
+2025-04-13 03:52:49 [http-nio-8080-exec-7] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/api-docs/swagger-config | status: 200
+2025-04-13 03:52:49 [http-nio-8080-exec-9] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/api-docs
+2025-04-13 03:52:50 [http-nio-8080-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 476 ms
+2025-04-13 03:52:50 [http-nio-8080-exec-9] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/api-docs | status: 200
+2025-04-13 03:53:14 [http-nio-8080-exec-10] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:53:14 [http-nio-8080-exec-10] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 03:53:23 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users
+2025-04-13 03:53:23 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/users | status: 200
+2025-04-13 03:53:25 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:53:25 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts | status: 200
+2025-04-13 03:53:33 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:53:33 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts | status: 200
+2025-04-13 03:53:40 [http-nio-8080-exec-5] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:53:40 [http-nio-8080-exec-5] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts | status: 200
+2025-04-13 03:54:03 [http-nio-8080-exec-9] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/1
+2025-04-13 03:54:03 [http-nio-8080-exec-9] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('}' (code 125)): was expecting double-quote to start field name
+2025-04-13 03:54:26 [http-nio-8080-exec-10] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/1
+2025-04-13 03:54:26 [http-nio-8080-exec-10] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts/1 | status: 200
+2025-04-13 03:54:34 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:54:34 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts | status: 200
+2025-04-13 03:55:12 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/2
+2025-04-13 03:55:12 [http-nio-8080-exec-3] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: java.lang.NullPointerException: Name is null
+2025-04-13 03:55:41 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/2
+2025-04-13 03:55:41 [http-nio-8080-exec-2] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: java.lang.NullPointerException: Cannot invoke "java.lang.Long.equals(Object)" because the return value of "utn.tacs.grupo5.entity.post.Post.getId()" is null
+2025-04-13 03:56:26 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 03:56:26 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 03:56:36 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 13136 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 03:56:36 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 03:56:36 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 03:56:37 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 03:56:37 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 03:56:37 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 03:56:37 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 03:56:37 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 03:56:37 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1414 ms
+2025-04-13 03:56:37 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 62b47ce7-e34b-4003-91e8-48d43b0c9033
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 03:56:37 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 03:56:38 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 03:56:38 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 03:56:38 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 03:56:38 [main] INFO  utn.tacs.grupo5.Application - Started Application in 2.866 seconds (process running for 4.561)
+2025-04-13 03:56:51 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-13 03:56:51 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-04-13 03:56:51 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-04-13 03:56:51 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/2
+2025-04-13 03:56:54 [http-nio-8080-exec-1] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: Post not found
+2025-04-13 03:57:12 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users
+2025-04-13 03:57:12 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/users | status: 200
+2025-04-13 03:57:20 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:57:20 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts | status: 200
+2025-04-13 03:57:32 [http-nio-8080-exec-4] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/1
+2025-04-13 03:57:47 [http-nio-8080-exec-4] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts/1 | status: 200
+2025-04-13 03:58:31 [http-nio-8080-exec-5] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/1
+2025-04-13 03:58:31 [http-nio-8080-exec-5] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: java.lang.NullPointerException: Name is null
+2025-04-13 03:58:58 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 03:58:58 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-13 03:59:04 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 16968 (C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5\target\classes started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 03:59:04 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 03:59:04 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-13 03:59:05 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-13 03:59:05 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-13 03:59:05 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-13 03:59:05 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-13 03:59:05 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-13 03:59:05 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1471 ms
+2025-04-13 03:59:06 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 6e50ce3c-b6b3-4834-85ba-b8018e5768bb
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-13 03:59:06 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-13 03:59:06 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-13 03:59:06 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-13 03:59:06 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-13 03:59:06 [main] INFO  utn.tacs.grupo5.Application - Started Application in 3.024 seconds (process running for 4.566)
+2025-04-13 03:59:13 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-13 03:59:13 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-04-13 03:59:13 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-04-13 03:59:13 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users
+2025-04-13 03:59:13 [http-nio-8080-exec-2] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/users | status: 200
+2025-04-13 03:59:18 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 03:59:18 [http-nio-8080-exec-1] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts | status: 200
+2025-04-13 03:59:43 [http-nio-8080-exec-3] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/1
+2025-04-13 03:59:43 [http-nio-8080-exec-3] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: java.lang.NullPointerException: Name is null
+2025-04-13 03:59:54 [http-nio-8080-exec-4] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/1
+2025-04-13 04:00:05 [http-nio-8080-exec-4] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: java.lang.NullPointerException: Name is null
+2025-04-13 04:00:18 [http-nio-8080-exec-5] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/1
+2025-04-13 04:00:32 [http-nio-8080-exec-5] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: java.lang.NullPointerException: Name is null
+2025-04-13 04:01:07 [http-nio-8080-exec-6] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/1
+2025-04-13 04:01:07 [http-nio-8080-exec-6] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts/1 | status: 200
+2025-04-13 04:01:20 [http-nio-8080-exec-7] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts
+2025-04-13 04:01:20 [http-nio-8080-exec-7] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts | status: 200
+2025-04-13 04:01:38 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-13 04:01:38 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
