@@ -1,5 +1,6 @@
 package utn.tacs.grupo5.repository.impl;
 
+import org.springframework.stereotype.Repository;
 import utn.tacs.grupo5.entity.Offer;
 import utn.tacs.grupo5.repository.OfferRepository;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Repository
 public class InMemoryOfferRepository implements OfferRepository {
 
     private final List<Offer> offers = Collections.synchronizedList(new ArrayList<>());
