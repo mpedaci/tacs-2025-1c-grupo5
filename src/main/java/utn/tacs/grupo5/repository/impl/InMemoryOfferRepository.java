@@ -4,10 +4,7 @@ import org.springframework.stereotype.Repository;
 import utn.tacs.grupo5.entity.Offer;
 import utn.tacs.grupo5.repository.OfferRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
@@ -20,9 +17,7 @@ public class InMemoryOfferRepository implements OfferRepository {
     public Optional<Offer> findByPublicationId(Long publicationId) {
 
         synchronized (offers) {
-            return offers.stream()
-                    .filter(offer -> offer.getPublication().getId().equals(publicationId))
-                    .findFirst();
+            return offers.stream().filter(offer -> offer.getPublication().getId().equals(publicationId)).findFirst();
         }
     }
 
@@ -36,7 +31,7 @@ public class InMemoryOfferRepository implements OfferRepository {
     @Override
     public void deleteByUserId(Long userId) {
         synchronized (offers) {
-            offers.removeIf(offer ->offer.getOfferUser().getId().equals(userId));
+            offers.removeIf(offer -> offer.getOfferUser().getId().equals(userId));
         }
     }
 
@@ -55,9 +50,7 @@ public class InMemoryOfferRepository implements OfferRepository {
     @Override
     public Optional<Offer> findById(Long id) {
         synchronized (offers) {
-            return offers.stream()
-                    .filter(offer -> offer.getId().equals(id))
-                    .findFirst();
+            return offers.stream().filter(offer -> offer.getId().equals(id)).findFirst();
         }
     }
 
@@ -74,5 +67,15 @@ public class InMemoryOfferRepository implements OfferRepository {
             offers.removeIf(user -> user.getId().equals(id));
         }
 
+    }
+
+    @Override
+    public List<Offer> findAllByPublicationId(Long publicationId) {
+        synchronized (offers) {
+            return new ArrayList<Offer>(
+                    offers.stream()
+                            .filter(offer -> Objects.equals(offer.getPublication().getId(), publicationId))
+                            .toList());
+        }
     }
 }
