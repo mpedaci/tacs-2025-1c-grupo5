@@ -49,19 +49,18 @@ public class PostService implements IPostService {
     public Post update(Long id, PostInputDto postInputDto) {
         Post post = get(id).orElseThrow(() -> new NotFoundException("Post not found"));
 
-        post.setUser(inMemoryUserRepository.findById(postInputDto.getUserId())
-                .orElseThrow(() -> new NotFoundException("User not found")));
-        post.setImages(postInputDto.getImages());
-
-        post.setPublishDate(LocalDateTime.now());
-        post.setFinishDate(null);
-        post.setConservationStatus(ConservationStatus.valueOf(postInputDto.getConservationStatus()));
-        post.setEstimatedValue(postInputDto.getEstimatedValue());
-
-        post.setPostStatus(PostStatus.valueOf(postInputDto.getPostStatus()));
+        if(postInputDto.getPostStatus() != null) {
+            post.setPostStatus(PostStatus.valueOf(postInputDto.getPostStatus()));
+            if(PostStatus.FINISHED.equals(post.getPostStatus())) {
+                post.setFinishDate(LocalDateTime.now());
+            }
+        } else {
+            post.setImages(postInputDto.getImages());
+            post.setConservationStatus(ConservationStatus.valueOf(postInputDto.getConservationStatus()));
+            post.setEstimatedValue(postInputDto.getEstimatedValue());
+        }
 
         inMemoryPostRepository.save(post);
-
         return post;
     }
 

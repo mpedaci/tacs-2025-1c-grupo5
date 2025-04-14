@@ -44,7 +44,7 @@ public class UserControllerTest {
         userInputDto.setEmail("john.doe@example.com");
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/users")
+                MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -60,7 +60,7 @@ public class UserControllerTest {
         when(userService.save(userInputDto)).thenThrow(new ConflictException("User already exists"));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/users")
+                MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isConflict());
@@ -77,7 +77,7 @@ public class UserControllerTest {
         when(userService.get(userId)).thenReturn(Optional.of(user));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/users/" + userId))
+                MockMvcRequestBuilders.get("/users/" + userId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId))
@@ -91,7 +91,7 @@ public class UserControllerTest {
         when(userService.get(userId)).thenReturn(Optional.empty());
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/users/" + userId))
+                MockMvcRequestBuilders.get("/users/" + userId))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
     }
@@ -104,7 +104,7 @@ public class UserControllerTest {
         userInputDto.setEmail("updated.email@example.com");
 
         mockMvc.perform(
-                MockMvcRequestBuilders.put("/api/users/" + userId)
+                MockMvcRequestBuilders.put("/users/" + userId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -121,7 +121,7 @@ public class UserControllerTest {
         when(userService.update(userId, userInputDto)).thenThrow(new NotFoundException("User not found"));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.put("/api/users/" + userId)
+                MockMvcRequestBuilders.put("/users/" + userId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
@@ -132,7 +132,7 @@ public class UserControllerTest {
         Long userId = 1L;
 
         mockMvc.perform(
-                MockMvcRequestBuilders.delete("/api/users/" + userId))
+                MockMvcRequestBuilders.delete("/users/" + userId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("User deleted successfully"));
     }
