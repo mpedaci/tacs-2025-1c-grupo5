@@ -6,7 +6,7 @@ import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
 import utn.tacs.grupo5.entity.User;
 import utn.tacs.grupo5.entity.offer.Offer;
-import utn.tacs.grupo5.entity.offer.OfferState;
+import utn.tacs.grupo5.entity.offer.OfferStatus;
 import utn.tacs.grupo5.entity.offer.OfferedCard;
 import utn.tacs.grupo5.entity.post.ConservationStatus;
 import utn.tacs.grupo5.entity.post.Post;
@@ -100,7 +100,7 @@ public class OfferService implements IOfferService {
 
         offer.setMoney(offerInputDto.getMoney());
 
-        offer.setState(OfferState.PENDING);
+        offer.setOfferStatus(OfferStatus.PENDING);
 
         offer.setPublicationDate(LocalDateTime.now());
 
@@ -115,7 +115,7 @@ public class OfferService implements IOfferService {
 
     //consultar funcionamiento de update para las ofertas y si lo recibe por parametro
     @Override
-    public void patch(Long offerId, Long postId, OfferState offerState) {
+    public void patch(Long offerId, Long postId, OfferStatus offerStatus) {
 
         if (inMemoryPostRepository.findById(postId).isEmpty()) {
             throw new NotFoundException("Post not found");
@@ -123,7 +123,7 @@ public class OfferService implements IOfferService {
 
         Offer offer =
                 inMemoryOfferRepository.findById(offerId).orElseThrow(() -> new NotFoundException("Offer not found"));
-        offer.setState(offerState);
+        offer.setOfferStatus(offerStatus);
 
     }
 

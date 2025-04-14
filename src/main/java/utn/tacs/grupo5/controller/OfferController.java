@@ -14,14 +14,14 @@ import utn.tacs.grupo5.controller.response.CustomError;
 import utn.tacs.grupo5.controller.response.ResponseGenerator;
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
 import utn.tacs.grupo5.entity.offer.Offer;
-import utn.tacs.grupo5.entity.offer.OfferState;
+import utn.tacs.grupo5.entity.offer.OfferStatus;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.service.IOfferService;
 
 import java.util.List;
 
 @RestController
-//@RescueMapping("/api")
+@RequestMapping("/api")
 @Tag(name = "Offers", description = "Offer operations")
 public class OfferController extends BaseController {
 
@@ -31,7 +31,7 @@ public class OfferController extends BaseController {
         this.offerService = offerService;
     }
 
-    @PostMapping(value = "/post/{id}/offers", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/posts/{id}/offers", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a new offer", description = "Create a new offer")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", content = {
@@ -45,7 +45,7 @@ public class OfferController extends BaseController {
         return ResponseGenerator.generateResponseOK("Offer saved successfully");
     }
 
-    @PatchMapping(value = "/post/{postId}/offers/{offerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/posts/{postId}/offers/{offerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Change offer status", description = "Change offer status")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", content = {
@@ -54,12 +54,12 @@ public class OfferController extends BaseController {
             @ApiResponse(responseCode = "200", description = "OK")
     })
     public ResponseEntity<String> patch(@PathVariable Long offerId, @PathVariable Long postId,
-                                        @RequestBody OfferState offerState) {
-        offerService.patch(offerId, postId, offerState);
+                                        @RequestBody OfferStatus offerStatus) {
+        offerService.patch(offerId, postId, offerStatus);
         return ResponseGenerator.generateResponseOK("Offer saved successfully");
     }
 
-    @DeleteMapping(value = "/post/{postId}/offers/{offerId}")
+    @DeleteMapping(value = "/posts/{postId}/offers/{offerId}")
     @Operation(summary = "Delete an offer", description = "Delete an offer")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", content = {
@@ -72,7 +72,7 @@ public class OfferController extends BaseController {
         return ResponseGenerator.generateResponseOK("Offer delete successfully");
     }
 
-    @GetMapping(value = "/post/{postId}/offers/{offerId}")
+    @GetMapping(value = "/posts/{postId}/offers/{offerId}")
     @Operation(summary = "Get an offer", description = "Get an offer")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
@@ -89,7 +89,7 @@ public class OfferController extends BaseController {
         return ResponseGenerator.generateResponseOK(offer);
     }
 
-    @GetMapping(value = "/post/{postId}/offers")
+    @GetMapping(value = "/posts/{postId}/offers")
     @Operation(summary = "Get all offers", description = "Get all offers")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK", content = {

@@ -869,3 +869,145 @@ This generated password is for development use only. Your security configuration
 2025-04-13 21:01:22 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
 2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
 2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-14 17:11:41 [main] INFO  utn.tacs.grupo5.Application - Starting Application using Java 21.0.6 with PID 19200 (C:\workspace\java\tacs-2025-1c-grupo5\target\classes started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 17:11:41 [main] DEBUG utn.tacs.grupo5.Application - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 17:11:41 [main] INFO  utn.tacs.grupo5.Application - The following 1 profile is active: "dev"
+2025-04-14 17:11:43 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-04-14 17:11:43 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-04-14 17:11:43 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-04-14 17:11:43 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-14 17:11:43 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-04-14 17:11:43 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2151 ms
+2025-04-14 17:11:43 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: cf8e1e0c-ec21-4268-8371-6651bedc1751
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-04-14 17:11:43 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-04-14 17:11:44 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-04-14 17:11:44 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-04-14 17:11:44 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-04-14 17:11:44 [main] INFO  utn.tacs.grupo5.Application - Started Application in 4.225 seconds (process running for 5.796)
+2025-04-14 17:16:24 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-14 17:16:24 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-04-14 17:26:36 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.OfferControllerTest]: OfferControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-14 17:26:36 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.OfferControllerTest
+2025-04-14 17:26:37 [main] INFO  u.t.g.controller.OfferControllerTest - Starting OfferControllerTest using Java 21.0.6 with PID 16228 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 17:26:37 [main] DEBUG u.t.g.controller.OfferControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 17:26:37 [main] INFO  u.t.g.controller.OfferControllerTest - The following 1 profile is active: "test"
+2025-04-14 17:26:41 [main] INFO  u.t.g.controller.OfferControllerTest - Started OfferControllerTest in 4.64 seconds (process running for 7.19)
+2025-04-14 17:26:41 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/id/offers
+2025-04-14 17:26:41 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/posts/id/offers.
+2025-04-14 17:27:34 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.OfferControllerTest]: OfferControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-14 17:27:35 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.OfferControllerTest
+2025-04-14 17:27:36 [main] INFO  u.t.g.controller.OfferControllerTest - Starting OfferControllerTest using Java 21.0.6 with PID 10924 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 17:27:36 [main] DEBUG u.t.g.controller.OfferControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 17:27:36 [main] INFO  u.t.g.controller.OfferControllerTest - The following 1 profile is active: "test"
+2025-04-14 17:27:39 [main] INFO  u.t.g.controller.OfferControllerTest - Started OfferControllerTest in 4.47 seconds (process running for 6.803)
+2025-04-14 17:29:57 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.OfferControllerTest]: OfferControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-14 17:29:57 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.OfferControllerTest
+2025-04-14 17:29:58 [main] INFO  u.t.g.controller.OfferControllerTest - Starting OfferControllerTest using Java 21.0.6 with PID 9452 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 17:29:58 [main] DEBUG u.t.g.controller.OfferControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 17:29:58 [main] INFO  u.t.g.controller.OfferControllerTest - The following 1 profile is active: "test"
+2025-04-14 17:30:02 [main] INFO  u.t.g.controller.OfferControllerTest - Started OfferControllerTest in 4.276 seconds (process running for 6.775)
+2025-04-14 17:31:52 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.OfferControllerTest]: OfferControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-14 17:31:53 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.OfferControllerTest
+2025-04-14 17:31:54 [main] INFO  u.t.g.controller.OfferControllerTest - Starting OfferControllerTest using Java 21.0.6 with PID 3696 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 17:31:54 [main] DEBUG u.t.g.controller.OfferControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 17:31:54 [main] INFO  u.t.g.controller.OfferControllerTest - The following 1 profile is active: "test"
+2025-04-14 17:31:57 [main] INFO  u.t.g.controller.OfferControllerTest - Started OfferControllerTest in 4.291 seconds (process running for 6.633)
+2025-04-14 17:31:57 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/id/offers
+2025-04-14 17:31:57 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/posts/id/offers.
+2025-04-14 17:34:05 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.OfferControllerTest]: OfferControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-14 17:34:05 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.OfferControllerTest
+2025-04-14 17:34:06 [main] INFO  u.t.g.controller.OfferControllerTest - Starting OfferControllerTest using Java 21.0.6 with PID 4996 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 17:34:06 [main] DEBUG u.t.g.controller.OfferControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 17:34:06 [main] INFO  u.t.g.controller.OfferControllerTest - The following 1 profile is active: "test"
+2025-04-14 17:34:10 [main] INFO  u.t.g.controller.OfferControllerTest - Started OfferControllerTest in 3.997 seconds (process running for 6.327)
+2025-04-14 17:34:10 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/id/offers
+2025-04-14 17:34:10 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'id': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "id"
+2025-04-14 17:45:09 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.OfferControllerTest]: OfferControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-14 17:45:09 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.OfferControllerTest
+2025-04-14 17:45:10 [main] INFO  u.t.g.controller.OfferControllerTest - Starting OfferControllerTest using Java 21.0.6 with PID 14424 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 17:45:10 [main] DEBUG u.t.g.controller.OfferControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 17:45:10 [main] INFO  u.t.g.controller.OfferControllerTest - The following 1 profile is active: "test"
+2025-04-14 17:45:14 [main] INFO  u.t.g.controller.OfferControllerTest - Started OfferControllerTest in 4.411 seconds (process running for 6.807)
+2025-04-14 17:45:14 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/id/offers
+2025-04-14 17:45:14 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource posts/id/offers.
+2025-04-14 17:45:57 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.OfferControllerTest]: OfferControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-14 17:45:58 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.OfferControllerTest
+2025-04-14 17:45:59 [main] INFO  u.t.g.controller.OfferControllerTest - Starting OfferControllerTest using Java 21.0.6 with PID 4464 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 17:45:59 [main] DEBUG u.t.g.controller.OfferControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 17:45:59 [main] INFO  u.t.g.controller.OfferControllerTest - The following 1 profile is active: "test"
+2025-04-14 17:46:02 [main] INFO  u.t.g.controller.OfferControllerTest - Started OfferControllerTest in 4.132 seconds (process running for 6.466)
+2025-04-14 17:46:02 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/postId/offers
+2025-04-14 17:46:02 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource posts/postId/offers.
+2025-04-14 17:46:38 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.OfferControllerTest]: OfferControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-14 17:46:38 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.OfferControllerTest
+2025-04-14 17:46:39 [main] INFO  u.t.g.controller.OfferControllerTest - Starting OfferControllerTest using Java 21.0.6 with PID 4320 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 17:46:39 [main] DEBUG u.t.g.controller.OfferControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 17:46:39 [main] INFO  u.t.g.controller.OfferControllerTest - The following 1 profile is active: "test"
+2025-04-14 17:46:42 [main] INFO  u.t.g.controller.OfferControllerTest - Started OfferControllerTest in 4.133 seconds (process running for 6.446)
+2025-04-14 17:47:27 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.OfferControllerTest]: OfferControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-14 17:47:28 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.OfferControllerTest
+2025-04-14 17:47:29 [main] INFO  u.t.g.controller.OfferControllerTest - Starting OfferControllerTest using Java 21.0.6 with PID 9000 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 17:47:29 [main] DEBUG u.t.g.controller.OfferControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 17:47:29 [main] INFO  u.t.g.controller.OfferControllerTest - The following 1 profile is active: "test"
+2025-04-14 17:47:32 [main] INFO  u.t.g.controller.OfferControllerTest - Started OfferControllerTest in 4.286 seconds (process running for 6.952)
+2025-04-14 17:47:32 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/1/offers
+2025-04-14 17:47:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts/1/offers | status: 200
+2025-04-14 17:56:01 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.OfferControllerTest]: OfferControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-14 17:56:01 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.OfferControllerTest
+2025-04-14 17:56:02 [main] INFO  u.t.g.controller.OfferControllerTest - Starting OfferControllerTest using Java 21.0.6 with PID 14928 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 17:56:02 [main] DEBUG u.t.g.controller.OfferControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 17:56:02 [main] INFO  u.t.g.controller.OfferControllerTest - The following 1 profile is active: "test"
+2025-04-14 17:56:06 [main] INFO  u.t.g.controller.OfferControllerTest - Started OfferControllerTest in 5.186 seconds (process running for 7.77)
+2025-04-14 17:56:07 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/1/offers
+2025-04-14 17:56:07 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts/1/offers | status: 200
+2025-04-14 18:39:18 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-14 18:39:19 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.PostControllerTest
+2025-04-14 18:39:19 [main] INFO  u.t.g.controller.PostControllerTest - Starting PostControllerTest using Java 21.0.6 with PID 11920 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 18:39:19 [main] DEBUG u.t.g.controller.PostControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 18:39:19 [main] INFO  u.t.g.controller.PostControllerTest - The following 1 profile is active: "test"
+2025-04-14 18:39:21 [main] INFO  u.t.g.controller.PostControllerTest - Started PostControllerTest in 2.762 seconds (process running for 7.514)
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-14 18:39:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-14 18:39:22 [main] INFO  utn.tacs.grupo5.ApplicationTests - Starting ApplicationTests using Java 21.0.6 with PID 11920 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 18:39:22 [main] DEBUG utn.tacs.grupo5.ApplicationTests - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 18:39:22 [main] INFO  utn.tacs.grupo5.ApplicationTests - The following 1 profile is active: "test"
+2025-04-14 18:39:23 [main] INFO  utn.tacs.grupo5.ApplicationTests - Started ApplicationTests in 1.374 seconds (process running for 9.51)
+2025-04-14 18:39:24 [main] INFO  u.t.g.controller.OfferControllerTest - Starting OfferControllerTest using Java 21.0.6 with PID 11920 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 18:39:24 [main] DEBUG u.t.g.controller.OfferControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 18:39:24 [main] INFO  u.t.g.controller.OfferControllerTest - The following 1 profile is active: "test"
+2025-04-14 18:39:24 [main] INFO  u.t.g.controller.OfferControllerTest - Started OfferControllerTest in 0.512 seconds (process running for 10.064)
+2025-04-14 18:39:24 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/posts/1/offers
+2025-04-14 18:39:24 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /api/posts/1/offers | status: 200
+2025-04-14 18:39:24 [main] INFO  u.t.g.controller.UserControllerTest - Starting UserControllerTest using Java 21.0.6 with PID 11920 (started by emarc in C:\workspace\java\tacs-2025-1c-grupo5)
+2025-04-14 18:39:24 [main] DEBUG u.t.g.controller.UserControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-14 18:39:24 [main] INFO  u.t.g.controller.UserControllerTest - The following 1 profile is active: "test"
+2025-04-14 18:39:24 [main] INFO  u.t.g.controller.UserControllerTest - Started UserControllerTest in 0.424 seconds (process running for 10.561)
+2025-04-14 18:39:24 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-14 18:39:24 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users | status: 200
+2025-04-14 18:39:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-14 18:39:25 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-14 18:39:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-14 18:39:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-14 18:39:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-14 18:39:25 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Conflict: User already exists
+2025-04-14 18:39:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-14 18:39:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-14 18:39:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-14 18:39:25 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-14 18:39:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-14 18:39:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
