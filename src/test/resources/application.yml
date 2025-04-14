@@ -4,6 +4,10 @@ spring:
   profiles:
     active: test
 
+server:
+  servlet:
+    contextPath: /api
+
 logging:
   level:
     root: OFF

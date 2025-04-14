@@ -24,6 +24,4 @@ public class PostInputDto {
     //TODO: agregar lista de cartas deseadas cuando este la entidad
 
     private String postStatus;
-    private String publishDate;
-    private String finishDate;
 }
