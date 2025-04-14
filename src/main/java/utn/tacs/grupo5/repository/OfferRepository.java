@@ -7,15 +7,14 @@ import java.util.Optional;
 
 public interface OfferRepository extends ICRUDRepository<Offer, Long> {
 
-    Optional<Offer> findByPublicationId(Long publicationId);
+    Optional<Offer> findByPostId(Long postId);
 
     Optional<Offer> findById(Long id);
 
-    void deleteByPublicationId(Long publicationId);
+    void deleteByPostId(Long postId);
 
     void deleteByUserId(Long userId);
 
-    List<Offer> findAllByPublicationId(Long publicationId);
-
+    List<Offer> findAllByPostId(Long postId);
 
 }

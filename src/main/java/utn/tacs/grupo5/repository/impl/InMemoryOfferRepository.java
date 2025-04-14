@@ -1,9 +1,9 @@
 package utn.tacs.grupo5.repository.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import utn.tacs.grupo5.entity.offer.Offer;
 import utn.tacs.grupo5.repository.OfferRepository;
+import utn.tacs.grupo5.repository.OfferedCardRepository;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -13,21 +13,25 @@ public class InMemoryOfferRepository implements OfferRepository {
 
     private final List<Offer> offers = Collections.synchronizedList(new ArrayList<>());
     private final AtomicLong idGenerator = new AtomicLong();
-    @Autowired
-    private InMemoryOfferedCardRepository inMemoryOfferedCardRepository;
+
+    private OfferedCardRepository offeredCardRepository;
+
+    public InMemoryOfferRepository(OfferedCardRepository offeredCardRepository) {
+        this.offeredCardRepository = offeredCardRepository;
+    }
 
     @Override
-    public Optional<Offer> findByPublicationId(Long publicationId) {
+    public Optional<Offer> findByPostId(Long postId) {
 
         synchronized (offers) {
-            return offers.stream().filter(offer -> offer.getPost().getId().equals(publicationId)).findFirst();
+            return offers.stream().filter(offer -> offer.getPost().getId().equals(postId)).findFirst();
         }
     }
 
     @Override
-    public void deleteByPublicationId(Long publicationId) {
+    public void deleteByPostId(Long postId) {
         synchronized (offers) {
-            offers.removeIf(offer -> offer.getPost().getId().equals(publicationId));
+            offers.removeIf(offer -> offer.getPost().getId().equals(postId));
         }
     }
 
@@ -69,7 +73,7 @@ public class InMemoryOfferRepository implements OfferRepository {
         synchronized (offers) {
             Offer offerToDelete = findById(id).orElseThrow(() -> new IllegalArgumentException("Offer not found"));
 
-            offerToDelete.getOfferedCards().forEach(inMemoryOfferedCardRepository::deleteByCard);
+            offerToDelete.getOfferedCards().forEach(offeredCardRepository::deleteByCard);
 
             offers.remove(offerToDelete);
         }
@@ -77,11 +81,11 @@ public class InMemoryOfferRepository implements OfferRepository {
     }
 
     @Override
-    public List<Offer> findAllByPublicationId(Long publicationId) {
+    public List<Offer> findAllByPostId(Long postId) {
         synchronized (offers) {
             return new ArrayList<Offer>(
                     offers.stream()
-                            .filter(offer -> Objects.equals(offer.getPost().getId(), publicationId))
+                            .filter(offer -> Objects.equals(offer.getPost().getId(), postId))
                             .toList());
         }
     }

@@ -9,8 +9,8 @@ import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.post.PostInputDto;
 import utn.tacs.grupo5.entity.User;
 import utn.tacs.grupo5.entity.post.Post;
-import utn.tacs.grupo5.repository.impl.InMemoryPostRepository;
-import utn.tacs.grupo5.repository.impl.InMemoryUserRepository;
+import utn.tacs.grupo5.repository.PostRepository;
+import utn.tacs.grupo5.repository.UserRepository;
 import utn.tacs.grupo5.service.impl.PostService;
 
 import java.util.Optional;
@@ -22,27 +22,28 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
+
+    @Mock
+    private PostRepository postRepository;
+    @Mock
+    private UserRepository userRepository;
+
     @InjectMocks
-    private PostService postService = new PostService();
+    private PostService postService;
 
-    @Mock
-    private InMemoryPostRepository inMemoryPostRepository;
-    @Mock
-    private InMemoryUserRepository inMemoryUserRepository;
-
-    //Save
+    // Save
     @Test
     public void savePostOk() {
         PostInputDto requestDtO = new PostInputDto();
         requestDtO.setUserId(1L);
         requestDtO.setConservationStatus("GOOD");
 
-        when(inMemoryUserRepository.findById(anyLong())).thenReturn(Optional.of(new User()));
-        when(inMemoryPostRepository.save(any(Post.class))).thenReturn(new Post());
+        when(userRepository.findById(anyLong())).thenReturn(Optional.of(new User()));
+        when(postRepository.save(any(Post.class))).thenReturn(new Post());
 
         postService.save(requestDtO);
 
-        verify(inMemoryPostRepository).save(any(Post.class));
+        verify(postRepository).save(any(Post.class));
     }
 
     @Test
@@ -50,25 +51,25 @@ public class PostServiceTest {
         PostInputDto requestDtO = new PostInputDto();
         requestDtO.setUserId(1L);
 
-        when(inMemoryUserRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> postService.save(requestDtO));
     }
 
-    //Update
+    // Update
     @Test
     public void updatePostOk() {
         PostInputDto requestDtO = new PostInputDto();
         requestDtO.setUserId(1L);
         requestDtO.setConservationStatus("PERFECT");
 
-        when(inMemoryPostRepository.findById(anyLong())).thenReturn(Optional.of(new Post()));
-        when(inMemoryPostRepository.save(any(Post.class))).thenReturn(new Post());
+        when(postRepository.findById(anyLong())).thenReturn(Optional.of(new Post()));
+        when(postRepository.save(any(Post.class))).thenReturn(new Post());
 
         postService.update(1L, requestDtO);
 
-        verify(inMemoryPostRepository).findById(1L);
-        verify(inMemoryPostRepository).save(any(Post.class));
+        verify(postRepository).findById(1L);
+        verify(postRepository).save(any(Post.class));
     }
 
     @Test
@@ -77,13 +78,13 @@ public class PostServiceTest {
         requestDtO.setUserId(1L);
         requestDtO.setPostStatus("CANCELLED");
 
-        when(inMemoryPostRepository.findById(anyLong())).thenReturn(Optional.of(new Post()));
-        when(inMemoryPostRepository.save(any(Post.class))).thenReturn(new Post());
+        when(postRepository.findById(anyLong())).thenReturn(Optional.of(new Post()));
+        when(postRepository.save(any(Post.class))).thenReturn(new Post());
 
         postService.update(1L, requestDtO);
 
-        verify(inMemoryPostRepository).findById(1L);
-        verify(inMemoryPostRepository).save(any(Post.class));
+        verify(postRepository).findById(1L);
+        verify(postRepository).save(any(Post.class));
     }
 
     @Test
@@ -92,33 +93,33 @@ public class PostServiceTest {
         requestDtO.setUserId(1L);
         requestDtO.setPostStatus("FINISHED");
 
-        when(inMemoryPostRepository.findById(anyLong())).thenReturn(Optional.of(new Post()));
-        when(inMemoryPostRepository.save(any(Post.class))).thenReturn(new Post());
+        when(postRepository.findById(anyLong())).thenReturn(Optional.of(new Post()));
+        when(postRepository.save(any(Post.class))).thenReturn(new Post());
 
         Post response = postService.update(1L, requestDtO);
 
-        verify(inMemoryPostRepository).findById(1L);
-        verify(inMemoryPostRepository).save(any(Post.class));
+        verify(postRepository).findById(1L);
+        verify(postRepository).save(any(Post.class));
         assertNotNull(response.getFinishDate());
     }
 
-    //Delete
+    // Delete
     @Test
     public void deletePostOk() {
         postService.delete(1L);
-        verify(inMemoryPostRepository).deleteById(1L);
+        verify(postRepository).deleteById(1L);
     }
 
-    //Getters
+    // Getters
     @Test
     public void getPostByIdOk() {
         postService.get(1L);
-        verify(inMemoryPostRepository).findById(1L);
+        verify(postRepository).findById(1L);
     }
 
     @Test
     public void getPostsOk() {
         postService.getAll();
-        verify(inMemoryPostRepository).findAll();
+        verify(postRepository).findAll();
     }
 }

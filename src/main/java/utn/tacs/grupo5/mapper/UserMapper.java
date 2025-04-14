@@ -1,9 +1,12 @@
 package utn.tacs.grupo5.mapper;
 
+import org.springframework.stereotype.Component;
+
 import utn.tacs.grupo5.dto.user.UserInputDto;
 import utn.tacs.grupo5.dto.user.UserOutputDto;
 import utn.tacs.grupo5.entity.User;
 
+@Component
 public class UserMapper implements IMapper<User, UserInputDto, UserOutputDto> {
 
     @Override

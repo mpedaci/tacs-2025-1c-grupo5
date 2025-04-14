@@ -26,4 +26,4 @@ docker run --name tacs-app -p 8080:8080 tacs-app
 
 ## Documentation
 
-To access api documentation visit the `/api-docs-ui` url or click in this [link](http://localhost:8080/api-docs-ui)
+To access api documentation visit the `/api/docs` url or click in this [link](http://localhost:8080/api/docs)

@@ -7,9 +7,15 @@ import utn.tacs.grupo5.entity.offer.OfferState;
 import java.util.List;
 
 public interface IOfferService extends ICRUDService<Offer, Long, OfferInputDto> {
+
     List<Offer> getAll();
-    List<Offer> getAllByPublicationId(Long publicationId);
-    Offer getById(Long publicationId, Long offerId);
+
+    List<Offer> getAllByPostId(Long postId);
+
+    Offer getById(Long postId, Long offerId);
+
     void patch(Long offerId, Long postId, OfferState offerState);
+
     void delete(Long offerId, Long postId);
+
 }

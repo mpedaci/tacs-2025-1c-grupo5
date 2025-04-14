@@ -11,7 +11,7 @@ import utn.tacs.grupo5.TestSecurityConfig;
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
 import utn.tacs.grupo5.service.IOfferService;
 
-@WebMvcTest(controllers = {OfferController.class})
+@WebMvcTest(controllers = { OfferController.class })
 @Import(TestSecurityConfig.class)
 
 public class OfferControllerTest {
@@ -27,21 +27,20 @@ public class OfferControllerTest {
 
     @Test
     public void testSaveOffer() throws Exception {
-//        // Given
-//        OfferInputDto offerDto = new OfferInputDto();
-//        offerDto.setId(1L);
-//        offerDto.setName("Test Offer");
-//        offerDto.setDescription("This is a test offer");
-//
-//        // When
-//        mockMvc.perform(post("/api/post/id/offers")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(objectMapper.writeValueAsString(offerDto)))
-//                .andExpect(status().isOk());
-//
-//        // Then
-//        verify(offerService, times(1)).save(offerDto);
+        // // Given
+        // OfferInputDto offerDto = new OfferInputDto();
+        // offerDto.setId(1L);
+        // offerDto.setName("Test Offer");
+        // offerDto.setDescription("This is a test offer");
+        //
+        // // When
+        // mockMvc.perform(post("/api/post/id/offers")
+        // .contentType(MediaType.APPLICATION_JSON)
+        // .content(objectMapper.writeValueAsString(offerDto)))
+        // .andExpect(status().isOk());
+        //
+        // // Then
+        // verify(offerService, times(1)).save(offerDto);
     }
-
 
 }

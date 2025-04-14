@@ -1,9 +1,7 @@
 package utn.tacs.grupo5.repository.impl;
 
 import org.springframework.stereotype.Repository;
-import utn.tacs.grupo5.entity.offer.Offer;
 import utn.tacs.grupo5.entity.offer.OfferedCard;
-import utn.tacs.grupo5.repository.OfferRepository;
 import utn.tacs.grupo5.repository.OfferedCardRepository;
 
 import java.util.*;
@@ -54,6 +52,5 @@ public class InMemoryOfferedCardRepository implements OfferedCardRepository {
             cards.remove(card);
         }
     }
-
 
 }

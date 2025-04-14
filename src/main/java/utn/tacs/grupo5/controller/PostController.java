@@ -5,7 +5,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
@@ -19,12 +22,12 @@ import utn.tacs.grupo5.service.impl.PostService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts")
+@Tag(name = "Posts", description = "Posts operations")
 public class PostController extends BaseController {
     @Autowired
     private PostService postService;
 
-    @PostMapping
+    @PostMapping(value = "/posts", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a new post", description = "Create a new post")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
@@ -32,12 +35,12 @@ public class PostController extends BaseController {
             })
     })
     public ResponseEntity<PostOutputDto> createPost(@RequestBody PostInputDto postInputDto) {
-        //TODO: implementar validaciones de inputs en próximas entregas
+        // TODO: implementar validaciones de inputs en próximas entregas
         Post post = postService.save(postInputDto);
         return ResponseGenerator.generateResponseOK(new PostOutputDto(post.getId()));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/posts/{id}")
     @Operation(summary = "Update a post data", description = "Update a post data")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
@@ -48,12 +51,12 @@ public class PostController extends BaseController {
             }),
     })
     public ResponseEntity<PostOutputDto> updatePost(@PathVariable Long id, @RequestBody PostInputDto postInputDto) {
-        //TODO: implementar validaciones de inputs en próximas entregas
+        // TODO: implementar validaciones de inputs en próximas entregas
         Post post = postService.update(id, postInputDto);
         return ResponseGenerator.generateResponseOK(new PostOutputDto(post.getId()));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/posts/{id}")
     @Operation(summary = "Update the post status", description = "Update the post status")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
@@ -64,13 +67,14 @@ public class PostController extends BaseController {
             }),
     })
     public ResponseEntity<PostOutputDto> updatePostStatus(@PathVariable Long id,
-                                                          @RequestBody PostInputDto postInputDto) {
-        //TODO: implementar validaciones de inputs en próximas entregas (solo debería quedar el status)
+            @RequestBody PostInputDto postInputDto) {
+        // TODO: implementar validaciones de inputs en próximas entregas (solo debería
+        // quedar el status)
         Post post = postService.update(id, postInputDto);
         return ResponseGenerator.generateResponseOK(new PostOutputDto(post.getId()));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/posts/{id}")
     @Operation(summary = "Delete a post", description = "Delete a post")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
@@ -83,7 +87,7 @@ public class PostController extends BaseController {
         return ResponseGenerator.generateResponseOK("Post deleted successfully");
     }
 
-    @GetMapping()
+    @GetMapping(value = "/posts")
     @Operation(summary = "Get all the posts", description = "Get all the posts")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
@@ -98,7 +102,7 @@ public class PostController extends BaseController {
         return ResponseGenerator.generateResponseOK(posts);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/posts/{id}")
     @Operation(summary = "Get a post by id", description = "Get a post by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK", content = {

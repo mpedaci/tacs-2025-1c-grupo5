@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,17 +26,18 @@ import utn.tacs.grupo5.mapper.UserMapper;
 import utn.tacs.grupo5.service.IUserService;
 
 @RestController
-@RequestMapping("/users")
 @Tag(name = "Users", description = "User operations")
 public class UserController extends BaseController {
 
         private final IUserService userService;
+        private final UserMapper userMapper;
 
-        public UserController(IUserService userService) {
+        public UserController(IUserService userService, UserMapper userMapper) {
                 this.userService = userService;
+                this.userMapper = userMapper;
         }
 
-        @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+        @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
         @Operation(summary = "Register a new user", description = "Register a new user")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "409", content = {
@@ -50,7 +50,7 @@ public class UserController extends BaseController {
                 return ResponseGenerator.generateResponseOK("User saved successfully");
         }
 
-        @GetMapping(value = "/{id}")
+        @GetMapping(value = "/users/{id}")
         @Operation(summary = "Get user by id", description = "Get user by id")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {
@@ -63,11 +63,10 @@ public class UserController extends BaseController {
         public ResponseEntity<UserOutputDto> get(@PathVariable Long id) {
                 User user = userService.get(id)
                                 .orElseThrow(() -> new NotFoundException("User not found"));
-                UserMapper userMapper = new UserMapper();
                 return ResponseGenerator.generateResponseOK(userMapper.toDto(user));
         }
 
-        @PutMapping(value = "/{id}")
+        @PutMapping(value = "/users/{id}")
         @Operation(summary = "Update user by id", description = "Update user by id")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {
@@ -82,7 +81,7 @@ public class UserController extends BaseController {
 
         // TODO: patch
 
-        @DeleteMapping(value = "/{id}")
+        @DeleteMapping(value = "/users/{id}")
         @Operation(summary = "Delete user by id", description = "Delete user by id")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {

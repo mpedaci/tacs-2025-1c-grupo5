@@ -18,9 +18,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -39,8 +41,6 @@ public class UserService implements IUserService {
                     throw new ConflictException("Username already exists");
                 });
 
-        UserMapper userMapper = new UserMapper();
-
         String hashedPassword = hashPassword(dto.getPassword());
 
         User user = userMapper.toEntity(dto);
@@ -56,7 +56,6 @@ public class UserService implements IUserService {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        UserMapper userMapper = new UserMapper();
         User user = userMapper.toEntity(dto);
         String hashedPassword = hashPassword(user.getPassword());
         user.setPassword(hashedPassword);
