@@ -610,3 +610,39 @@ This generated password is for development use only. Your security configuration
 2025-04-13 19:08:24 [main] INFO  u.t.g.controller.UserControllerTest - Started UserControllerTest in 1.659 seconds (process running for 2.713)
 2025-04-13 19:08:24 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users
 2025-04-13 19:08:24 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/users.
+2025-04-13 23:39:18 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 23:39:18 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.PostControllerTest
+2025-04-13 23:39:19 [main] INFO  u.t.g.controller.PostControllerTest - Starting PostControllerTest using Java 21.0.6 with PID 42425 (started by moli in /home/moli/Develop/tacs-2025-1c-grupo5)
+2025-04-13 23:39:19 [main] DEBUG u.t.g.controller.PostControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 23:39:19 [main] INFO  u.t.g.controller.PostControllerTest - The following 1 profile is active: "test"
+2025-04-13 23:39:20 [main] INFO  u.t.g.controller.PostControllerTest - Started PostControllerTest in 1.805 seconds (process running for 5.569)
+2025-04-13 23:39:20 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 23:39:20 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 23:39:20 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 23:39:20 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 23:39:21 [main] INFO  u.t.g.controller.UserControllerTest - Starting UserControllerTest using Java 21.0.6 with PID 42425 (started by moli in /home/moli/Develop/tacs-2025-1c-grupo5)
+2025-04-13 23:39:21 [main] DEBUG u.t.g.controller.UserControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 23:39:21 [main] INFO  u.t.g.controller.UserControllerTest - The following 1 profile is active: "test"
+2025-04-13 23:39:21 [main] INFO  u.t.g.controller.UserControllerTest - Started UserControllerTest in 0.377 seconds (process running for 6.343)
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users | status: 200
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 23:39:21 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 23:39:21 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Conflict: User already exists
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 23:39:21 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
