@@ -646,3 +646,226 @@ This generated password is for development use only. Your security configuration
 2025-04-13 23:39:21 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
 2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
 2025-04-13 23:39:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 19:14:02 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 19:14:02 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.UserControllerTest
+2025-04-13 19:14:03 [main] INFO  u.t.g.controller.UserControllerTest - Starting UserControllerTest using Java 21.0.6 with PID 28148 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 19:14:03 [main] DEBUG u.t.g.controller.UserControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 19:14:03 [main] INFO  u.t.g.controller.UserControllerTest - The following 1 profile is active: "test"
+2025-04-13 19:14:06 [main] INFO  u.t.g.controller.UserControllerTest - Started UserControllerTest in 3.669 seconds (process running for 6.039)
+2025-04-13 19:14:06 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users
+2025-04-13 19:14:06 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/users.
+2025-04-13 19:14:06 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users/999
+2025-04-13 19:14:06 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/users/999.
+2025-04-13 19:14:06 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users/1
+2025-04-13 19:14:06 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/users/1.
+2025-04-13 19:14:06 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users
+2025-04-13 19:14:06 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/users.
+2025-04-13 19:14:06 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users/1
+2025-04-13 19:14:06 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/users/1.
+2025-04-13 19:14:06 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users/999
+2025-04-13 19:14:06 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/users/999.
+2025-04-13 19:14:06 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /api/users/1
+2025-04-13 19:14:06 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/users/1.
+2025-04-13 19:15:09 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 19:15:09 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.UserControllerTest
+2025-04-13 19:15:10 [main] INFO  u.t.g.controller.UserControllerTest - Starting UserControllerTest using Java 21.0.6 with PID 23848 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 19:15:10 [main] DEBUG u.t.g.controller.UserControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 19:15:10 [main] INFO  u.t.g.controller.UserControllerTest - The following 1 profile is active: "test"
+2025-04-13 19:15:13 [main] INFO  u.t.g.controller.UserControllerTest - Started UserControllerTest in 3.515 seconds (process running for 5.753)
+2025-04-13 19:15:13 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 19:15:13 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users | status: 200
+2025-04-13 19:15:13 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 19:15:13 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 19:15:13 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 19:15:13 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 19:15:13 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 19:15:13 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Conflict: User already exists
+2025-04-13 19:15:13 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 19:15:13 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 19:15:13 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 19:15:13 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 19:15:13 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 19:15:13 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 19:16:32 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 19:16:33 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.UserControllerTest
+2025-04-13 19:16:34 [main] INFO  u.t.g.controller.UserControllerTest - Starting UserControllerTest using Java 21.0.6 with PID 19032 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 19:16:34 [main] DEBUG u.t.g.controller.UserControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 19:16:34 [main] INFO  u.t.g.controller.UserControllerTest - The following 1 profile is active: "test"
+2025-04-13 19:16:38 [main] INFO  u.t.g.controller.UserControllerTest - Started UserControllerTest in 5.677 seconds (process running for 8.711)
+2025-04-13 19:16:39 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 19:16:39 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users | status: 200
+2025-04-13 19:16:39 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 19:16:39 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 19:16:39 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 19:16:39 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 19:16:39 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 19:16:39 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Conflict: User already exists
+2025-04-13 19:16:39 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 19:16:39 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 19:16:39 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 19:16:39 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 19:16:39 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 19:16:39 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 20:06:19 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 20:06:19 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.UserControllerTest
+2025-04-13 20:06:19 [main] INFO  u.t.g.controller.UserControllerTest - Starting UserControllerTest using Java 21.0.6 with PID 1076 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 20:06:19 [main] DEBUG u.t.g.controller.UserControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 20:06:19 [main] INFO  u.t.g.controller.UserControllerTest - The following 1 profile is active: "test"
+2025-04-13 20:06:21 [main] INFO  u.t.g.controller.UserControllerTest - Started UserControllerTest in 2.098 seconds (process running for 5.742)
+2025-04-13 20:06:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 20:06:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users | status: 200
+2025-04-13 20:06:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 20:06:21 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 20:06:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 20:06:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 20:06:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 20:06:21 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Conflict: User already exists
+2025-04-13 20:06:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 20:06:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 20:06:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 20:06:21 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 20:06:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 20:06:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 20:22:02 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 20:22:03 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.UserControllerTest
+2025-04-13 20:22:04 [main] INFO  u.t.g.controller.UserControllerTest - Starting UserControllerTest using Java 21.0.6 with PID 19236 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 20:22:04 [main] DEBUG u.t.g.controller.UserControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 20:22:04 [main] INFO  u.t.g.controller.UserControllerTest - The following 1 profile is active: "test"
+2025-04-13 20:22:08 [main] INFO  u.t.g.controller.UserControllerTest - Started UserControllerTest in 5.484 seconds (process running for 8.337)
+2025-04-13 20:22:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 20:22:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users | status: 200
+2025-04-13 20:22:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 20:22:09 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 20:22:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 20:22:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 20:22:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 20:22:09 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Conflict: User already exists
+2025-04-13 20:22:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 20:22:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 20:22:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 20:22:09 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 20:22:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 20:22:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 20:52:29 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 20:52:30 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.PostControllerTest
+2025-04-13 20:52:30 [main] INFO  u.t.g.controller.PostControllerTest - Starting PostControllerTest using Java 21.0.6 with PID 27404 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 20:52:30 [main] DEBUG u.t.g.controller.PostControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 20:52:30 [main] INFO  u.t.g.controller.PostControllerTest - The following 1 profile is active: "test"
+2025-04-13 20:53:30 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 20:53:30 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.PostControllerTest
+2025-04-13 20:53:31 [main] INFO  u.t.g.controller.PostControllerTest - Starting PostControllerTest using Java 21.0.6 with PID 26840 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 20:53:31 [main] DEBUG u.t.g.controller.PostControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 20:53:31 [main] INFO  u.t.g.controller.PostControllerTest - The following 1 profile is active: "test"
+2025-04-13 20:53:34 [main] INFO  u.t.g.controller.PostControllerTest - Started PostControllerTest in 3.371 seconds (process running for 5.389)
+2025-04-13 20:53:34 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 20:53:34 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Internal Server Error: java.lang.NullPointerException: Cannot invoke "utn.tacs.grupo5.entity.post.Post.getId()" because "post" is null
+2025-04-13 20:53:34 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 20:53:34 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 20:54:21 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 20:54:21 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.PostControllerTest
+2025-04-13 20:54:22 [main] INFO  u.t.g.controller.PostControllerTest - Starting PostControllerTest using Java 21.0.6 with PID 28660 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 20:54:22 [main] DEBUG u.t.g.controller.PostControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 20:54:22 [main] INFO  u.t.g.controller.PostControllerTest - The following 1 profile is active: "test"
+2025-04-13 20:54:25 [main] INFO  u.t.g.controller.PostControllerTest - Started PostControllerTest in 3.6 seconds (process running for 5.641)
+2025-04-13 20:54:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 20:54:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 20:54:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 20:54:25 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 20:56:23 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 20:56:23 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.PostControllerTest
+2025-04-13 20:56:24 [main] INFO  u.t.g.controller.PostControllerTest - Starting PostControllerTest using Java 21.0.6 with PID 27492 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 20:56:24 [main] DEBUG u.t.g.controller.PostControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 20:56:24 [main] INFO  u.t.g.controller.PostControllerTest - The following 1 profile is active: "test"
+2025-04-13 20:56:27 [main] INFO  u.t.g.controller.PostControllerTest - Started PostControllerTest in 3.34 seconds (process running for 5.38)
+2025-04-13 20:56:27 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 20:56:27 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 20:56:27 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 20:56:27 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 20:56:27 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 20:56:27 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 20:58:05 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 20:58:05 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.PostControllerTest
+2025-04-13 20:58:06 [main] INFO  u.t.g.controller.PostControllerTest - Starting PostControllerTest using Java 21.0.6 with PID 17588 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 20:58:06 [main] DEBUG u.t.g.controller.PostControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 20:58:06 [main] INFO  u.t.g.controller.PostControllerTest - The following 1 profile is active: "test"
+2025-04-13 20:58:09 [main] INFO  u.t.g.controller.PostControllerTest - Started PostControllerTest in 3.439 seconds (process running for 5.443)
+2025-04-13 20:58:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 20:58:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 20:58:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 20:58:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 20:58:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 20:58:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 20:58:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 20:58:09 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:00:29 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 21:00:29 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.PostControllerTest
+2025-04-13 21:00:29 [main] INFO  u.t.g.controller.PostControllerTest - Starting PostControllerTest using Java 21.0.6 with PID 16236 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 21:00:29 [main] DEBUG u.t.g.controller.PostControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 21:00:29 [main] INFO  u.t.g.controller.PostControllerTest - The following 1 profile is active: "test"
+2025-04-13 21:00:32 [main] INFO  u.t.g.controller.PostControllerTest - Started PostControllerTest in 3.405 seconds (process running for 5.487)
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:00:33 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:00:53 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 21:00:53 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.PostControllerTest
+2025-04-13 21:00:54 [main] INFO  u.t.g.controller.PostControllerTest - Starting PostControllerTest using Java 21.0.6 with PID 8924 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 21:00:54 [main] DEBUG u.t.g.controller.PostControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 21:00:54 [main] INFO  u.t.g.controller.PostControllerTest - The following 1 profile is active: "test"
+2025-04-13 21:00:57 [main] INFO  u.t.g.controller.PostControllerTest - Started PostControllerTest in 3.528 seconds (process running for 5.629)
+2025-04-13 21:00:57 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 21:00:57 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 21:00:57 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:00:57 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:00:57 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 21:00:57 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 21:00:57 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:00:57 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:00:58 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:00:58 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:00:58 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:00:58 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:01:19 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [utn.tacs.grupo5.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-04-13 21:01:19 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration utn.tacs.grupo5.Application for test class utn.tacs.grupo5.controller.PostControllerTest
+2025-04-13 21:01:20 [main] INFO  u.t.g.controller.PostControllerTest - Starting PostControllerTest using Java 21.0.6 with PID 10192 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 21:01:20 [main] DEBUG u.t.g.controller.PostControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 21:01:20 [main] INFO  u.t.g.controller.PostControllerTest - The following 1 profile is active: "test"
+2025-04-13 21:01:21 [main] INFO  u.t.g.controller.PostControllerTest - Started PostControllerTest in 2.08 seconds (process running for 6.423)
+2025-04-13 21:01:21 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts | status: 200
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /posts/1
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /posts/1 | status: 200
+2025-04-13 21:01:22 [main] INFO  u.t.g.controller.UserControllerTest - Starting UserControllerTest using Java 21.0.6 with PID 10192 (started by tambo in C:\Users\tambo\Documents\seguimientoUTN\4to Año\Técnicas Avanzadas en la Construcción de Software\tacs-2025-1c-grupo5)
+2025-04-13 21:01:22 [main] DEBUG u.t.g.controller.UserControllerTest - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-04-13 21:01:22 [main] INFO  u.t.g.controller.UserControllerTest - The following 1 profile is active: "test"
+2025-04-13 21:01:22 [main] INFO  u.t.g.controller.UserControllerTest - Started UserControllerTest in 0.425 seconds (process running for 7.301)
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users | status: 200
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 21:01:22 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users
+2025-04-13 21:01:22 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Conflict: User already exists
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/999
+2025-04-13 21:01:22 [main] ERROR u.t.g.c.e.ApplicationExceptionHandler - Not Found: User not found
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL: /users/1
+2025-04-13 21:01:22 [main] INFO  u.t.g.c.i.RequestLoggingInterceptor - Request URL Ended: /users/1 | status: 200
