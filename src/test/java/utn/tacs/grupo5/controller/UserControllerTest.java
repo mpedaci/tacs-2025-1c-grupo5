@@ -51,20 +51,20 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("User saved successfully"));
     }
 
-//    @Test
-//    void save_shouldReturnConflict_whenValidUserExists() throws Exception {
-//        UserInputDto userInputDto = new UserInputDto();
-//        userInputDto.setFirstName("John Doe");
-//        userInputDto.setEmail("john.doe@example.com");
-//
-//        when(userService.save(userInputDto)).thenThrow(new ConflictException("User already exists"));
-//
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.post("/users")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(userInputDto)))
-//                .andExpect(MockMvcResultMatchers.status().isConflict());
-//    }
+    @Test
+    void save_shouldReturnConflict_whenValidUserExists() throws Exception {
+        UserInputDto userInputDto = new UserInputDto();
+        userInputDto.setFirstName("John Doe");
+        userInputDto.setEmail("john.doe@example.com");
+
+        when(userService.save(userInputDto)).thenThrow(new ConflictException("User already exists"));
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(userInputDto)))
+                .andExpect(MockMvcResultMatchers.status().isConflict());
+    }
 
     @Test
     void get_shouldReturnUser_whenUserExists() throws Exception {
@@ -84,17 +84,17 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("John Doe"));
     }
 
-//    @Test
-//    void get_shouldReturnNotFound_whenUserDoesntExists() throws Exception {
-//        Long userId = 999L;
-//
-//        when(userService.get(userId)).thenReturn(Optional.empty());
-//
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.get("/users/" + userId))
-//                .andExpect(MockMvcResultMatchers.status().isNotFound())
-//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
-//    }
+    @Test
+    void get_shouldReturnNotFound_whenUserDoesntExists() throws Exception {
+        Long userId = 999L;
+
+        when(userService.get(userId)).thenReturn(Optional.empty());
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/users/" + userId))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
+    }
 
     @Test
     void update_shouldReturnOK_whenValidInput() throws Exception {
@@ -111,21 +111,21 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("User updated successfully"));
     }
 
-//    @Test
-//    void update_shouldReturnNotFound_whenUserDoesntExists() throws Exception {
-//        Long userId = 999L;
-//        UserInputDto userInputDto = new UserInputDto();
-//        userInputDto.setFirstName("Updated Name");
-//        userInputDto.setEmail("updated.email@example.com");
-//
-//        when(userService.update(userId, userInputDto)).thenThrow(new NotFoundException("User not found"));
-//
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.put("/users/" + userId)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(userInputDto)))
-//                .andExpect(MockMvcResultMatchers.status().isNotFound());
-//    }
+    @Test
+    void update_shouldReturnNotFound_whenUserDoesntExists() throws Exception {
+        Long userId = 999L;
+        UserInputDto userInputDto = new UserInputDto();
+        userInputDto.setFirstName("Updated Name");
+        userInputDto.setEmail("updated.email@example.com");
+
+        when(userService.update(userId, userInputDto)).thenThrow(new NotFoundException("User not found"));
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/users/" + userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(userInputDto)))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 
     @Test
     void testDeleteUser() throws Exception {
