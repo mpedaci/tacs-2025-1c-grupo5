@@ -34,8 +34,6 @@ public class OfferControllerTest {
     @Test
     public void testSaveOffer() throws Exception {
         OfferInputDto offerInputDto = new OfferInputDto();
-        offerInputDto.setMoney(100.0F);
-
 
         when(offerService.save(offerInputDto)).thenReturn(new Offer());
 
