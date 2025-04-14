@@ -7,6 +7,6 @@ import utn.tacs.grupo5.entity.card.Card;
 
 public interface ICardService extends ICRUDService<Card, Long, CardInputDto> {
 
-    List<Card> getAllCardsByGameId(Long gameId);
+    List<Card> getAllByGameId(Long gameId);
 
 }

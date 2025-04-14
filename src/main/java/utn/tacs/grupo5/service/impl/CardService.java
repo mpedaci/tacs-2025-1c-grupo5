@@ -49,7 +49,7 @@ public class CardService implements ICardService {
     }
 
     @Override
-    public List<Card> getAllCardsByGameId(Long gameId) {
+    public List<Card> getAllByGameId(Long gameId) {
         return cardRepository.findByGameId(gameId);
     }
 }

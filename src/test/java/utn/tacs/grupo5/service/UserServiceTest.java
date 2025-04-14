@@ -24,6 +24,7 @@ import utn.tacs.grupo5.controller.exceptions.ConflictException;
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.user.UserInputDto;
 import utn.tacs.grupo5.entity.User;
+import utn.tacs.grupo5.mapper.UserMapper;
 import utn.tacs.grupo5.repository.UserRepository;
 import utn.tacs.grupo5.service.impl.UserService;
 
@@ -33,11 +34,14 @@ public class UserServiceTest {
     @Mock
     UserRepository userRepository;
 
+    @Mock
+    UserMapper userMapper;
+
     @InjectMocks
     UserService userService;
 
     @Test
-    void get_shouldReturnUser_whenUserExists() {
+    void get_shouldReturnOptionalUser_whenUserExists() {
         Long userId = 1L;
         User user = new User();
         user.setId(userId);
@@ -90,6 +94,8 @@ public class UserServiceTest {
 
     @Test
     void save_shouldSaveUser_whenValidInput() {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
         UserInputDto dto = new UserInputDto();
         dto.setEmail("test@example.com");
         dto.setUsername("testuser");
@@ -98,32 +104,41 @@ public class UserServiceTest {
         dto.setLastName("User");
         dto.setPhone("1234567890");
 
+        User user = new User();
+        user.setEmail(dto.getEmail());
+        user.setUsername(dto.getUsername());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setPhone(dto.getPhone());
+
+        when(userMapper.toEntity(dto)).thenReturn(user);
+
         when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.empty());
         when(userRepository.findByUsername(dto.getUsername())).thenReturn(Optional.empty());
+        when(userMapper.toEntity(dto)).thenReturn(user);
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
-            User user = invocation.getArgument(0);
-            user.setId(1L);
-            return user;
+            User user2 = invocation.getArgument(0);
+            user2.setId(1L);
+            return user2;
         });
 
         userService.save(dto);
         verify(userRepository).save(userCaptor.capture());
-        User user = userCaptor.getValue();
+        User result = userCaptor.getValue();
 
-        assertNotNull(user);
-        assertNotNull(user.getId());
-        assertEquals(dto.getFirstName(), user.getFirstName());
-        assertEquals(dto.getLastName(), user.getLastName());
-        assertEquals(dto.getPhone(), user.getPhone());
-        assertEquals(dto.getEmail(), user.getEmail());
-        assertEquals(dto.getUsername(), user.getUsername());
-        assertNotNull(user.getCreatedAt());
-        assertNotNull(user.getUpdatedAt());
+        assertNotNull(result);
+        assertNotNull(result.getId());
+        assertEquals(dto.getFirstName(), result.getFirstName());
+        assertEquals(dto.getLastName(), result.getLastName());
+        assertEquals(dto.getPhone(), result.getPhone());
+        assertEquals(dto.getEmail(), result.getEmail());
+        assertEquals(dto.getUsername(), result.getUsername());
+        assertNotNull(result.getCreatedAt());
+        assertNotNull(result.getUpdatedAt());
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        assertEquals(true, passwordEncoder.matches(dto.getPassword(), user.getPassword()));
+        assertEquals(true, passwordEncoder.matches(dto.getPassword(), result.getPassword()));
     }
 
     @Test
@@ -152,7 +167,16 @@ public class UserServiceTest {
         dto.setPhone("0987654321");
         dto.setPassword("newpassword");
 
+        User user = new User();
+        user.setPassword(dto.getPassword());
+        user.setEmail(dto.getEmail());
+        user.setUsername(dto.getUsername());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setPhone(dto.getPhone());
+
         when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
+        when(userMapper.toEntity(dto)).thenReturn(user);
         when(userRepository.save(any(User.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 

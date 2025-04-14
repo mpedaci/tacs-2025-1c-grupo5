@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "Card Input Schema", description = "Card schema")
+@Schema(name = "Card Input", description = "Card schema for input")
 public class CardInputDto extends CardBaseDto {
 
     private Long gameId;

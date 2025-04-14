@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-@Schema(name = "Post Input Schema", description = "Post schema for input")
+@Schema(name = "Post Input", description = "Post schema for input")
 public class PostInputDto {
     private Long userId;
     private List<String> images;

@@ -103,7 +103,7 @@ public class CardController {
                         })
         })
         public ResponseEntity<List<CardOutputDto>> getAllCardsByGame(@PathVariable Long id) {
-                List<CardOutputDto> cards = cardService.getAllCardsByGameId(id)
+                List<CardOutputDto> cards = cardService.getAllByGameId(id)
                                 .stream()
                                 .map(cardMapper::toDto)
                                 .toList();

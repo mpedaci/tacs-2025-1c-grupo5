@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "Game InputSchema", description = "Game schema")
+@Schema(name = "Game Input", description = "Game schema for input")
 public class GameInputDto extends GameBaseDto {
 
     // private String apiUrl;

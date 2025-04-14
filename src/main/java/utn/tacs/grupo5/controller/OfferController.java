@@ -1,6 +1,7 @@
 package utn.tacs.grupo5.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,6 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.controller.response.CustomError;
 import utn.tacs.grupo5.controller.response.ResponseGenerator;
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
@@ -29,7 +32,7 @@ public class OfferController extends BaseController {
                 this.offerService = offerService;
         }
 
-        @PostMapping(value = "/posts/{id}/offers", consumes = MediaType.APPLICATION_JSON_VALUE)
+        @PostMapping(value = "/offers", consumes = MediaType.APPLICATION_JSON_VALUE)
         @Operation(summary = "Create a new offer", description = "Create a new offer")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {
@@ -43,7 +46,7 @@ public class OfferController extends BaseController {
                 return ResponseGenerator.generateResponseOK("Offer saved successfully");
         }
 
-        @PatchMapping(value = "/posts/{postId}/offers/{offerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+        @PatchMapping(value = "/offers/{offerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
         @Operation(summary = "Change offer status", description = "Change offer status")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {
@@ -57,7 +60,7 @@ public class OfferController extends BaseController {
                 return ResponseGenerator.generateResponseOK("Offer saved successfully");
         }
 
-        @DeleteMapping(value = "/posts/{postId}/offers/{offerId}")
+        @DeleteMapping(value = "/offers/{offerId}")
         @Operation(summary = "Delete an offer", description = "Delete an offer")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {
@@ -70,7 +73,7 @@ public class OfferController extends BaseController {
                 return ResponseGenerator.generateResponseOK("Offer delete successfully");
         }
 
-        @GetMapping(value = "/posts/{postId}/offers/{offerId}")
+        @GetMapping(value = "/offers/{id}")
         @Operation(summary = "Get an offer", description = "Get an offer")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "OK", content = {
@@ -80,24 +83,24 @@ public class OfferController extends BaseController {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
                         }),
         })
-        public ResponseEntity<Offer> getOffer(@PathVariable Long offerId, @PathVariable Long postId) {
-
-                Offer offer = offerService.getById(offerId, postId);
+        public ResponseEntity<Offer> getOffer(@PathVariable Long id) {
+                Offer offer = offerService.get(id)
+                                .orElseThrow(() -> new NotFoundException("Offer not found"));
 
                 return ResponseGenerator.generateResponseOK(offer);
         }
 
         @GetMapping(value = "/posts/{postId}/offers")
-        @Operation(summary = "Get all offers", description = "Get all offers")
+        @Operation(summary = "Get all offers by post id", description = "Get all offers by post id")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "OK", content = {
-                                        @Content(mediaType = "application/json", schema = @Schema(implementation = Offer.class))
+                                        @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Offer.class)))
                         }),
                         @ApiResponse(responseCode = "404", content = {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
                         }),
         })
-        public ResponseEntity<List<Offer>> getAllOffers(@PathVariable Long postId) {
+        public ResponseEntity<List<Offer>> getAllOffersByPost(@PathVariable Long postId) {
                 List<Offer> offers = offerService.getAllByPostId(postId);
                 return ResponseGenerator.generateResponseOK(offers);
         }

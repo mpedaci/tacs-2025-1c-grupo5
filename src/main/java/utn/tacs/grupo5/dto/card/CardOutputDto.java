@@ -11,7 +11,7 @@ import utn.tacs.grupo5.dto.game.GameOutputDto;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "Card Output Schema", description = "Card schema for output")
+@Schema(name = "Card", description = "Card schema for output")
 public class CardOutputDto extends CardBaseDto {
 
     private Long id;

@@ -30,11 +30,10 @@ import utn.tacs.grupo5.service.IUserService;
 public class UserController extends BaseController {
 
         private final IUserService userService;
-        private final UserMapper userMapper;
+        private final UserMapper userMapper = new UserMapper();
 
-        public UserController(IUserService userService, UserMapper userMapper) {
+        public UserController(IUserService userService) {
                 this.userService = userService;
-                this.userMapper = userMapper;
         }
 
         @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
