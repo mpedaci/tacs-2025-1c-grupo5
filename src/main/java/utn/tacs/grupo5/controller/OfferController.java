@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +22,11 @@ import utn.tacs.grupo5.service.IOfferService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/offers")
 @Tag(name = "Offers", description = "Offer operations")
 public class OfferController extends BaseController {
 
+    @Autowired
     private final IOfferService offerService;
 
     public OfferController(IOfferService offerService) {
