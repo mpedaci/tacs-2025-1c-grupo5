@@ -17,6 +17,26 @@ public class InMemoryGameRepository implements GameRepository {
     private final List<Game> games = Collections.synchronizedList(new ArrayList<>());
     private final AtomicLong idGenerator = new AtomicLong();
 
+    public InMemoryGameRepository() {
+        Game magic = new Game();
+        magic.setId(0L);
+        magic.setName("Magic the Gathering");
+        magic.setDescription("Magic: The Gathering is a collectible card game created by mathematician Richard Garfield and published by Wizards of the Coast.");
+        games.add(magic);
+
+        Game pokemon = new Game();
+        pokemon.setId(1L);
+        pokemon.setName("Pokemon");
+        pokemon.setDescription("Pokémon is a media franchise created by Satoshi Tajiri and Ken Sugimori, and managed by The Pokémon Company.");
+        games.add(pokemon);
+
+        Game yugioh = new Game();
+        yugioh.setId(2L);
+        yugioh.setName("Yu-Gi-Oh!");
+        yugioh.setDescription("Yu-Gi-Oh! is a Japanese manga series about gaming, created by Kazuki Takahashi.");
+        games.add(yugioh);
+    }
+
     @Override
     public Game save(Game games) {
         if (games.getId() == null) {
