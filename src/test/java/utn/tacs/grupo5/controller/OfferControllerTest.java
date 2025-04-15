@@ -12,40 +12,85 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import utn.tacs.grupo5.TestSecurityConfig;
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
+import utn.tacs.grupo5.dto.offeredCard.OfferedCardInputDto;
 import utn.tacs.grupo5.entity.offer.Offer;
+import utn.tacs.grupo5.entity.offer.OfferStatus;
 import utn.tacs.grupo5.service.IOfferService;
 
-import static org.mockito.Mockito.when;
+import java.util.Collections;
+import java.util.List;
 
-@WebMvcTest(controllers = {OfferController.class})
+import static org.mockito.Mockito.*;
+
+@WebMvcTest(controllers = OfferController.class)
 @Import(TestSecurityConfig.class)
-
 public class OfferControllerTest {
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @MockitoBean
-    IOfferService offerService;
+    private IOfferService offerService;
 
     @Test
-    public void testSaveOffer() throws Exception {
-        OfferInputDto offerInputDto = new OfferInputDto();
+    void saveShouldReturnOK() throws Exception {
+        OfferInputDto dto = new OfferInputDto();
+        dto.setOffererId(1L);
+        dto.setMoney(100.0F);
+        dto.setOfferedCards(List.of(new OfferedCardInputDto()));
 
-        when(offerService.save(offerInputDto)).thenReturn(new Offer());
-
+        when(offerService.save(any())).thenReturn(new Offer());
 
         mockMvc.perform(
                         MockMvcRequestBuilders.post("/offers/posts/1/offers")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(offerInputDto)))
-                .andExpect(MockMvcResultMatchers.status().isOk()).
-                andExpect(MockMvcResultMatchers.content().string("Offer saved successfully"));
-
+                                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    @Test
+    void patchShouldReturnOK() throws Exception {
+        mockMvc.perform(
+                        MockMvcRequestBuilders.patch("/offers/posts/1/offers/2")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(OfferStatus.ACCEPTED)))
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
+        verify(offerService).patch(2L, 1L, OfferStatus.ACCEPTED);
+    }
+
+    @Test
+    void deleteShouldReturnOK() throws Exception {
+        mockMvc.perform(
+                        MockMvcRequestBuilders.delete("/offers/posts/1/offers/2"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        verify(offerService).delete(1L, 2L);
+    }
+
+    @Test
+    void getOfferShouldReturnOK() throws Exception {
+        Offer offer = new Offer();
+        offer.setId(1L);
+
+        when(offerService.getById(1L, 2L)).thenReturn(offer);
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/offers/posts/2/offers/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
+    }
+
+    @Test
+    void getAllOffersShouldReturnOK() throws Exception {
+        when(offerService.getAllByPublicationId(1L)).thenReturn(Collections.emptyList());
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/offers/posts/1/offers"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
+    }
 }

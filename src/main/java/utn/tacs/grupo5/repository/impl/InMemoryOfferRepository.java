@@ -14,7 +14,7 @@ public class InMemoryOfferRepository implements OfferRepository {
     private final List<Offer> offers = Collections.synchronizedList(new ArrayList<>());
     private final AtomicLong idGenerator = new AtomicLong();
     @Autowired
-    private InMemoryOfferedCardRepository inMemoryOfferedCardRepository;
+    public InMemoryOfferedCardRepository inMemoryOfferedCardRepository;
 
     @Override
     public Optional<Offer> findByPublicationId(Long publicationId) {
