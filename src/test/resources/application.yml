@@ -1,6 +1,6 @@
 spring:
   application:
-    name: challenge
+    name: tacs-2025-1c-grupo5
   profiles:
     active: test
 

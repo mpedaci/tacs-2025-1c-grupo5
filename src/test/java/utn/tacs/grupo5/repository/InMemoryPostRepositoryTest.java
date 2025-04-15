@@ -16,13 +16,13 @@ public class InMemoryPostRepositoryTest {
 
     @BeforeEach
     public void init() {
-        for(int i=0; i<3; i++) {
+        for (int i = 0; i < 3; i++) {
             inMemoryPostRepository.save(new Post());
         }
     }
 
     @Test
-    public void savePost() {
+    public void save_shouldSavePost_whenPostDoesNotExist() {
         Post post = new Post();
         inMemoryPostRepository.save(post);
         assertEquals(4, inMemoryPostRepository.getPosts().size());
@@ -30,7 +30,7 @@ public class InMemoryPostRepositoryTest {
     }
 
     @Test
-    public void updatePost() {
+    public void save_shouldUpdatePost_whenPostExists() {
         Post post = inMemoryPostRepository.findById(1L).orElseThrow();
         post.setConservationStatus(ConservationStatus.GOOD);
         inMemoryPostRepository.save(post);
@@ -41,20 +41,20 @@ public class InMemoryPostRepositoryTest {
     }
 
     @Test
-    public void deletePost() {
+    public void deleteById_shouldRemovePost_whenPostExists() {
         inMemoryPostRepository.deleteById(2L);
         assertEquals(2, inMemoryPostRepository.getPosts().size());
         assertFalse(inMemoryPostRepository.getPosts().stream().anyMatch(post -> post.getId().equals(2L)));
     }
 
     @Test
-    public void findPostById() {
+    public void findById_shouldReturnPost_whenPostExists() {
         Post post = inMemoryPostRepository.findById(1L).orElseThrow();
         assertEquals(1, post.getId());
     }
 
     @Test
-    public void findAllPosts() {
+    public void findAll_shouldReturnAllPosts() {
         List<Post> posts = inMemoryPostRepository.findAll();
         assertEquals(3, posts.size());
     }

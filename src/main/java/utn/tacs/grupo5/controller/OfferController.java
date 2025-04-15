@@ -17,7 +17,6 @@ import utn.tacs.grupo5.controller.response.ResponseGenerator;
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
 import utn.tacs.grupo5.dto.offer.OfferOutputDto;
 import utn.tacs.grupo5.entity.post.Offer;
-import utn.tacs.grupo5.mapper.GameMapper;
 import utn.tacs.grupo5.mapper.OfferMapper;
 import utn.tacs.grupo5.service.IOfferService;
 
@@ -30,7 +29,7 @@ public class OfferController extends BaseController {
     private final IOfferService offerService;
     private final OfferMapper offerMapper;
 
-    public OfferController(IOfferService offerService, OfferMapper offerMapper, GameMapper gameMapper) {
+    public OfferController(IOfferService offerService, OfferMapper offerMapper) {
         this.offerService = offerService;
         this.offerMapper = offerMapper;
     }

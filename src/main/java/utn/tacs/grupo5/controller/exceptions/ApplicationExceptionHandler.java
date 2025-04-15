@@ -23,13 +23,13 @@ public class ApplicationExceptionHandler {
 
   @ExceptionHandler(ConflictException.class)
   public ResponseEntity<CustomError> handleConflict(Exception e) {
-    logger.error("Conflict: " + e.getMessage());
+    logger.info("Conflict: " + e.getMessage());
     return ResponseGenerator.generateResponseError(HttpStatus.CONFLICT, "Conflict", e.getMessage());
   }
 
   @ExceptionHandler(NotFoundException.class)
   public ResponseEntity<CustomError> handleNotFound(Exception e) {
-    logger.error("Not Found: " + e.getMessage());
+    logger.info("Not Found: " + e.getMessage());
     return ResponseGenerator.generateResponseError(
         HttpStatus.NOT_FOUND, "Not Found", e.getMessage());
   }

@@ -29,7 +29,7 @@ public class CardControllerTest {
     MockMvc mockMvc;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    ObjectMapper objectMapper;
 
     @MockitoBean
     CardMapper cardMapper;
@@ -42,12 +42,25 @@ public class CardControllerTest {
         CardInputDto cardInputDto = new CardInputDto();
         cardInputDto.setName("Test Card");
 
+        CardOutputDto cardOutputDto = new CardOutputDto();
+        cardOutputDto.setId(1L);
+        cardOutputDto.setName(cardInputDto.getName());
+
+        Card card = new Card();
+        card.setName(cardInputDto.getName());
+        card.setId(1L);
+
+        when(cardService.save(cardInputDto)).thenReturn(card);
+        when(cardMapper.toDto(card)).thenReturn(cardOutputDto);
+
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/cards")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(cardInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Card saved successfully"));
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1L))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Test Card"));
     }
 
     @Test
@@ -90,12 +103,25 @@ public class CardControllerTest {
         CardInputDto cardInputDto = new CardInputDto();
         cardInputDto.setName("Updated Card");
 
+        CardOutputDto cardOutputDto = new CardOutputDto();
+        cardOutputDto.setId(cardId);
+        cardOutputDto.setName(cardInputDto.getName());
+
+        Card card = new Card();
+        card.setId(cardId);
+        card.setName(cardInputDto.getName());
+
+        when(cardService.update(cardId, cardInputDto)).thenReturn(card);
+        when(cardMapper.toDto(card)).thenReturn(cardOutputDto);
+
         mockMvc.perform(
                 MockMvcRequestBuilders.put("/cards/" + cardId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(cardInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Card updated successfully"));
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(cardId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Updated Card"));
     }
 
     @Test

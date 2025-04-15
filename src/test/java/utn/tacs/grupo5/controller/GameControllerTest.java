@@ -28,7 +28,7 @@ public class GameControllerTest {
     MockMvc mockMvc;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    ObjectMapper objectMapper;
 
     @MockitoBean
     GameMapper gameMapper;
@@ -41,12 +41,25 @@ public class GameControllerTest {
         GameInputDto gameInputDto = new GameInputDto();
         gameInputDto.setName("Test Game");
 
+        GameOutputDto gameOutputDto = new GameOutputDto();
+        gameOutputDto.setId(1L);
+        gameOutputDto.setName(gameInputDto.getName());
+
+        Game game = new Game();
+        game.setName(gameInputDto.getName());
+        game.setId(1L);
+
+        when(gameService.save(gameInputDto)).thenReturn(game);
+        when(gameMapper.toDto(game)).thenReturn(gameOutputDto);
+
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/games")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(gameInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Game saved successfully"));
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1L))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Test Game"));
     }
 
     @Test
@@ -89,12 +102,24 @@ public class GameControllerTest {
         GameInputDto gameInputDto = new GameInputDto();
         gameInputDto.setName("Updated Game");
 
+        GameOutputDto gameOutputDto = new GameOutputDto();
+        gameOutputDto.setId(gameId);
+        gameOutputDto.setName(gameInputDto.getName());
+
+        Game game = new Game();
+        game.setName(gameInputDto.getName());
+
+        when(gameService.update(gameId, gameInputDto)).thenReturn(game);
+        when(gameMapper.toDto(game)).thenReturn(gameOutputDto);
+
         mockMvc.perform(
                 MockMvcRequestBuilders.put("/games/" + gameId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(gameInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Game updated successfully"));
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(gameId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Updated Game"));
     }
 
     @Test
