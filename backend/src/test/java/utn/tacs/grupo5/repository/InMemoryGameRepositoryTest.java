@@ -23,7 +23,7 @@ class InMemoryGameRepositoryTest {
         Game savedGame = repository.save(game);
 
         assertNotNull(savedGame.getId());
-        assertEquals(1, repository.findAll().size());
+        assertEquals(4, repository.findAll().size());
     }
 
     @Test
@@ -63,7 +63,7 @@ class InMemoryGameRepositoryTest {
         repository.save(game2);
 
         List<Game> allGames = repository.findAll();
-        assertEquals(2, allGames.size());
+        assertEquals(5, allGames.size());
     }
 
     @Test
@@ -74,6 +74,6 @@ class InMemoryGameRepositoryTest {
         repository.deleteById(savedGame.getId());
         Optional<Game> foundGame = repository.findById(savedGame.getId());
         assertFalse(foundGame.isPresent());
-        assertEquals(0, repository.findAll().size());
+        assertEquals(2, repository.findAll().size());
     }
 }

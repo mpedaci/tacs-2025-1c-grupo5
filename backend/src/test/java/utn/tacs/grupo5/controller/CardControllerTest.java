@@ -168,7 +168,7 @@ public class CardControllerTest {
         dto2.setId(2L);
         dto2.setName("Card 2");
 
-        when(cardService.getAllByGameId(gameId, "")).thenReturn(List.of(card1, card2));
+        when(cardService.getAllByGameId(gameId, null)).thenReturn(List.of(card1, card2));
         when(cardMapper.toDto(card1)).thenReturn(dto1);
         when(cardMapper.toDto(card2)).thenReturn(dto2);
 
