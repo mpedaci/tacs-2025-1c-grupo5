@@ -1,28 +1,44 @@
-# TACS Project
+# Tecnologías Avanzadas en la Construcción de Software
+
+## TP - Grupo 5
+### **Backend**: Java (Spring Boot)
+### **Frontend**: Typescript (Next.js, React, MaterialUI)
+
+## Participants
+- Molina, Francisco
+- Pedaci, Marcos
+- Romano, Santiago
+- Tamborini, Agustín
+- Vazquez, Juan Martin
+- Villalba, Emanuel Marcos
 
 ## Prerequisites
 
 - **Docker** or **Docker Desktop** installed
+- **Docker Compose** installed
 
 ## Project Setup
 
 #### 1. Build the app
-
-Place the provided properties file in the `/src/main/resources`. It should be named `application-dev.properties`.
-
+****
 Run the following command to create the development environment using docker:
 
 ```bash
-docker build -t tacs-app .
+docker-compose up --build
 ```
 
 #### 2. Run the app
-
-To run the image previously created on port 8080, run the following command:
+****
+Run the following command to start the app:
 
 ```bash
-docker run --name tacs-app -p 8080:8080 tacs-app
+docker-compose up
 ```
+
+#### 3. Access the app
+****
+The backend will be available at `http://localhost:8080`\
+The frontend will be available at `http://localhost:3000`
 
 ## Documentation
 
