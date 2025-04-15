@@ -20,16 +20,20 @@ jobs:
           cache: maven
 
       - name: Build and verify with Maven
+        working-directory: ./backend
         run: mvn clean verify
 
       - name: Generate JaCoCo coverage report
+        working-directory: ./backend
         run: mvn jacoco:report
         continue-on-error: true
 
       - name: Run SpotBugs
+        working-directory: ./backend
         run: mvn spotbugs:check
 
       - name: Build Docker image
+        working-directory: ./backend
         run: docker build -t tacs-app:ci-test .
 
       - name: Aqua Security Trivy
