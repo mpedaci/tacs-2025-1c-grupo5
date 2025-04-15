@@ -15,3 +15,9 @@ springdoc:
     path: /api-docs-ui
   packages-to-scan: utn.tacs.grupo5.controller
   pathsToMatch: /**
+
+telegram:
+  bot:
+    token: ${TELEGRAM_BOT_TOKEN}
+    name: ${TELEGRAM_BOT_NAME}
+    cid: ${TELEGRAM_CREATOR_ID}

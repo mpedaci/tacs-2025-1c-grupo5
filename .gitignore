@@ -35,3 +35,7 @@ build/
 ## Properties ##
 application-dev.yml
 application-prod.yml
+
+
+/logs/*.log
+/CardsTradingbot
