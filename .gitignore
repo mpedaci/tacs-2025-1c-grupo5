@@ -35,3 +35,6 @@ build/
 ## Properties ##
 application-dev.yml
 application-prod.yml
+
+## Logs ##
+/logs/
