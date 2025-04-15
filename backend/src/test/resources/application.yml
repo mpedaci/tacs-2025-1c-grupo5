@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: tacs-2025-1c-grupo5
+  profiles:
+    active: test
+
+server:
+  servlet:
+    contextPath: /api
+
+logging:
+  level:
+    root: OFF
