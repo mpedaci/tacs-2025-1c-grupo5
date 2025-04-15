@@ -2,10 +2,10 @@ package utn.tacs.grupo5.dto.post;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import utn.tacs.grupo5.entity.post.ConservationStatus;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -13,17 +13,15 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
 @Schema(name = "Post Input", description = "Post schema for input")
 public class PostInputDto {
+
     private Long userId;
     private List<String> images;
+    private Long cardId;
+    private ConservationStatus conservationStatus;
+    private BigDecimal estimatedValue;
+    private List<Long> wantedCardsIds;
+    private String description;
 
-    // TODO: agregar la carta cuando este la entidad
-    private String conservationStatus;
-    private Double estimatedValue;
-    // TODO: agregar lista de cartas deseadas cuando este la entidad
-
-    private String postStatus;
 }

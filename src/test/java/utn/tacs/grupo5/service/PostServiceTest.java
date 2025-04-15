@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.post.PostInputDto;
 import utn.tacs.grupo5.entity.User;
+import utn.tacs.grupo5.entity.post.ConservationStatus;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.repository.PostRepository;
 import utn.tacs.grupo5.repository.UserRepository;
@@ -15,7 +16,6 @@ import utn.tacs.grupo5.service.impl.PostService;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -34,14 +34,14 @@ public class PostServiceTest {
     // Save
     @Test
     public void savePostOk() {
-        PostInputDto requestDtO = new PostInputDto();
-        requestDtO.setUserId(1L);
-        requestDtO.setConservationStatus("GOOD");
+        PostInputDto requestDto = new PostInputDto();
+        requestDto.setUserId(1L);
+        requestDto.setConservationStatus(ConservationStatus.GOOD);
 
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(new User()));
         when(postRepository.save(any(Post.class))).thenReturn(new Post());
 
-        postService.save(requestDtO);
+        postService.save(requestDto);
 
         verify(postRepository).save(any(Post.class));
     }
@@ -59,48 +59,17 @@ public class PostServiceTest {
     // Update
     @Test
     public void updatePostOk() {
-        PostInputDto requestDtO = new PostInputDto();
-        requestDtO.setUserId(1L);
-        requestDtO.setConservationStatus("PERFECT");
+        PostInputDto requestDto = new PostInputDto();
+        requestDto.setUserId(1L);
+        requestDto.setConservationStatus(ConservationStatus.PERFECT);
 
         when(postRepository.findById(anyLong())).thenReturn(Optional.of(new Post()));
         when(postRepository.save(any(Post.class))).thenReturn(new Post());
 
-        postService.update(1L, requestDtO);
+        postService.update(1L, requestDto);
 
         verify(postRepository).findById(1L);
         verify(postRepository).save(any(Post.class));
-    }
-
-    @Test
-    public void updatePostStatusCancelledOk() {
-        PostInputDto requestDtO = new PostInputDto();
-        requestDtO.setUserId(1L);
-        requestDtO.setPostStatus("CANCELLED");
-
-        when(postRepository.findById(anyLong())).thenReturn(Optional.of(new Post()));
-        when(postRepository.save(any(Post.class))).thenReturn(new Post());
-
-        postService.update(1L, requestDtO);
-
-        verify(postRepository).findById(1L);
-        verify(postRepository).save(any(Post.class));
-    }
-
-    @Test
-    public void updatePostStatusFinishedOk() {
-        PostInputDto requestDtO = new PostInputDto();
-        requestDtO.setUserId(1L);
-        requestDtO.setPostStatus("FINISHED");
-
-        when(postRepository.findById(anyLong())).thenReturn(Optional.of(new Post()));
-        when(postRepository.save(any(Post.class))).thenReturn(new Post());
-
-        Post response = postService.update(1L, requestDtO);
-
-        verify(postRepository).findById(1L);
-        verify(postRepository).save(any(Post.class));
-        assertNotNull(response.getFinishDate());
     }
 
     // Delete

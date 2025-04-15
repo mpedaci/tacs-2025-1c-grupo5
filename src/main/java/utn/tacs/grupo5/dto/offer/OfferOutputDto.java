@@ -1,44 +1,33 @@
 package utn.tacs.grupo5.dto.offer;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import utn.tacs.grupo5.dto.user.UserOutputDto;
+import utn.tacs.grupo5.entity.post.Offer;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Data
 @NoArgsConstructor
-@ToString(callSuper = true)
-@Schema(name = "Offer Output Schema", description = "Offer schema for output")
+@Schema(name = "Offer", description = "Offer schema for output")
 public class OfferOutputDto {
 
-//    private Long id;
-//
-//    @Schema(description = "Creation date of the publication", example = "YYYY-MM-DD")
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-//    private LocalDateTime publicationDate;
-//
-//    @Schema(description = "End date of the offer", example = "YYYY-MM-DD")
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-//    private LocalDateTime offerEndDate;
-//
-//    public OfferOutputDto(OfferBaseDto offerBaseDto,
-//                          LocalDateTime publicationDate,
-//                          LocalDateTime offerEndDate) {
-//        super(offerBaseDto.getId(),
-//                offerBaseDto.getOfferUser(),
-//                offerBaseDto.getPublication(),
-//                offerBaseDto.getOfferedCards(),
-//                offerBaseDto.getMoney(),
-//                offerBaseDto.getState(),
-//                offerBaseDto.getPublicationDate(),
-//                offerBaseDto.getFinished()
-//        );
-//               this.publicationDate = publicationDate;
-//        this.offerEndDate = offerEndDate;
-//    }
+    private Long id;
+    private BigDecimal money;
+    private List<OfferedCardOutputDto> offeredCards;
+    private UserOutputDto offerer;
+    private Long postId;
+    private Offer.Status state;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime publishedAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updatedAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime finishedAt;
+
 }

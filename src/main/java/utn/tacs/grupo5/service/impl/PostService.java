@@ -3,11 +3,10 @@ package utn.tacs.grupo5.service.impl;
 import org.springframework.stereotype.Service;
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.post.PostInputDto;
-import utn.tacs.grupo5.entity.post.ConservationStatus;
 import utn.tacs.grupo5.entity.post.Post;
-import utn.tacs.grupo5.entity.post.PostStatus;
+import utn.tacs.grupo5.entity.post.Post.Status;
+import utn.tacs.grupo5.mapper.PostMapper;
 import utn.tacs.grupo5.repository.PostRepository;
-import utn.tacs.grupo5.repository.UserRepository;
 import utn.tacs.grupo5.service.IPostService;
 
 import java.time.LocalDateTime;
@@ -18,11 +17,13 @@ import java.util.Optional;
 public class PostService implements IPostService {
 
     private PostRepository postRepository;
-    private UserRepository userRepository;
+    private PostMapper postMapper;
 
-    public PostService(PostRepository postRepository, UserRepository userRepository) {
+    public PostService(
+            PostRepository postRepository,
+            PostMapper postMapper) {
         this.postRepository = postRepository;
-        this.userRepository = userRepository;
+        this.postMapper = postMapper;
     }
 
     @Override
@@ -32,39 +33,29 @@ public class PostService implements IPostService {
 
     @Override
     public Post save(PostInputDto postInputDto) {
-        Post post = new Post();
-        post.setId(null);
-        post.setUser(userRepository.findById(postInputDto.getUserId())
-                .orElseThrow(() -> new NotFoundException("User not found")));
-        post.setImages(postInputDto.getImages());
-
-        post.setPublishDate(LocalDateTime.now());
-        post.setFinishDate(null);
-        post.setConservationStatus(ConservationStatus.valueOf(postInputDto.getConservationStatus()));
-        post.setEstimatedValue(postInputDto.getEstimatedValue());
-
-        post.setPostStatus(PostStatus.PUBLISHED);
-
+        Post post = postMapper.toEntity(postInputDto);
+        LocalDateTime now = LocalDateTime.now();
+        post.setPublishedAt(now);
+        post.setUpdatedAt(now);
+        post.setFinishedAt(null);
+        post.setStatus(Post.Status.PUBLISHED);
         return postRepository.save(post);
     }
 
     @Override
     public Post update(Long id, PostInputDto postInputDto) {
-        Post post = get(id).orElseThrow(() -> new NotFoundException("Post not found"));
+        Post existingPost = get(id)
+                .orElseThrow(() -> new NotFoundException("Post not found"));
 
-        if (postInputDto.getPostStatus() != null) {
-            post.setPostStatus(PostStatus.valueOf(postInputDto.getPostStatus()));
-            if (PostStatus.FINISHED.equals(post.getPostStatus())) {
-                post.setFinishDate(LocalDateTime.now());
-            }
-        } else {
-            post.setImages(postInputDto.getImages());
-            post.setConservationStatus(ConservationStatus.valueOf(postInputDto.getConservationStatus()));
-            post.setEstimatedValue(postInputDto.getEstimatedValue());
-        }
+        Post post = postMapper.toEntity(postInputDto);
+        post.setId(existingPost.getId());
+        post.setId(id);
+        post.setPublishedAt(existingPost.getPublishedAt());
+        post.setUpdatedAt(LocalDateTime.now());
 
-        postRepository.save(post);
-        return post;
+        updateFinishedAt(post, existingPost.getStatus());
+
+        return postRepository.save(post);
     }
 
     @Override
@@ -75,5 +66,32 @@ public class PostService implements IPostService {
     @Override
     public List<Post> getAll() {
         return postRepository.findAll();
+    }
+
+    @Override
+    public void updateStatus(Long postId, Status newStatus) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new NotFoundException("Post not found"));
+
+        Status previousStatus = post.getStatus();
+
+        LocalDateTime now = LocalDateTime.now();
+        post.setStatus(newStatus);
+        post.setUpdatedAt(now);
+
+        updateFinishedAt(post, previousStatus);
+
+        postRepository.save(post);
+    }
+
+    void updateFinishedAt(Post post, Status previousStatus) {
+        if (post.getStatus() == null) {
+            post.setStatus(previousStatus);
+        } else if (Post.Status.CANCELLED.equals(post.getStatus()) ||
+                Post.Status.FINISHED.equals(post.getStatus())) {
+            post.setFinishedAt(LocalDateTime.now());
+        } else {
+            post.setFinishedAt(null);
+        }
     }
 }

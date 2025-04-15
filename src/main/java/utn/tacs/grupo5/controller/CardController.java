@@ -43,11 +43,13 @@ public class CardController {
         @PostMapping(value = "/cards", consumes = MediaType.APPLICATION_JSON_VALUE)
         @Operation(summary = "Create new card", description = "Create new card")
         @ApiResponses(value = {
-                        @ApiResponse(responseCode = "200", description = "OK")
+                        @ApiResponse(responseCode = "200", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = CardOutputDto.class))
+                        }),
         })
-        public ResponseEntity<String> save(@RequestBody CardInputDto cardDto) {
-                cardService.save(cardDto);
-                return ResponseGenerator.generateResponseOK("Card saved successfully");
+        public ResponseEntity<CardOutputDto> save(@RequestBody CardInputDto cardDto) {
+                Card card = cardService.save(cardDto);
+                return ResponseGenerator.generateResponseOK(cardMapper.toDto(card));
         }
 
         @GetMapping(value = "/cards/{id}")
@@ -72,11 +74,13 @@ public class CardController {
                         @ApiResponse(responseCode = "404", content = {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
                         }),
-                        @ApiResponse(responseCode = "200", description = "OK")
+                        @ApiResponse(responseCode = "200", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = CardOutputDto.class))
+                        })
         })
-        public ResponseEntity<String> update(@RequestBody CardInputDto cardDto, @PathVariable Long id) {
-                cardService.update(id, cardDto);
-                return ResponseGenerator.generateResponseOK("Card updated successfully");
+        public ResponseEntity<CardOutputDto> update(@RequestBody CardInputDto cardDto, @PathVariable Long id) {
+                Card card = cardService.update(id, cardDto);
+                return ResponseGenerator.generateResponseOK(cardMapper.toDto(card));
         }
 
         @DeleteMapping(value = "/cards/{id}")

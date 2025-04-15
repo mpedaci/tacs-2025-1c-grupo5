@@ -1,13 +1,13 @@
 package utn.tacs.grupo5.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +17,7 @@ import utn.tacs.grupo5.controller.response.ResponseGenerator;
 import utn.tacs.grupo5.dto.post.PostInputDto;
 import utn.tacs.grupo5.dto.post.PostOutputDto;
 import utn.tacs.grupo5.entity.post.Post;
+import utn.tacs.grupo5.mapper.PostMapper;
 import utn.tacs.grupo5.service.impl.PostService;
 
 import java.util.List;
@@ -24,93 +25,85 @@ import java.util.List;
 @RestController
 @Tag(name = "Posts", description = "Posts operations")
 public class PostController extends BaseController {
-    @Autowired
-    private PostService postService;
 
-    @PostMapping(value = "/posts", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Create a new post", description = "Create a new post")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = PostOutputDto.class))
-            })
-    })
-    public ResponseEntity<PostOutputDto> createPost(@RequestBody PostInputDto postInputDto) {
-        // TODO: implementar validaciones de inputs en próximas entregas
-        Post post = postService.save(postInputDto);
-        return ResponseGenerator.generateResponseOK(new PostOutputDto(post.getId()));
-    }
+        private final PostService postService;
+        private final PostMapper postMapper;
 
-    @PutMapping("/posts/{id}")
-    @Operation(summary = "Update a post data", description = "Update a post data")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = PostOutputDto.class))
-            }),
-            @ApiResponse(responseCode = "404", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
-            }),
-    })
-    public ResponseEntity<PostOutputDto> updatePost(@PathVariable Long id, @RequestBody PostInputDto postInputDto) {
-        // TODO: implementar validaciones de inputs en próximas entregas
-        Post post = postService.update(id, postInputDto);
-        return ResponseGenerator.generateResponseOK(new PostOutputDto(post.getId()));
-    }
+        public PostController(PostService postService, PostMapper postMapper) {
+                this.postService = postService;
+                this.postMapper = postMapper;
+        }
 
-    @PatchMapping("/posts/{id}")
-    @Operation(summary = "Update the post status", description = "Update the post status")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = PostOutputDto.class))
-            }),
-            @ApiResponse(responseCode = "404", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
-            }),
-    })
-    public ResponseEntity<PostOutputDto> updatePostStatus(@PathVariable Long id,
-            @RequestBody PostInputDto postInputDto) {
-        // TODO: implementar validaciones de inputs en próximas entregas (solo debería
-        // quedar el status)
-        Post post = postService.update(id, postInputDto);
-        return ResponseGenerator.generateResponseOK(new PostOutputDto(post.getId()));
-    }
+        @PostMapping(value = "/posts", consumes = MediaType.APPLICATION_JSON_VALUE)
+        @Operation(summary = "Create a new post", description = "Create a new post")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = PostOutputDto.class))
+                        })
+        })
+        public ResponseEntity<PostOutputDto> post(@RequestBody PostInputDto postInputDto) {
+                // TODO: implementar validaciones de inputs en próximas entregas
+                Post post = postService.save(postInputDto);
+                return ResponseGenerator.generateResponseOK(postMapper.toDto(post));
+        }
 
-    @DeleteMapping("/posts/{id}")
-    @Operation(summary = "Delete a post", description = "Delete a post")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "404", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
-            }),
-    })
-    public ResponseEntity<String> deletePost(@PathVariable Long id) {
-        postService.delete(id);
-        return ResponseGenerator.generateResponseOK("Post deleted successfully");
-    }
+        @PutMapping("/posts/{id}")
+        @Operation(summary = "Update a post data", description = "Update a post data")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = PostOutputDto.class))
+                        }),
+                        @ApiResponse(responseCode = "404", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
+                        }),
+        })
+        public ResponseEntity<PostOutputDto> update(@PathVariable Long id, @RequestBody PostInputDto postInputDto) {
+                // TODO: implementar validaciones de inputs en próximas entregas
+                Post post = postService.update(id, postInputDto);
+                return ResponseGenerator.generateResponseOK(postMapper.toDto(post));
+        }
 
-    @GetMapping(value = "/posts")
-    @Operation(summary = "Get all the posts", description = "Get all the posts")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = Post.class))
-            }),
-            @ApiResponse(responseCode = "404", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
-            }),
-    })
-    public ResponseEntity<List<Post>> getPosts() {
-        List<Post> posts = postService.getAll();
-        return ResponseGenerator.generateResponseOK(posts);
-    }
+        @DeleteMapping("/posts/{id}")
+        @Operation(summary = "Delete a post", description = "Delete a post")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "OK"),
+                        @ApiResponse(responseCode = "404", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
+                        }),
+        })
+        public ResponseEntity<String> delete(@PathVariable Long id) {
+                // TODO: deberia cancelar el post
+                postService.delete(id);
+                return ResponseGenerator.generateResponseOK("Post deleted successfully");
+        }
 
-    @GetMapping("/posts/{id}")
-    @Operation(summary = "Get a post by id", description = "Get a post by id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = Post.class))
-            }),
-    })
-    public ResponseEntity<Post> getPost(@PathVariable Long id) {
-        Post post = postService.get(id).orElseThrow(() -> new NotFoundException("Post not found"));
-        return ResponseGenerator.generateResponseOK(post);
-    }
+        @GetMapping(value = "/posts")
+        @Operation(summary = "Get all the posts", description = "Get all the posts")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "OK", content = {
+                                        @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PostOutputDto.class)))
+                        }),
+                        @ApiResponse(responseCode = "404", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
+                        }),
+        })
+        public ResponseEntity<List<PostOutputDto>> getAll() {
+                List<PostOutputDto> posts = postService.getAll()
+                                .stream()
+                                .map(postMapper::toDto)
+                                .toList();
+                return ResponseGenerator.generateResponseOK(posts);
+        }
+
+        @GetMapping("/posts/{id}")
+        @Operation(summary = "Get a post by id", description = "Get a post by id")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = PostOutputDto.class))
+                        }),
+        })
+        public ResponseEntity<PostOutputDto> get(@PathVariable Long id) {
+                Post post = postService.get(id).orElseThrow(() -> new NotFoundException("Post not found"));
+                return ResponseGenerator.generateResponseOK(postMapper.toDto(post));
+        }
 }

@@ -40,11 +40,13 @@ public class GameController extends BaseController {
         @PostMapping(value = "/games", consumes = MediaType.APPLICATION_JSON_VALUE)
         @Operation(summary = "Create new game", description = "Create new game")
         @ApiResponses(value = {
-                        @ApiResponse(responseCode = "200", description = "OK")
+                        @ApiResponse(responseCode = "200", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = GameOutputDto.class))
+                        })
         })
-        public ResponseEntity<String> save(@RequestBody GameInputDto gameDto) {
-                gameService.save(gameDto);
-                return ResponseGenerator.generateResponseOK("Game saved successfully");
+        public ResponseEntity<GameOutputDto> save(@RequestBody GameInputDto gameDto) {
+                Game game = gameService.save(gameDto);
+                return ResponseGenerator.generateResponseOK(gameMapper.toDto(game));
         }
 
         @GetMapping(value = "/games/{id}")
@@ -69,11 +71,13 @@ public class GameController extends BaseController {
                         @ApiResponse(responseCode = "404", content = {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
                         }),
-                        @ApiResponse(responseCode = "200", description = "OK")
+                        @ApiResponse(responseCode = "200", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = GameOutputDto.class))
+                        })
         })
-        public ResponseEntity<String> update(@RequestBody GameInputDto gameDto, @PathVariable Long id) {
-                gameService.update(id, gameDto);
-                return ResponseGenerator.generateResponseOK("Game updated successfully");
+        public ResponseEntity<GameOutputDto> update(@RequestBody GameInputDto gameDto, @PathVariable Long id) {
+                Game game = gameService.update(id, gameDto);
+                return ResponseGenerator.generateResponseOK(gameMapper.toDto(game));
         }
 
         @DeleteMapping(value = "/games/{id}")

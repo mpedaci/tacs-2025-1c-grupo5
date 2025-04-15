@@ -42,11 +42,13 @@ public class UserController extends BaseController {
                         @ApiResponse(responseCode = "409", content = {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
                         }),
-                        @ApiResponse(responseCode = "200", description = "OK")
+                        @ApiResponse(responseCode = "200", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = UserOutputDto.class))
+                        })
         })
-        public ResponseEntity<String> save(@RequestBody UserInputDto userDto) {
-                userService.save(userDto);
-                return ResponseGenerator.generateResponseOK("User saved successfully");
+        public ResponseEntity<UserOutputDto> save(@RequestBody UserInputDto userDto) {
+                User user = userService.save(userDto);
+                return ResponseGenerator.generateResponseOK(userMapper.toDto(user));
         }
 
         @GetMapping(value = "/users/{id}")
@@ -71,11 +73,13 @@ public class UserController extends BaseController {
                         @ApiResponse(responseCode = "404", content = {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
                         }),
-                        @ApiResponse(responseCode = "200", description = "OK")
+                        @ApiResponse(responseCode = "200", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = UserOutputDto.class))
+                        })
         })
-        public ResponseEntity<String> update(@RequestBody UserInputDto userDto, @PathVariable Long id) {
-                userService.update(id, userDto);
-                return ResponseGenerator.generateResponseOK("User updated successfully");
+        public ResponseEntity<UserOutputDto> update(@RequestBody UserInputDto userDto, @PathVariable Long id) {
+                User user = userService.update(id, userDto);
+                return ResponseGenerator.generateResponseOK(userMapper.toDto(user));
         }
 
         // TODO: patch

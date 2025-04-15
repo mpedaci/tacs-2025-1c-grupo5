@@ -2,27 +2,17 @@ package utn.tacs.grupo5.dto.card;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 @Schema(name = "Card Input", description = "Card schema for input")
-public class CardInputDto extends CardBaseDto {
+public class CardInputDto {
 
     private Long gameId;
+    private String name;
+    private String description;
+    // private String imageUrl;
     // private String externalId;
-
-    public CardInputDto(CardBaseDto dto, Long gameId) {
-        super(
-                dto.getName(),
-                dto.getDescription());
-
-        this.gameId = gameId;
-        // this.externalId = externalId;
-    }
 
 }
