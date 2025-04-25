@@ -31,12 +31,12 @@ class InMemoryGameRepositoryTest {
         Game game = new Game();
         Game savedGame = repository.save(game);
 
-        savedGame.setName("Updated Name");
+        savedGame.setTitle("Updated Name");
         repository.save(savedGame);
 
         Optional<Game> updatedGame = repository.findById(savedGame.getId());
         assertTrue(updatedGame.isPresent());
-        assertEquals("Updated Name", updatedGame.get().getName());
+        assertEquals("Updated Name", updatedGame.get().getTitle());
     }
 
     @Test

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 @RestControllerAdvice
 public class ApplicationExceptionHandler {
@@ -32,6 +33,13 @@ public class ApplicationExceptionHandler {
     logger.info("Not Found: " + e.getMessage());
     return ResponseGenerator.generateResponseError(
         HttpStatus.NOT_FOUND, "Not Found", e.getMessage());
+  }
+
+  @ExceptionHandler(NoHandlerFoundException.class)
+  public ResponseEntity<CustomError> handleNonExistingEndpoint(Exception e) {
+    logger.info("NotFount: " + e.getMessage());
+    return ResponseGenerator.generateResponseError(
+        HttpStatus.NOT_FOUND, "Not Found");
   }
 
   @ExceptionHandler({ RuntimeException.class, Exception.class })

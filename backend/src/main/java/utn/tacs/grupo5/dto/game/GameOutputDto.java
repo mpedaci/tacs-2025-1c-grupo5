@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class GameOutputDto {
 
     private Long id;
-    private String name;
+    private String title;
     private String description;
 
 }

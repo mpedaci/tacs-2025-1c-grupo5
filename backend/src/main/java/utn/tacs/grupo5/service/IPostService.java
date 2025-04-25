@@ -11,4 +11,5 @@ public interface IPostService extends ICRUDService<Post, Long, PostInputDto> {
 
     void updateStatus(Long postId, Post.Status newStatus);
 
+    List<Post> getAllWithFilters(String cardName, String gameName, String cardStatus);
 }

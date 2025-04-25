@@ -24,126 +24,126 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @Import(TestSecurityConfig.class)
 public class GameControllerTest {
 
-    @Autowired
-    MockMvc mockMvc;
+        @Autowired
+        MockMvc mockMvc;
 
-    @Autowired
-    ObjectMapper objectMapper;
+        @Autowired
+        ObjectMapper objectMapper;
 
-    @MockitoBean
-    GameMapper gameMapper;
+        @MockitoBean
+        GameMapper gameMapper;
 
-    @MockitoBean
-    IGameService gameService;
+        @MockitoBean
+        IGameService gameService;
 
-    @Test
-    void save_shouldReturnOK_whenValidInput() throws Exception {
-        GameInputDto gameInputDto = new GameInputDto();
-        gameInputDto.setName("Test Game");
+        @Test
+        void save_shouldReturnOK_whenValidInput() throws Exception {
+                GameInputDto gameInputDto = new GameInputDto();
+                gameInputDto.setTitle("Test Game");
 
-        GameOutputDto gameOutputDto = new GameOutputDto();
-        gameOutputDto.setId(1L);
-        gameOutputDto.setName(gameInputDto.getName());
+                GameOutputDto gameOutputDto = new GameOutputDto();
+                gameOutputDto.setId(1L);
+                gameOutputDto.setTitle(gameInputDto.getTitle());
 
-        Game game = new Game();
-        game.setName(gameInputDto.getName());
-        game.setId(1L);
+                Game game = new Game();
+                game.setTitle(gameInputDto.getTitle());
+                game.setId(1L);
 
-        when(gameService.save(gameInputDto)).thenReturn(game);
-        when(gameMapper.toDto(game)).thenReturn(gameOutputDto);
+                when(gameService.save(gameInputDto)).thenReturn(game);
+                when(gameMapper.toDto(game)).thenReturn(gameOutputDto);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.post("/games")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(gameInputDto)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Test Game"));
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.post("/games")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(objectMapper.writeValueAsString(gameInputDto)))
+                                .andExpect(MockMvcResultMatchers.status().isOk())
+                                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1L))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Test Game"));
+        }
 
-    @Test
-    void get_shouldReturnGame_whenGameExists() throws Exception {
-        Long gameId = 1L;
-        Game game = new Game();
-        game.setId(gameId);
-        game.setName("Test Game");
+        @Test
+        void get_shouldReturnGame_whenGameExists() throws Exception {
+                Long gameId = 1L;
+                Game game = new Game();
+                game.setId(gameId);
+                game.setTitle("Test Game");
 
-        GameOutputDto dto = new GameOutputDto();
-        dto.setId(gameId);
-        dto.setName("Test Game");
+                GameOutputDto dto = new GameOutputDto();
+                dto.setId(gameId);
+                dto.setTitle("Test Game");
 
-        when(gameService.get(gameId)).thenReturn(Optional.of(game));
-        when(gameMapper.toDto(game)).thenReturn(dto);
+                when(gameService.get(gameId)).thenReturn(Optional.of(game));
+                when(gameMapper.toDto(game)).thenReturn(dto);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/games/" + gameId))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(gameId))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Test Game"));
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.get("/games/" + gameId))
+                                .andExpect(MockMvcResultMatchers.status().isOk())
+                                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(gameId))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Test Game"));
+        }
 
-    @Test
-    void get_shouldReturnNotFound_whenGameDoesntExist() throws Exception {
-        Long gameId = 999L;
+        @Test
+        void get_shouldReturnNotFound_whenGameDoesntExist() throws Exception {
+                Long gameId = 999L;
 
-        when(gameService.get(gameId)).thenReturn(Optional.empty());
+                when(gameService.get(gameId)).thenReturn(Optional.empty());
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/games/" + gameId))
-                .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.get("/games/" + gameId))
+                                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
+        }
 
-    @Test
-    void update_shouldReturnOK_whenValidInput() throws Exception {
-        Long gameId = 1L;
-        GameInputDto gameInputDto = new GameInputDto();
-        gameInputDto.setName("Updated Game");
+        @Test
+        void update_shouldReturnOK_whenValidInput() throws Exception {
+                Long gameId = 1L;
+                GameInputDto gameInputDto = new GameInputDto();
+                gameInputDto.setTitle("Updated Game");
 
-        GameOutputDto gameOutputDto = new GameOutputDto();
-        gameOutputDto.setId(gameId);
-        gameOutputDto.setName(gameInputDto.getName());
+                GameOutputDto gameOutputDto = new GameOutputDto();
+                gameOutputDto.setId(gameId);
+                gameOutputDto.setTitle(gameInputDto.getTitle());
 
-        Game game = new Game();
-        game.setName(gameInputDto.getName());
+                Game game = new Game();
+                game.setTitle(gameInputDto.getTitle());
 
-        when(gameService.update(gameId, gameInputDto)).thenReturn(game);
-        when(gameMapper.toDto(game)).thenReturn(gameOutputDto);
+                when(gameService.update(gameId, gameInputDto)).thenReturn(game);
+                when(gameMapper.toDto(game)).thenReturn(gameOutputDto);
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.put("/games/" + gameId)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(gameInputDto)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(gameId))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Updated Game"));
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.put("/games/" + gameId)
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(objectMapper.writeValueAsString(gameInputDto)))
+                                .andExpect(MockMvcResultMatchers.status().isOk())
+                                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(gameId))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Updated Game"));
+        }
 
-    @Test
-    void update_shouldReturnNotFound_whenGameDoesntExist() throws Exception {
-        Long gameId = 999L;
-        GameInputDto gameInputDto = new GameInputDto();
-        gameInputDto.setName("Updated Game");
+        @Test
+        void update_shouldReturnNotFound_whenGameDoesntExist() throws Exception {
+                Long gameId = 999L;
+                GameInputDto gameInputDto = new GameInputDto();
+                gameInputDto.setName("Updated Game");
 
-        when(gameService.update(gameId, gameInputDto)).thenThrow(new NotFoundException("Game not found"));
+                when(gameService.update(gameId, gameInputDto)).thenThrow(new NotFoundException("Game not found"));
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.put("/games/" + gameId)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(gameInputDto)))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.put("/games/" + gameId)
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .content(objectMapper.writeValueAsString(gameInputDto)))
+                                .andExpect(MockMvcResultMatchers.status().isNotFound());
+        }
 
-    @Test
-    void delete_shouldReturnOK_whenGameExists() throws Exception {
-        Long gameId = 1L;
+        @Test
+        void delete_shouldReturnOK_whenGameExists() throws Exception {
+                Long gameId = 1L;
 
-        mockMvc.perform(
-                MockMvcRequestBuilders.delete("/games/" + gameId))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Game deleted successfully"));
-    }
+                mockMvc.perform(
+                                MockMvcRequestBuilders.delete("/games/" + gameId))
+                                .andExpect(MockMvcResultMatchers.status().isOk())
+                                .andExpect(MockMvcResultMatchers.content().string("Game deleted successfully"));
+        }
 }

@@ -91,7 +91,7 @@ public class CardController {
         }
 
         @GetMapping(value = "/games/{id}/cards") // TODO hacer pageable en un futuro
-        @Operation(summary = "Get all card by game id", description = "Get all cards by game id and name")
+        @Operation(summary = "Get all card by game id and name", description = "Get all cards by game id and name")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
@@ -100,8 +100,9 @@ public class CardController {
                                         @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CardOutputDto.class)))
                         })
         })
-        public ResponseEntity<List<CardOutputDto>> getAllCardsByGame(@PathVariable Long id, @RequestParam(required = false) String cardName) {
-                List<CardOutputDto> cards = cardService.getAllByGameId(id, cardName)
+        public ResponseEntity<List<CardOutputDto>> getAllCardsByGameIdAndCardName(@PathVariable Long id,
+                        @RequestParam(required = false) String name) {
+                List<CardOutputDto> cards = cardService.getAllByGameId(id, name)
                                 .stream()
                                 .map(cardMapper::toDto)
                                 .toList();
