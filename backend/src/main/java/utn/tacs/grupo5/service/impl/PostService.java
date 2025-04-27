@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PostService implements IPostService {
@@ -29,7 +30,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Optional<Post> get(Long id) {
+    public Optional<Post> get(UUID id) {
         return postRepository.findById(id);
     }
 
@@ -45,7 +46,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Post update(Long id, PostInputDto postInputDto) {
+    public Post update(UUID id, PostInputDto postInputDto) {
         Post existingPost = get(id)
                 .orElseThrow(() -> new NotFoundException("Post not found"));
 
@@ -61,7 +62,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         postRepository.deleteById(id);
     }
 
@@ -71,7 +72,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public void updateStatus(Long postId, Status newStatus) {
+    public void updateStatus(UUID postId, Status newStatus) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("Post not found"));
 

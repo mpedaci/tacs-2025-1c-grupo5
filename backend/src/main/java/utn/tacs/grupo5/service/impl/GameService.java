@@ -1,12 +1,15 @@
 package utn.tacs.grupo5.service.impl;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.game.GameInputDto;
 import utn.tacs.grupo5.entity.card.Game;
+import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.mapper.GameMapper;
 import utn.tacs.grupo5.repository.GameRepository;
 import utn.tacs.grupo5.service.IGameService;
@@ -23,7 +26,7 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public Optional<Game> get(Long id) {
+    public Optional<Game> get(UUID id) {
         return gameRepository.findById(id);
     }
 
@@ -34,7 +37,7 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public Game update(Long id, GameInputDto dto) {
+    public Game update(UUID id, GameInputDto dto) {
         gameRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Game not found"));
         Game game = gameMapper.toEntity(dto);
@@ -43,8 +46,12 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         gameRepository.deleteById(id);
     }
 
+    @Override
+    public List<Game> getAll() {
+        return gameRepository.findAll();
+    }
 }

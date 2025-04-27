@@ -1,10 +1,6 @@
 package utn.tacs.grupo5.repository.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.*;
 
 import org.springframework.stereotype.Repository;
 
@@ -15,12 +11,11 @@ import utn.tacs.grupo5.repository.UserRepository;
 public class InMemoryUserRepository implements UserRepository {
 
     private final List<User> users = Collections.synchronizedList(new ArrayList<>());
-    private final AtomicLong idGenerator = new AtomicLong();
 
     @Override
     public User save(User user) {
         if (user.getId() == null) {
-            user.setId(idGenerator.incrementAndGet());
+            user.setId(UUID.randomUUID());
         } else {
             deleteById(user.getId()); // replace if exists
         }
@@ -29,7 +24,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(UUID id) {
         synchronized (users) {
             return users.stream()
                     .filter(user -> user.getId().equals(id))
@@ -45,7 +40,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         synchronized (users) {
             users.removeIf(user -> user.getId().equals(id));
         }

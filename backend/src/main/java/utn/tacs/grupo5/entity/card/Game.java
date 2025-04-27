@@ -2,10 +2,12 @@ package utn.tacs.grupo5.entity.card;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class Game {
 
-    private Long id;
+    private UUID id;
     private String title;
     private String description;
     private Name name;

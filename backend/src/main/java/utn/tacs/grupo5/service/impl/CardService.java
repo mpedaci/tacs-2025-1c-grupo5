@@ -2,6 +2,7 @@ package utn.tacs.grupo5.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class CardService implements ICardService {
     }
 
     @Override
-    public Optional<Card> get(Long id) {
+    public Optional<Card> get(UUID id) {
         return cardRepository.findById(id);
     }
 
@@ -48,7 +49,7 @@ public class CardService implements ICardService {
     }
 
     @Override
-    public Card update(Long id, CardInputDto dto) {
+    public Card update(UUID id, CardInputDto dto) {
         cardRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Card not found"));
         Card card = cardMapper.toEntity(dto);
@@ -57,12 +58,12 @@ public class CardService implements ICardService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         cardRepository.deleteById(id);
     }
 
     @Override
-    public List<Card> getAllByGameId(Long gameId, String name) {
+    public List<Card> getAllByGameId(UUID gameId, String name) {
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new NotFoundException("Game not found"));
 

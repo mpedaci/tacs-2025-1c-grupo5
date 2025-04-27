@@ -6,19 +6,17 @@ import utn.tacs.grupo5.entity.post.Offer;
 import utn.tacs.grupo5.repository.OfferRepository;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class InMemoryOfferRepository implements OfferRepository {
 
     private final List<Offer> offers = Collections.synchronizedList(new ArrayList<>());
-    private final AtomicLong idGenerator = new AtomicLong();
 
     @Override
     public Offer save(Offer offer) {
 
         if (offer.getId() == null) {
-            offer.setId(idGenerator.incrementAndGet());
+            offer.setId(UUID.randomUUID());
         } else {
             deleteById(offer.getId()); // replace if exists
         }
@@ -27,7 +25,7 @@ public class InMemoryOfferRepository implements OfferRepository {
     }
 
     @Override
-    public Optional<Offer> findById(Long id) {
+    public Optional<Offer> findById(UUID id) {
         synchronized (offers) {
             return offers.stream().filter(offer -> offer.getId().equals(id)).findFirst();
         }
@@ -41,7 +39,7 @@ public class InMemoryOfferRepository implements OfferRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         synchronized (offers) {
             offers.removeIf(offer -> offer.getId().equals(id));
         }
@@ -49,7 +47,7 @@ public class InMemoryOfferRepository implements OfferRepository {
     }
 
     @Override
-    public List<Offer> findAllByPostId(Long postId) {
+    public List<Offer> findAllByPostId(UUID postId) {
         synchronized (offers) {
             return new ArrayList<Offer>(
                     offers.stream()

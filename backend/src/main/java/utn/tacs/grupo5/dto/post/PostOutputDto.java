@@ -3,6 +3,7 @@ package utn.tacs.grupo5.dto.post;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,7 +19,7 @@ import utn.tacs.grupo5.entity.post.Post;
 @Schema(name = "Post Output Schema", description = "Post schema for output")
 public class PostOutputDto {
 
-    private Long id;
+    private UUID id;
     private UserOutputDto user;
     private List<String> images;
     private CardOutputDto card;

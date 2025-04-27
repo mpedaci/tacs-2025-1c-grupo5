@@ -1,10 +1,6 @@
 package utn.tacs.grupo5.repository.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.*;
 
 import org.springframework.stereotype.Repository;
 
@@ -15,11 +11,10 @@ import utn.tacs.grupo5.repository.GameRepository;
 public class InMemoryGameRepository implements GameRepository {
 
     private final List<Game> games = Collections.synchronizedList(new ArrayList<>());
-    private final AtomicLong idGenerator = new AtomicLong();
 
     public InMemoryGameRepository() {
         Game magic = new Game();
-        magic.setId(0L);
+        magic.setId(UUID.randomUUID());
         magic.setTitle("Magic the Gathering");
         magic.setName(Game.Name.MAGIC);
         magic.setDescription(
@@ -27,7 +22,7 @@ public class InMemoryGameRepository implements GameRepository {
         games.add(magic);
 
         Game pokemon = new Game();
-        pokemon.setId(1L);
+        pokemon.setId(UUID.randomUUID());
         pokemon.setTitle("Pokemon");
         pokemon.setName(Game.Name.POKEMON);
         pokemon.setDescription(
@@ -35,7 +30,7 @@ public class InMemoryGameRepository implements GameRepository {
         games.add(pokemon);
 
         Game yugioh = new Game();
-        yugioh.setId(2L);
+        yugioh.setId(UUID.randomUUID());
         yugioh.setTitle("Yu-Gi-Oh!");
         yugioh.setName(Game.Name.YUGIOH);
         yugioh.setDescription("Yu-Gi-Oh! is a Japanese manga series about gaming, created by Kazuki Takahashi.");
@@ -45,7 +40,7 @@ public class InMemoryGameRepository implements GameRepository {
     @Override
     public Game save(Game games) {
         if (games.getId() == null) {
-            games.setId(idGenerator.incrementAndGet());
+            games.setId(UUID.randomUUID());
         } else {
             deleteById(games.getId()); // replace if exists
         }
@@ -54,7 +49,7 @@ public class InMemoryGameRepository implements GameRepository {
     }
 
     @Override
-    public Optional<Game> findById(Long id) {
+    public Optional<Game> findById(UUID id) {
         synchronized (games) {
             return games.stream()
                     .filter(game -> game.getId().equals(id))
@@ -70,7 +65,7 @@ public class InMemoryGameRepository implements GameRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         synchronized (games) {
             games.removeIf(game -> game.getId().equals(id));
         }

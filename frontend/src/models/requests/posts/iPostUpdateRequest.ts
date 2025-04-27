@@ -4,5 +4,5 @@ export interface IPostUpdateRequest {
     conservationState: ConservationState;
     images: string[];
     estimatedValue: number;
-    wishedCards: string[];
+    wantedCardsIds: string[];
 }

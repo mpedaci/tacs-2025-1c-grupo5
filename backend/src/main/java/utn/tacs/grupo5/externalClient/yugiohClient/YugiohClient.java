@@ -40,8 +40,8 @@ public class YugiohClient implements ICardClient {
         try {
             response = yugiohClient.get()
                     .uri(uriBuilder -> {
-                        uriBuilder.path("cardinfo.php")
-                                .queryParam("name", name);
+                        uriBuilder.path("cardinfo.php");
+                                //.queryParam("name", name);
                         logger.debug(gameName.name() + " URI: {}", uriBuilder.toUriString());
                         return uriBuilder.build();
                     })

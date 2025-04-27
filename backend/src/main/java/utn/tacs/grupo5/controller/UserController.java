@@ -25,6 +25,8 @@ import utn.tacs.grupo5.entity.User;
 import utn.tacs.grupo5.mapper.UserMapper;
 import utn.tacs.grupo5.service.IUserService;
 
+import java.util.UUID;
+
 @RestController
 @Tag(name = "Users", description = "User operations")
 public class UserController extends BaseController {
@@ -61,7 +63,7 @@ public class UserController extends BaseController {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = UserOutputDto.class))
                         })
         })
-        public ResponseEntity<UserOutputDto> get(@PathVariable Long id) {
+        public ResponseEntity<UserOutputDto> get(@PathVariable UUID id) {
                 User user = userService.get(id)
                                 .orElseThrow(() -> new NotFoundException("User not found"));
                 return ResponseGenerator.generateResponseOK(userMapper.toDto(user));
@@ -77,7 +79,7 @@ public class UserController extends BaseController {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = UserOutputDto.class))
                         })
         })
-        public ResponseEntity<UserOutputDto> update(@RequestBody UserInputDto userDto, @PathVariable Long id) {
+        public ResponseEntity<UserOutputDto> update(@RequestBody UserInputDto userDto, @PathVariable UUID id) {
                 User user = userService.update(id, userDto);
                 return ResponseGenerator.generateResponseOK(userMapper.toDto(user));
         }
@@ -92,7 +94,7 @@ public class UserController extends BaseController {
                         }),
                         @ApiResponse(responseCode = "200", description = "OK")
         })
-        public ResponseEntity<String> delete(@PathVariable Long id) {
+        public ResponseEntity<String> delete(@PathVariable UUID id) {
                 userService.delete(id);
                 return ResponseGenerator.generateResponseOK("User deleted successfully");
         }

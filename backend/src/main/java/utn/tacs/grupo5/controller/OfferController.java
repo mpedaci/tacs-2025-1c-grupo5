@@ -21,6 +21,7 @@ import utn.tacs.grupo5.mapper.OfferMapper;
 import utn.tacs.grupo5.service.IOfferService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @Tag(name = "Offers", description = "Offer operations")
@@ -57,7 +58,7 @@ public class OfferController extends BaseController {
             }),
             @ApiResponse(responseCode = "200", description = "OK")
     })
-    public ResponseEntity<String> patch(@PathVariable Long id, @RequestParam(required = true) Offer.Status status) {
+    public ResponseEntity<String> patch(@PathVariable UUID id, @RequestParam(required = true) Offer.Status status) {
         offerService.updateStatus(id, status);
         return ResponseGenerator.generateResponseOK("Offer state updated successfully");
     }
@@ -72,7 +73,7 @@ public class OfferController extends BaseController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = OfferOutputDto.class))
             })
     })
-    public ResponseEntity<OfferOutputDto> put(@PathVariable Long id, @RequestBody OfferInputDto offerDto) {
+    public ResponseEntity<OfferOutputDto> put(@PathVariable UUID id, @RequestBody OfferInputDto offerDto) {
         Offer offer = offerService.update(id, offerDto);
         return ResponseGenerator.generateResponseOK(offerMapper.toDto(offer));
     }
@@ -85,7 +86,7 @@ public class OfferController extends BaseController {
             }),
             @ApiResponse(responseCode = "200", description = "OK")
     })
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable UUID id) {
         // TODO: deberia cancelar la oferta
         offerService.delete(id);
         return ResponseGenerator.generateResponseOK("Offer deleted successfully");
@@ -101,7 +102,7 @@ public class OfferController extends BaseController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
             }),
     })
-    public ResponseEntity<OfferOutputDto> get(@PathVariable Long id) {
+    public ResponseEntity<OfferOutputDto> get(@PathVariable UUID id) {
         Offer offer = offerService.get(id)
                 .orElseThrow(() -> new NotFoundException("Offer not found"));
         return ResponseGenerator.generateResponseOK(offerMapper.toDto(offer));
@@ -117,7 +118,7 @@ public class OfferController extends BaseController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
             }),
     })
-    public ResponseEntity<List<OfferOutputDto>> getAllOffersByPost(@PathVariable Long id) {
+    public ResponseEntity<List<OfferOutputDto>> getAllOffersByPost(@PathVariable UUID id) {
         List<Offer> offers = offerService.getAllByPostId(id);
         return ResponseGenerator.generateResponseOK(offers.stream().map(offerMapper::toDto).toList());
     }

@@ -1,8 +1,10 @@
 import {ConservationState} from "@models/enums/ConservationState";
 
 export interface IOfferCreateRequest {
-    cards: IOfferedCardRequest[];
+    offeredCards: IOfferedCardRequest[];
     money: number;
+    postId: string;
+    offererId: string;
 }
 
 export interface IOfferedCardRequest {

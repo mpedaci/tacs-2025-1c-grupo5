@@ -21,6 +21,7 @@ import utn.tacs.grupo5.mapper.PostMapper;
 import utn.tacs.grupo5.service.IPostService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @Tag(name = "Posts", description = "Posts operations")
@@ -57,7 +58,7 @@ public class PostController extends BaseController {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
                         }),
         })
-        public ResponseEntity<PostOutputDto> update(@PathVariable Long id, @RequestBody PostInputDto postInputDto) {
+        public ResponseEntity<PostOutputDto> update(@PathVariable UUID id, @RequestBody PostInputDto postInputDto) {
                 // TODO: implementar validaciones de inputs en próximas entregas
                 Post post = postService.update(id, postInputDto);
                 return ResponseGenerator.generateResponseOK(postMapper.toDto(post));
@@ -71,7 +72,7 @@ public class PostController extends BaseController {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
                         }),
         })
-        public ResponseEntity<String> delete(@PathVariable Long id) {
+        public ResponseEntity<String> delete(@PathVariable UUID id) {
                 // TODO: deberia cancelar el post
                 postService.delete(id);
                 return ResponseGenerator.generateResponseOK("Post deleted successfully");
@@ -84,7 +85,7 @@ public class PostController extends BaseController {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = PostOutputDto.class))
                         }),
         })
-        public ResponseEntity<PostOutputDto> get(@PathVariable Long id) {
+        public ResponseEntity<PostOutputDto> get(@PathVariable UUID id) {
                 Post post = postService.get(id).orElseThrow(() -> new NotFoundException("Post not found"));
                 return ResponseGenerator.generateResponseOK(postMapper.toDto(post));
         }
