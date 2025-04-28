@@ -6,6 +6,7 @@ import utn.tacs.grupo5.entity.card.Game;
 import utn.tacs.grupo5.repository.impl.InMemoryGameRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryGameRepositoryTest {
@@ -18,7 +19,7 @@ class InMemoryGameRepositoryTest {
     }
 
     @Test
-    void save_shouldSaveGame_whenGameDoenstExist() {
+    void save_shouldSaveGame_whenGameDoesNotExist() {
         Game game = new Game();
         Game savedGame = repository.save(game);
 
@@ -51,7 +52,7 @@ class InMemoryGameRepositoryTest {
 
     @Test
     void findById_shouldReturnEmpty_whenGameDoesNotExist() {
-        Optional<Game> foundGame = repository.findById(999L);
+        Optional<Game> foundGame = repository.findById(UUID.randomUUID());
         assertFalse(foundGame.isPresent());
     }
 
@@ -74,6 +75,6 @@ class InMemoryGameRepositoryTest {
         repository.deleteById(savedGame.getId());
         Optional<Game> foundGame = repository.findById(savedGame.getId());
         assertFalse(foundGame.isPresent());
-        assertEquals(2, repository.findAll().size());
+        assertEquals(3, repository.findAll().size());
     }
 }

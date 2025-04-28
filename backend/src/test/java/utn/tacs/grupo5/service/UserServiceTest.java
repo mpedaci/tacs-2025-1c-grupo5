@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,7 +43,7 @@ public class UserServiceTest {
 
     @Test
     void get_shouldReturnOptionalUser_whenUserExists() {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
         User user = new User();
         user.setId(userId);
 
@@ -56,7 +57,7 @@ public class UserServiceTest {
 
     @Test
     void get_shouldReturnEmptyOptional_whenUserDoesNotExist() {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
 
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
@@ -120,7 +121,7 @@ public class UserServiceTest {
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
             User user2 = invocation.getArgument(0);
-            user2.setId(1L);
+            user2.setId(UUID.randomUUID());
             return user2;
         });
 
@@ -143,7 +144,7 @@ public class UserServiceTest {
 
     @Test
     void update_shouldThrowNotFoundException_whenUserDoesNotExist() {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
         UserInputDto dto = new UserInputDto();
 
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
@@ -154,7 +155,7 @@ public class UserServiceTest {
 
     @Test
     void update_shouldUpdateUser_whenUserExists() {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
         User existingUser = new User();
         existingUser.setId(userId);
         existingUser.setCreatedAt(LocalDateTime.now());
@@ -196,7 +197,7 @@ public class UserServiceTest {
 
     @Test
     void delete_shouldDeleteUser_whenUserExists() {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
 
         userService.delete(userId);
 

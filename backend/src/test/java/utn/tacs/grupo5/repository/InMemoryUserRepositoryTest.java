@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -94,7 +95,7 @@ public class InMemoryUserRepositoryTest {
 
     @Test
     void findById_shouldReturnEmpty_whenUserDoesNotExist() {
-        Optional<User> foundUser = userRepository.findById(999L);
+        Optional<User> foundUser = userRepository.findById(UUID.randomUUID());
 
         assertFalse(foundUser.isPresent(), "User should not be found");
     }
@@ -130,7 +131,7 @@ public class InMemoryUserRepositoryTest {
 
     @Test
     void deleteById_shouldDoNothing_whenUserDoesNotExist() {
-        Long nonExistingUserId = 999L;
+        UUID nonExistingUserId = UUID.randomUUID();
         User user = new User();
         user.setUsername("testUser");
         user.setEmail("test@example.com");

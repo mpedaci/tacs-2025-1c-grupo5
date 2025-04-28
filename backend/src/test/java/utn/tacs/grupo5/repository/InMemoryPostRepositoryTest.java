@@ -7,6 +7,7 @@ import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.repository.impl.InMemoryPostRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -26,31 +27,35 @@ public class InMemoryPostRepositoryTest {
         Post post = new Post();
         inMemoryPostRepository.save(post);
         assertEquals(4, inMemoryPostRepository.getPosts().size());
-        assertEquals(4, post.getId());
+        assertEquals(post, inMemoryPostRepository.findById(post.getId()).orElse(null));
     }
 
     @Test
     public void save_shouldUpdatePost_whenPostExists() {
-        Post post = inMemoryPostRepository.findById(1L).orElseThrow();
+        Post post = inMemoryPostRepository.getPosts().get(0);
+        UUID postId = post.getId();
         post.setConservationStatus(ConservationStatus.GOOD);
         inMemoryPostRepository.save(post);
 
         assertEquals(3, inMemoryPostRepository.getPosts().size());
-        assertEquals(1, post.getId());
+        assertEquals(postId, post.getId());
         assertEquals(ConservationStatus.GOOD, post.getConservationStatus());
     }
 
     @Test
     public void deleteById_shouldRemovePost_whenPostExists() {
-        inMemoryPostRepository.deleteById(2L);
+        UUID postId = inMemoryPostRepository.getPosts().get(1).getId();
+        inMemoryPostRepository.deleteById(postId);
         assertEquals(2, inMemoryPostRepository.getPosts().size());
-        assertFalse(inMemoryPostRepository.getPosts().stream().anyMatch(post -> post.getId().equals(2L)));
+        assertFalse(inMemoryPostRepository.getPosts().stream().anyMatch(post -> post.getId().equals(postId)));
     }
 
     @Test
     public void findById_shouldReturnPost_whenPostExists() {
-        Post post = inMemoryPostRepository.findById(1L).orElseThrow();
-        assertEquals(1, post.getId());
+        Post post = inMemoryPostRepository.getPosts().get(0);
+        UUID postId = post.getId();
+        Post foundPost = inMemoryPostRepository.findById(postId).orElseThrow();
+        assertEquals(postId, foundPost.getId());
     }
 
     @Test

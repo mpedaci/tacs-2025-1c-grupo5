@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.game.GameInputDto;
 import utn.tacs.grupo5.entity.card.Game;
-import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.mapper.GameMapper;
 import utn.tacs.grupo5.repository.GameRepository;
 import utn.tacs.grupo5.service.IGameService;

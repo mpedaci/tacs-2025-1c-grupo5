@@ -13,7 +13,6 @@ import jakarta.annotation.PostConstruct;
 import utn.tacs.grupo5.entity.card.Card;
 import utn.tacs.grupo5.entity.card.Game;
 import utn.tacs.grupo5.externalClient.ICardClient;
-import utn.tacs.grupo5.service.IGameService;
 
 @Service
 public class PokemonClient implements ICardClient {

@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,7 +40,7 @@ public class OfferServiceTest {
 
     @Test
     void get_shouldReturnOptionalOffer_whenOfferExists() {
-        Long offerId = 1L;
+        UUID offerId = UUID.randomUUID();
         Offer offer = new Offer();
         offer.setId(offerId);
 
@@ -52,7 +53,7 @@ public class OfferServiceTest {
 
     @Test
     void get_shouldReturnEmptyOptional_whenOfferDoesNotExist() {
-        Long offerId = 1L;
+        UUID offerId = UUID.randomUUID();
 
         when(offerRepository.findById(offerId)).thenReturn(Optional.empty());
 
@@ -76,7 +77,7 @@ public class OfferServiceTest {
 
     @Test
     void update_shouldUpdateOffer_whenOfferExists() {
-        Long offerId = 1L;
+        UUID offerId = UUID.randomUUID();
         OfferInputDto dto = new OfferInputDto();
         Offer existingOffer = new Offer();
         existingOffer.setId(offerId);
@@ -94,7 +95,7 @@ public class OfferServiceTest {
 
     @Test
     void update_shouldThrowNotFoundException_whenOfferDoesNotExist() {
-        Long offerId = 1L;
+        UUID offerId = UUID.randomUUID();
         OfferInputDto dto = new OfferInputDto();
 
         when(offerRepository.findById(offerId)).thenReturn(Optional.empty());
@@ -104,7 +105,7 @@ public class OfferServiceTest {
 
     @Test
     void delete_shouldDeleteOffer_whenOfferExists() {
-        Long offerId = 1L;
+        UUID offerId = UUID.randomUUID();
 
         offerService.delete(offerId);
 
@@ -113,7 +114,7 @@ public class OfferServiceTest {
 
     @Test
     void getAllByPostId_shouldReturnListOfOffers_whenPostExists() {
-        Long postId = 1L;
+        UUID postId = UUID.randomUUID();
         Offer offer1 = new Offer();
         Offer offer2 = new Offer();
         List<Offer> offers = List.of(offer1, offer2);
@@ -128,7 +129,7 @@ public class OfferServiceTest {
 
     @Test
     void getAllByPostId_shouldThrowNotFoundException_whenPostDoesNotExist() {
-        Long postId = 1L;
+        UUID postId = UUID.randomUUID();
 
         when(postService.get(postId)).thenReturn(Optional.empty());
 
@@ -137,7 +138,7 @@ public class OfferServiceTest {
 
     @Test
     void updateStatus_shouldUpdateOfferStatus_whenOfferExists() {
-        Long offerId = 1L;
+        UUID offerId = UUID.randomUUID();
         Offer offer = new Offer();
         offer.setId(offerId);
         offer.setPost(new Post());
@@ -154,7 +155,7 @@ public class OfferServiceTest {
 
     @Test
     void updateStatus_shouldThrowNotFoundException_whenOfferDoesNotExist() {
-        Long offerId = 1L;
+        UUID offerId = UUID.randomUUID();
         Offer.Status newStatus = Offer.Status.ACCEPTED;
 
         when(offerRepository.findById(offerId)).thenReturn(Optional.empty());

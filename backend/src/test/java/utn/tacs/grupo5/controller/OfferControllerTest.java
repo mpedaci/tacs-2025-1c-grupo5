@@ -17,6 +17,7 @@ import utn.tacs.grupo5.dto.offer.OfferOutputDto;
 import utn.tacs.grupo5.entity.post.Offer;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -56,9 +57,10 @@ public class OfferControllerTest {
 
     @Test
     void patchOfferStatus_shouldReturnOK_whenValidInput() throws Exception {
-        Mockito.doNothing().when(offerService).updateStatus(eq(1L), eq(Offer.Status.ACCEPTED));
+        UUID offerId = UUID.randomUUID();
+        Mockito.doNothing().when(offerService).updateStatus(eq(offerId), eq(Offer.Status.ACCEPTED));
 
-        mockMvc.perform(patch("/offers/1")
+        mockMvc.perform(patch("/offers/" + offerId)
                 .param("status", "ACCEPTED")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -67,14 +69,15 @@ public class OfferControllerTest {
 
     @Test
     void update_shouldReturnOK_whenValidInput() throws Exception {
+        UUID offerId = UUID.randomUUID();
         OfferInputDto inputDto = new OfferInputDto();
         Offer offer = new Offer();
         OfferOutputDto outputDto = new OfferOutputDto();
 
-        Mockito.when(offerService.update(eq(1L), any(OfferInputDto.class))).thenReturn(offer);
+        Mockito.when(offerService.update(eq(offerId), any(OfferInputDto.class))).thenReturn(offer);
         Mockito.when(offerMapper.toDto(offer)).thenReturn(outputDto);
 
-        mockMvc.perform(put("/offers/1")
+        mockMvc.perform(put("/offers/" + offerId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(inputDto)))
                 .andExpect(status().isOk())
@@ -83,43 +86,47 @@ public class OfferControllerTest {
 
     @Test
     void delete_shouldReturnOK_whenOfferExists() throws Exception {
-        Mockito.doNothing().when(offerService).delete(eq(1L));
+        UUID offerId = UUID.randomUUID();
+        Mockito.doNothing().when(offerService).delete(eq(offerId));
 
-        mockMvc.perform(delete("/offers/1"))
+        mockMvc.perform(delete("/offers/" + offerId))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Offer deleted successfully"));
     }
 
     @Test
     void get_shouldReturnOffer_whenOfferExists() throws Exception {
+        UUID offerId = UUID.randomUUID();
         Offer offer = new Offer();
         OfferOutputDto outputDto = new OfferOutputDto();
 
-        Mockito.when(offerService.get(eq(1L))).thenReturn(Optional.of(offer));
+        Mockito.when(offerService.get(eq(offerId))).thenReturn(Optional.of(offer));
         Mockito.when(offerMapper.toDto(offer)).thenReturn(outputDto);
 
-        mockMvc.perform(get("/offers/1"))
+        mockMvc.perform(get("/offers/" + offerId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
     void get_shouldReturnNotFound_whenOfferDoesNotExist() throws Exception {
-        Mockito.when(offerService.get(eq(1L))).thenReturn(Optional.empty());
+        UUID offerId = UUID.randomUUID();
+        Mockito.when(offerService.get(eq(offerId))).thenReturn(Optional.empty());
 
-        mockMvc.perform(get("/offers/1"))
+        mockMvc.perform(get("/offers/" + offerId))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void getAll_shouldReturnListOfOffers_whenOffersExist() throws Exception {
+        UUID postId = UUID.randomUUID();
         Offer offer = new Offer();
         OfferOutputDto outputDto = new OfferOutputDto();
 
-        Mockito.when(offerService.getAllByPostId(eq(1L))).thenReturn(List.of(offer));
+        Mockito.when(offerService.getAllByPostId(eq(postId))).thenReturn(List.of(offer));
         Mockito.when(offerMapper.toDto(offer)).thenReturn(outputDto);
 
-        mockMvc.perform(get("/posts/1/offers"))
+        mockMvc.perform(get("/posts/" + postId + "/offers"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
