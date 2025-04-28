@@ -8,6 +8,6 @@ public class OfferedCard {
 
     private Card card;
     private ConservationStatus conservationStatus;
-    // private String imageUrl;
+    private String imageUrl;
 
 }

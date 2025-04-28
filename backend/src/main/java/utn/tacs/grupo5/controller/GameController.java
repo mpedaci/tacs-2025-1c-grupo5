@@ -25,6 +25,9 @@ import utn.tacs.grupo5.entity.card.Game;
 import utn.tacs.grupo5.mapper.GameMapper;
 import utn.tacs.grupo5.service.IGameService;
 
+import java.util.List;
+import java.util.UUID;
+
 @RestController
 @Tag(name = "Games", description = "Game operations")
 public class GameController extends BaseController {
@@ -59,7 +62,7 @@ public class GameController extends BaseController {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = GameOutputDto.class))
                         })
         })
-        public ResponseEntity<GameOutputDto> get(@PathVariable Long id) {
+        public ResponseEntity<GameOutputDto> get(@PathVariable UUID id) {
                 Game game = gameService.get(id)
                                 .orElseThrow(() -> new NotFoundException("Game not found"));
                 return ResponseGenerator.generateResponseOK(gameMapper.toDto(game));
@@ -75,7 +78,7 @@ public class GameController extends BaseController {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = GameOutputDto.class))
                         })
         })
-        public ResponseEntity<GameOutputDto> update(@RequestBody GameInputDto gameDto, @PathVariable Long id) {
+        public ResponseEntity<GameOutputDto> update(@RequestBody GameInputDto gameDto, @PathVariable UUID id) {
                 Game game = gameService.update(id, gameDto);
                 return ResponseGenerator.generateResponseOK(gameMapper.toDto(game));
         }
@@ -88,8 +91,20 @@ public class GameController extends BaseController {
                         }),
                         @ApiResponse(responseCode = "200", description = "OK")
         })
-        public ResponseEntity<String> delete(@PathVariable Long id) {
+        public ResponseEntity<String> delete(@PathVariable UUID id) {
                 gameService.delete(id);
                 return ResponseGenerator.generateResponseOK("Game deleted successfully");
+        }
+
+        @GetMapping(value = "/games")
+        @Operation(summary = "Get all games", description = "Get all games")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "OK", content = {
+                                        @Content(mediaType = "application/json", schema = @Schema(implementation = GameOutputDto.class))
+                        })
+        })
+        public ResponseEntity<List<GameOutputDto>> getAll() {
+                List<Game> games = gameService.getAll();
+                return ResponseGenerator.generateResponseOK(games.stream().map(gameMapper::toDto).toList());
         }
 }

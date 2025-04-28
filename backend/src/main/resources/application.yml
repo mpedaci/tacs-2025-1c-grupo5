@@ -3,6 +3,11 @@ spring:
     name: tacs-2025-1c-grupo5
   profiles:
     active: dev
+  web:
+    resources:
+      add-mappings: false
+  codec:
+    max-in-memory-size: 10MB
 
 server:
   servlet:

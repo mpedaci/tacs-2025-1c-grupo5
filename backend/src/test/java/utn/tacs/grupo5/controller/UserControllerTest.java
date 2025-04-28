@@ -3,6 +3,7 @@ package utn.tacs.grupo5.controller;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,14 +50,15 @@ public class UserControllerTest {
         userInputDto.setEmail("john.doe@example.com");
 
         UserOutputDto userOutputDto = new UserOutputDto();
-        userOutputDto.setId(1L);
+        UUID userId = UUID.randomUUID();
+        userOutputDto.setId(userId);
         userOutputDto.setEmail(userInputDto.getEmail());
         userOutputDto.setFirstName(userInputDto.getFirstName());
 
         User user = new User();
         user.setFirstName(userInputDto.getFirstName());
         user.setEmail(userInputDto.getEmail());
-        user.setId(1L);
+        user.setId(userId);
 
         when(userService.save(userInputDto)).thenReturn(user);
         when(userMapper.toDto(user)).thenReturn(userOutputDto);
@@ -89,7 +91,7 @@ public class UserControllerTest {
 
     @Test
     void get_shouldReturnUser_whenUserExists() throws Exception {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
         User user = new User();
         user.setId(userId);
         user.setFirstName("John Doe");
@@ -107,13 +109,13 @@ public class UserControllerTest {
                 MockMvcRequestBuilders.get("/users/" + userId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("John Doe"));
     }
 
     @Test
     void get_shouldReturnNotFound_whenUserDoesntExists() throws Exception {
-        Long userId = 999L;
+        UUID userId = UUID.randomUUID();
 
         when(userService.get(userId)).thenReturn(Optional.empty());
 
@@ -125,7 +127,7 @@ public class UserControllerTest {
 
     @Test
     void update_shouldReturnOK_whenValidInput() throws Exception {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
         UserInputDto userInputDto = new UserInputDto();
         userInputDto.setFirstName("Updated Name");
         userInputDto.setEmail("updated.email@example.com");
@@ -149,13 +151,13 @@ public class UserControllerTest {
                         .content(objectMapper.writeValueAsString(userInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Updated Name"));
     }
 
     @Test
     void update_shouldReturnNotFound_whenUserDoesntExists() throws Exception {
-        Long userId = 999L;
+        UUID userId = UUID.randomUUID();
         UserInputDto userInputDto = new UserInputDto();
         userInputDto.setFirstName("Updated Name");
         userInputDto.setEmail("updated.email@example.com");
@@ -171,7 +173,7 @@ public class UserControllerTest {
 
     @Test
     void testDeleteUser() throws Exception {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
 
         mockMvc.perform(
                 MockMvcRequestBuilders.delete("/users/" + userId))

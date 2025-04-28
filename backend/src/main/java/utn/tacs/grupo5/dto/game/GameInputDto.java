@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class GameInputDto {
 
     // private String apiUrl;
+    private String title;
     private String name;
     private String description;
 

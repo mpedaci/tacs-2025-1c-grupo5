@@ -28,16 +28,6 @@ curl -X POST http://localhost:8080/api/users \
 echo "\n"
 
 
-echo "Creating game"
-curl -X POST http://localhost:8080/api/games \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Pokemon",
-    "description": "Pokemon"
-  }'
-echo "\n"
-
-
 echo "Creating cards"
 curl -X POST http://localhost:8080/api/cards \
   -H "Content-Type: application/json" \
