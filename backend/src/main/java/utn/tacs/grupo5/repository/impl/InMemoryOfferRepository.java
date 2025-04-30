@@ -3,6 +3,7 @@ package utn.tacs.grupo5.repository.impl;
 import org.springframework.stereotype.Repository;
 
 import utn.tacs.grupo5.entity.post.Offer;
+import utn.tacs.grupo5.entity.post.Offer.Status;
 import utn.tacs.grupo5.repository.OfferRepository;
 
 import java.util.*;
@@ -53,6 +54,22 @@ public class InMemoryOfferRepository implements OfferRepository {
                     offers.stream()
                             .filter(offer -> Objects.equals(offer.getPost().getId(), postId))
                             .toList());
+        }
+    }
+
+    @Override
+    public Long getCount() {
+        synchronized (offers) {
+            return Long.valueOf(offers.size());
+        }
+    }
+
+    @Override
+    public Long getCountByStatus(Status status) {
+        synchronized (offers) {
+            return offers.stream()
+                    .filter(offer -> status != null && status.equals(offer.getStatus()))
+                    .count();
         }
     }
 }

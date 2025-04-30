@@ -9,4 +9,8 @@ public interface OfferRepository extends ICRUDRepository<Offer, UUID> {
 
     List<Offer> findAllByPostId(UUID postId);
 
+    Long getCountByStatus(Offer.Status status);
+
+    Long getCount();
+
 }

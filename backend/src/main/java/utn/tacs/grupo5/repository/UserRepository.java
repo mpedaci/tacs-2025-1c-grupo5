@@ -11,4 +11,6 @@ public interface UserRepository extends ICRUDRepository<User, UUID> {
 
     Optional<User> findByUsername(String username);
 
+    Long getCount();
+
 }

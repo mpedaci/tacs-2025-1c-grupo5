@@ -64,4 +64,11 @@ public class InMemoryUserRepository implements UserRepository {
         }
     }
 
+    @Override
+    public Long getCount() {
+        synchronized (users) {
+            return Long.valueOf(users.size());
+        }
+    }
+
 }
