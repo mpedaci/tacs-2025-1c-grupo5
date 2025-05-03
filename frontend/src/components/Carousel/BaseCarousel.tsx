@@ -60,7 +60,7 @@ const BaseCarousel = ({items}: {
         slidesToScroll: 1,
         arrows: items.length > 1,
     };
-    console.log(items);
+
     return (
         <Grid container justifyContent="center" sx={{padding: '10px 0'}}>
             <Grid size={{

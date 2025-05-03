@@ -5,14 +5,12 @@ import {IGameResponse} from "@models/responses/iGameResponse";
 export const gamesApi = createApi({
     reducerPath: "GamesApi",
     baseQuery: fetchBaseQuery({baseUrl: config.apiUrl}),
-    tagTypes: ["Games"],
     endpoints: (builder) => ({
         getGames: builder.query<IGameResponse[], void>({
             query: () => ({
                 url: `games`,
                 method: "GET",
-            }),
-            providesTags: ["Games"],
+            })
         }),
     }),
 });

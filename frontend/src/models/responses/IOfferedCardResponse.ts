@@ -5,5 +5,5 @@ export interface IOfferedCardResponse {
     id: string;
     card: ICardResponse;
     image: string;
-    state: ConservationState;
+    conservationStatus: ConservationState;
 }
