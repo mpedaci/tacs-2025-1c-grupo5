@@ -3,10 +3,10 @@ import {config} from "@config/config";
 
 export const authApi = createApi({
     reducerPath: "AuthApi",
-    baseQuery: fetchBaseQuery({baseUrl: config.apiUrl, credentials: "include"}),
+    baseQuery: fetchBaseQuery({baseUrl: config.apiUrl}),
     endpoints: (builder) => ({
         login: builder.mutation<
-            { userExists: boolean, token: string },
+            { token: string },
             { username: string, password: string }
         >({
             query: ({

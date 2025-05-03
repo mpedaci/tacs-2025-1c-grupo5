@@ -46,18 +46,15 @@ public class UserControllerTest {
     @Test
     void save_shouldReturnOK_whenValidInput() throws Exception {
         UserInputDto userInputDto = new UserInputDto();
-        userInputDto.setFirstName("John Doe");
-        userInputDto.setEmail("john.doe@example.com");
+        userInputDto.setName("John Doe");
 
         UserOutputDto userOutputDto = new UserOutputDto();
         UUID userId = UUID.randomUUID();
         userOutputDto.setId(userId);
-        userOutputDto.setEmail(userInputDto.getEmail());
-        userOutputDto.setFirstName(userInputDto.getFirstName());
+        userOutputDto.setName(userInputDto.getName());
 
         User user = new User();
-        user.setFirstName(userInputDto.getFirstName());
-        user.setEmail(userInputDto.getEmail());
+        user.setName(userInputDto.getName());
         user.setId(userId);
 
         when(userService.save(userInputDto)).thenReturn(user);
@@ -69,16 +66,14 @@ public class UserControllerTest {
                         .content(objectMapper.writeValueAsString(userInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(userOutputDto.getEmail()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName")
-                        .value(userOutputDto.getFirstName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(userOutputDto.getName()))
+                ;
     }
 
     @Test
     void save_shouldReturnConflict_whenValidUserExists() throws Exception {
         UserInputDto userInputDto = new UserInputDto();
-        userInputDto.setFirstName("John Doe");
-        userInputDto.setEmail("john.doe@example.com");
+        userInputDto.setName("John Doe");
 
         when(userService.save(userInputDto)).thenThrow(new ConflictException("User already exists"));
 
@@ -94,13 +89,11 @@ public class UserControllerTest {
         UUID userId = UUID.randomUUID();
         User user = new User();
         user.setId(userId);
-        user.setFirstName("John Doe");
-        user.setEmail("john.doe@example.com");
+        user.setName("John Doe");
 
         UserOutputDto userOutputDto = new UserOutputDto();
         userOutputDto.setId(userId);
-        userOutputDto.setFirstName(user.getFirstName());
-        userOutputDto.setEmail(user.getEmail());
+        userOutputDto.setName(user.getName());
 
         when(userService.get(userId)).thenReturn(Optional.of(user));
         when(userMapper.toDto(user)).thenReturn(userOutputDto);
@@ -129,18 +122,15 @@ public class UserControllerTest {
     void update_shouldReturnOK_whenValidInput() throws Exception {
         UUID userId = UUID.randomUUID();
         UserInputDto userInputDto = new UserInputDto();
-        userInputDto.setFirstName("Updated Name");
-        userInputDto.setEmail("updated.email@example.com");
+        userInputDto.setName("Updated Name");
 
         UserOutputDto userOutputDto = new UserOutputDto();
         userOutputDto.setId(userId);
-        userOutputDto.setFirstName(userInputDto.getFirstName());
-        userOutputDto.setEmail(userInputDto.getEmail());
+        userOutputDto.setName(userInputDto.getName());
 
         User user = new User();
         user.setId(userId);
-        user.setFirstName(userInputDto.getFirstName());
-        user.setEmail(userInputDto.getEmail());
+        user.setName(userInputDto.getName());
 
         when(userService.update(userId, userInputDto)).thenReturn(user);
         when(userMapper.toDto(user)).thenReturn(userOutputDto);
@@ -159,8 +149,7 @@ public class UserControllerTest {
     void update_shouldReturnNotFound_whenUserDoesntExists() throws Exception {
         UUID userId = UUID.randomUUID();
         UserInputDto userInputDto = new UserInputDto();
-        userInputDto.setFirstName("Updated Name");
-        userInputDto.setEmail("updated.email@example.com");
+        userInputDto.setName("Updated Name");
 
         when(userService.update(userId, userInputDto)).thenThrow(new NotFoundException("User not found"));
 

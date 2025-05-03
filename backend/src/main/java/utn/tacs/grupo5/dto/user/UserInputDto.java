@@ -15,10 +15,7 @@ import lombok.NoArgsConstructor;
  */
 public class UserInputDto {
 
-    private String email;
-    private String phone;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String username;
     private String password;
 

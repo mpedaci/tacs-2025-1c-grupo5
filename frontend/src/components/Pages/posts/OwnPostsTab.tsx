@@ -5,26 +5,29 @@ import {useState} from "react";
 import {IPostResponse} from "@models/responses/iPostResponse";
 import {postsMockData} from "@components/Pages/posts/postsMockData";
 import {useAppSelector} from "@redux/hook";
+import {useGetPostsQuery} from "@redux/services/postsApi";
 
 export default function OwnPostsTab() {
     const user = useAppSelector(state => state.user);
-    const [posts, setPosts] = useState<IPostResponse[]>(postsMockData.filter(p => p.user.id === user.id));
+    const {data: postsData} = useGetPostsQuery();
 
     return (
         <Grid container spacing={3}>
             {
-                posts.map((p, i) => (
+                (postsData || [])
+                    .filter((p) => p.user.id === user.id)
+                    .map((p, i) => (
                     <PostCard
                         id={p.id}
                         user={p.user}
                         card={p.card}
-                        conservationState={p.conservationState}
+                        conservationState={p.conservationStatus}
                         images={p.images}
                         estimatedValue={p.estimatedValue}
-                        wishedCards={p.wishedCards}
-                        state={p.state}
+                        wishedCards={p.wantedCards}
+                        state={p.status}
                         publishedAt={p.publishedAt}
-                        endAt={p.endAt}
+                        endAt={p.finishedAt}
                         key={i}
                         showState={true}
                     />

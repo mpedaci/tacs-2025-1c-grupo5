@@ -10,6 +10,7 @@ import {offersApi} from "@redux/services/offersApi";
 import {postsApi} from "@redux/services/postsApi";
 import {usersApi} from "@redux/services/usersApi";
 import {authApi} from "@redux/services/authApi";
+import {gamesApi} from "@redux/services/gamesApi";
 
 const persistConfig = {
     key: 'tacs-2025-1c-grupo5',
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
 
     // Services
     [authApi.reducerPath]: authApi.reducer,
+    [gamesApi.reducerPath]: gamesApi.reducer,
     [cardsApi.reducerPath]: cardsApi.reducer,
     [offersApi.reducerPath]: offersApi.reducer,
     [postsApi.reducerPath]: postsApi.reducer,
@@ -46,6 +48,7 @@ export const store = configureStore({
         )
             .concat(
                 authApi.middleware,
+                gamesApi.middleware,
                 cardsApi.middleware,
                 offersApi.middleware,
                 postsApi.middleware,
