@@ -22,10 +22,13 @@ export const authApi = createApi({
             }),
         }),
 
-        logout: builder.mutation<void, void>({
-            query: () => ({
+        logout: builder.mutation<void, { token: string }>({
+            query: ({token}) => ({
                 url: `auth/logout`,
                 method: "POST",
+                headers: {
+                    token: token
+                }
             }),
         }),
     })

@@ -9,8 +9,8 @@ export interface User {
 
 const initialState: User = {
     id: '00000000-0000-0000-0000-000000000000',
-    name: 'developer',
-    isAdmin: true,
+    name: '',
+    isAdmin: false,
     token: '',
 };
 

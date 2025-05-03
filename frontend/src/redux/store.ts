@@ -11,6 +11,7 @@ import {postsApi} from "@redux/services/postsApi";
 import {usersApi} from "@redux/services/usersApi";
 import {authApi} from "@redux/services/authApi";
 import {gamesApi} from "@redux/services/gamesApi";
+import {metricsApi} from "@redux/services/metricsApi";
 
 const persistConfig = {
     key: 'tacs-2025-1c-grupo5',
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
     [offersApi.reducerPath]: offersApi.reducer,
     [postsApi.reducerPath]: postsApi.reducer,
     [usersApi.reducerPath]: usersApi.reducer,
+    [metricsApi.reducerPath]: metricsApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -53,6 +55,7 @@ export const store = configureStore({
                 offersApi.middleware,
                 postsApi.middleware,
                 usersApi.middleware,
+                metricsApi.middleware,
             ),
 });
 
