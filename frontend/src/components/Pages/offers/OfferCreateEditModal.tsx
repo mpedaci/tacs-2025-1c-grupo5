@@ -11,7 +11,7 @@ import {IOfferCreateRequest, IOfferedCardRequest} from "@models/requests/offers/
 import {useAppSelector} from "@redux/hook";
 import {useGetGamesQuery} from "@redux/services/gamesApi";
 import {useCreateOfferMutation} from "@redux/services/offersApi";
-import CardSelectElement, {CardOption} from "@components/Forms/CardSelectElement";
+import CardSelectElement from "@components/Forms/CardSelectElement";
 import {ConservationState, conservationStateLabels} from "@models/enums/ConservationState";
 import {MuiFileInput} from "mui-file-input";
 
@@ -108,11 +108,11 @@ export default function OfferCreateEditModal({
                                 name={"money"}
                                 label={"Dinero ofrecido"}
                                 placeholder={"Ingrese el dinero ofrecido"}
-                                required={true}
+                                required={offeredCards.length === 0}
                                 fullWidth
                                 rules={
                                     {
-                                        required: "Por favor ingrese el dinero ofrecido",
+                                        required: offeredCards.length === 0 ? "Por favor ingrese el dinero ofrecido" : undefined,
                                         min: {
                                             value: 0,
                                             message: "El dinero ofrecido debe ser mayor a 0",

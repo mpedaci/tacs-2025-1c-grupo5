@@ -99,7 +99,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public List<Post> getAllWithFilters(String cardName, String gameName, String cardStatus) {
+    public List<Post> getAllWithFilters(String cardName, UUID gameId, String cardStatus) {
         List<Post> posts = new ArrayList<>(postRepository.findAll());
 
         Optional.ofNullable(cardName)
@@ -107,10 +107,8 @@ public class PostService implements IPostService {
                 .ifPresent(name -> posts
                         .removeIf(post -> !post.getCard().getName().toLowerCase().contains(name.toLowerCase())));
 
-        Optional.ofNullable(gameName)
-                .filter(name -> !name.isEmpty())
-                .ifPresent(name -> posts.removeIf(
-                        post -> !post.getCard().getGame().getTitle().toLowerCase().contains(name.toLowerCase())));
+        Optional.ofNullable(gameId)
+                .ifPresent(id -> posts.removeIf(post -> !post.getCard().getGame().getId().equals(id)));
 
         Optional.ofNullable(cardStatus)
                 .map(status -> ConservationStatus.fromString(status))

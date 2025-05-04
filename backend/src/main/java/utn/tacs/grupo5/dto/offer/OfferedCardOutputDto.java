@@ -11,7 +11,7 @@ import utn.tacs.grupo5.entity.post.ConservationStatus;
 @Schema(name = "Offered card", description = "Offered card")
 public class OfferedCardOutputDto {
 
-    // private String image;
+    private String image;
     private CardOutputDto card;
     private ConservationStatus conservationStatus;
 

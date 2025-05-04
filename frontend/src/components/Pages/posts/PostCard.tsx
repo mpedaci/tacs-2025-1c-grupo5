@@ -58,14 +58,18 @@ export const PostCard = ({
                         }
                     </Grid>
                     <Grid size={12}>
-                        <ImageCarousel images={[...images, card.imageUrl]}/>
+                        <ImageCarousel images={[card.imageUrl, ...images]}/>
                     </Grid>
-                    <Grid size={6}>
+                    <Grid size={estimatedValue ? 6 : 12}>
                         <Chip label={conservationStateLabels[conservationState]} color="secondary"/>
                     </Grid>
-                    <Grid size={6}>
-                        <Chip label={`Valor: $${estimatedValue}`} color="secondary"/>
-                    </Grid>
+                    {
+                        estimatedValue && (
+                            <Grid size={6}>
+                                <Chip label={`Valor: $${estimatedValue}`} color="secondary"/>
+                            </Grid>
+                        )
+                    }
                     {
                         showState && (
                             <Grid size={12}>

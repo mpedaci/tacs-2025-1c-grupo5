@@ -3,8 +3,8 @@ import Grid from "@mui/material/Grid2";
 import {OfferCard} from "@components/Pages/offers/OfferCard";
 import {useGetOffersQuery} from "@redux/services/offersApi";
 
-export default function OffersTab({postId}: { postId: string }) {
-    const {data:offers} = useGetOffersQuery({postId});
+export default function OffersTab({postId, postOwner}: { postId: string, postOwner: boolean }) {
+    const {data: offers} = useGetOffersQuery({postId});
 
     return (
         <Grid container spacing={3}>
@@ -18,6 +18,7 @@ export default function OffersTab({postId}: { postId: string }) {
                         state={p.state}
                         publishedAt={p.publishedAt}
                         key={i}
+                        postOwner={postOwner}
                     />
                 ))
             }

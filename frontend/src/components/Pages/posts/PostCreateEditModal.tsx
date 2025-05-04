@@ -13,13 +13,13 @@ import {useGetGamesQuery} from "@redux/services/gamesApi";
 import {IPostCreateRequest} from "@models/requests/posts/iPostCreateRequest";
 import CardSelectElement, {CardOption} from "@components/Forms/CardSelectElement";
 import {ConservationState, conservationStateLabels} from "@models/enums/ConservationState";
-import BasicDropzone from "@components/Dropzones/BasicDropzone";
+import {MuiFileInput} from "mui-file-input";
 
 export default function PostCreateEditModal({
-    postId,
-    editMode,
-    onClose,
-}: {
+                                                postId,
+                                                editMode,
+                                                onClose,
+                                            }: {
     postId?: string;
     editMode: boolean;
     onClose?: () => void;
@@ -47,10 +47,11 @@ export default function PostCreateEditModal({
             userId: user.id,
             cardId: ((data.card as unknown) as CardOption).id,
             conservationStatus: data.conservationState as unknown as ConservationState,
-            images: [data.images],
+            images: (data.images as unknown as { file: File; base64: string }[] || []).map((image) => (image.base64)),
             estimatedValue: Number(data.estimatedValue),
-            description: data.description,
-            wantedCardsIds: (data.wantedCards as unknown as CardOption[]).map((card) => card.id),
+            // description: data.description,
+            description: "",
+            wantedCardsIds: (data.wantedCards as unknown as CardOption[] || []).map((card) => card.id),
         };
         try {
             await createPost(req).unwrap();
@@ -137,7 +138,10 @@ export default function PostCreateEditModal({
                                         id: ConservationState.Regular,
                                         label: conservationStateLabels[ConservationState.Regular]
                                     },
-                                    {id: ConservationState.Good, label: conservationStateLabels[ConservationState.Good]},
+                                    {
+                                        id: ConservationState.Good,
+                                        label: conservationStateLabels[ConservationState.Good]
+                                    },
                                     {
                                         id: ConservationState.Excellent,
                                         label: conservationStateLabels[ConservationState.Excellent]
@@ -158,11 +162,9 @@ export default function PostCreateEditModal({
                                 name={"estimatedValue"}
                                 label={"Valor estimado"}
                                 placeholder={"Ingrese el valor estimado"}
-                                required={true}
                                 fullWidth
                                 rules={
                                     {
-                                        required: "Por favor ingrese el valor estimado",
                                         min: {
                                             value: 0,
                                             message: "El dinero ofrecido debe ser mayor a 0",
@@ -181,7 +183,7 @@ export default function PostCreateEditModal({
                                 }}
                             />
                         </Grid>
-                        <Grid size={12} key={"description"}>
+                        {/*<Grid size={12} key={"description"}>
                             <TextFieldElement
                                 name={"description"}
                                 label={"Descripción"}
@@ -193,13 +195,12 @@ export default function PostCreateEditModal({
                                     shrink: true,
                                 }}
                             />
-                        </Grid>
+                        </Grid>*/}
                         <Grid size={12} key={"wantedCards"}>
                             <CardSelectElement
                                 gameId={formContext.watch("game") as string}
                                 name={"wantedCards"}
                                 label={"Cartas buscadas"}
-                                required={true}
                                 multiple={true}
                                 control={formContext.control}
                             />
@@ -208,9 +209,53 @@ export default function PostCreateEditModal({
                             <Controller
                                 name="images"
                                 control={formContext.control}
-                                rules={{
-                                    required: "Por favor seleccione una imagen",
-                                }}
+                                render={({ field, fieldState }) => (
+                                    <MuiFileInput
+                                        fullWidth
+                                        onChange={(files: File[] | null) => {
+                                            if (!files || files.length === 0) {
+                                                field.onChange([]);
+                                                return;
+                                            }
+
+                                            const fileArray = Array.isArray(files) ? files : [files];
+
+                                            const readers = fileArray.map((file) => {
+                                                return new Promise<{ file: File; base64: string }>((resolve) => {
+                                                    const reader = new FileReader();
+                                                    reader.onloadend = () => {
+                                                        resolve({ file, base64: reader.result?.toString() || '' });
+                                                    };
+                                                    reader.readAsDataURL(file);
+                                                });
+                                            });
+
+                                            Promise.all(readers).then((fileObjects) => {
+                                                field.onChange(fileObjects);
+                                            });
+                                        }}
+                                        multiple
+                                        value={((field.value as { file: File }[]) || []).map(f => f.file) || null}
+                                        helperText={fieldState.invalid ? "Por favor seleccione una imagen" : ""}
+                                        error={fieldState.invalid}
+                                        label={"Imagen"}
+                                        placeholder={"Seleccione la imagen"}
+                                        InputProps={{
+                                            inputProps: {
+                                                accept: 'image/*',
+                                            },
+                                            startAdornment: <i className="fa-solid fa-image"/>,
+                                        }}
+                                        clearIconButtonProps={{
+                                            title: "Limpiar",
+                                            children: <i className="fa-solid fa-xmark"/>,
+                                        }}
+                                    />
+                                )}
+                            />
+                            {/*<Controller
+                                name="images"
+                                control={formContext.control}
                                 render={() => (
                                     <BasicDropzone
                                         setFile={(file) => formContext.setValue("images", file)}
@@ -224,7 +269,7 @@ export default function PostCreateEditModal({
                                         helperText={formContext.formState.errors["images"]?.message as string}
                                     />
                                 )}
-                            />
+                            />*/}
                         </Grid>
                     </Grid>
                 </FormCard>

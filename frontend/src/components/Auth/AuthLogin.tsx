@@ -106,6 +106,11 @@ const AuthLogin = () => {
                             </InputAdornment>
                         }
                         placeholder="Ingrese su contraseña"
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                handleSubmit();
+                            }
+                        }}
                     />
                 </Stack>
             </Grid>

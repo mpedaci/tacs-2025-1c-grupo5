@@ -50,7 +50,7 @@ public class OfferController extends BaseController {
         return ResponseGenerator.generateResponseOK(offerMapper.toDto(offer));
     }
 
-    @PatchMapping(value = "/offers/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/offers/{id}")
     @Operation(summary = "Change offer status", description = "Change offer status")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", content = {

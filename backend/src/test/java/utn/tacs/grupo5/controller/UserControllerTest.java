@@ -103,7 +103,7 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId.toString()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("John Doe"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("John Doe"));
     }
 
     @Test
@@ -142,7 +142,7 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId.toString()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Updated Name"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Updated Name"));
     }
 
     @Test

@@ -1,7 +1,6 @@
 "use client";
 import {IUserResponse} from "@models/responses/iUserResponse";
 import {conservationStateLabels} from "@models/enums/ConservationState";
-import {postStateLabels} from "@models/enums/PostState";
 import Grid from "@mui/material/Grid2";
 import MainCard from "@/components/Cards/MainCard";
 import {Button, Chip, Divider, Typography} from "@mui/material";
@@ -19,7 +18,8 @@ export const OfferCard = ({
                               cards,
                               money,
                               state,
-                              publishedAt
+                              publishedAt,
+                              postOwner,
                           }: {
     id: string;
     offeror: IUserResponse;
@@ -27,6 +27,7 @@ export const OfferCard = ({
     money: number;
     state: OfferState;
     publishedAt: string;
+    postOwner: boolean;
 }) => {
     const [
         updateOfferState,
@@ -85,10 +86,11 @@ export const OfferCard = ({
                                                 </Typography>
                                             </Grid>
                                             <Grid size={12} key={"card-state"}>
-                                                <Chip label={conservationStateLabels[offer.conservationStatus]} color="secondary"/>
+                                                <Chip label={conservationStateLabels[offer.conservationStatus]}
+                                                      color="secondary"/>
                                             </Grid>
                                             <Grid size={12} key={"card-images"}>
-                                                <ImageCarousel images={[offer.image, offer.card.imageUrl]}/>
+                                                <ImageCarousel images={[offer.card.imageUrl, offer.image]}/>
                                             </Grid>
                                         </Grid>
                                     )
@@ -106,18 +108,26 @@ export const OfferCard = ({
                                     state === OfferState.Accepted ? "success" : "error"
                                 } sx={{width: "100%"}}/>
                             ) : (
-                                <Grid container spacing={1} justifyContent="center">
-                                    <Grid size={6}>
-                                        <Button variant="contained" color="error" fullWidth onClick={() => handleUpdateOfferState(OfferState.Rejected)}>
-                                            Rechazar
-                                        </Button>
+                                postOwner ? (
+                                    <Grid container spacing={1} justifyContent="center">
+                                        <Grid size={6}>
+                                            <Button variant="contained" color="error" fullWidth
+                                                    onClick={() => handleUpdateOfferState(OfferState.Rejected)}
+                                                    disabled={isUpdatingOfferState}>
+                                                Rechazar
+                                            </Button>
+                                        </Grid>
+                                        <Grid size={6}>
+                                            <Button variant="contained" color="primary" fullWidth
+                                                    onClick={() => handleUpdateOfferState(OfferState.Accepted)}
+                                                    disabled={isUpdatingOfferState}>
+                                                Aceptar
+                                            </Button>
+                                        </Grid>
                                     </Grid>
-                                    <Grid size={6}>
-                                        <Button variant="contained" color="primary" fullWidth onClick={() => handleUpdateOfferState(OfferState.Accepted)}>
-                                            Aceptar
-                                        </Button>
-                                    </Grid>
-                                </Grid>
+                                ) : (
+                                    <Chip label={offerStateLabels[state]} color="warning" sx={{width: "100%"}}/>
+                                )
                             )
                         }
                     </Grid>

@@ -66,8 +66,7 @@ export default function CardSelectElementController({
             const options = mapToOptions(fetched);
             setVisibleOptions(options.slice(0, BATCH_SIZE));
             setSearchQuery(query);
-        } catch (error) {
-            console.error("Error fetching cards:", error);
+        } catch {
         }
     }, [gameId, getCards, mapToOptions]);
 
