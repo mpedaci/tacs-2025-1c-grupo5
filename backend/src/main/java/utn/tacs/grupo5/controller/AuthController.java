@@ -29,14 +29,14 @@ public class AuthController extends BaseController {
 
     @PostMapping("/refresh")
     @Operation(summary = "Refresh JWT token")
-    public ResponseEntity<AuthOutputDto> refresh(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<AuthOutputDto> refresh(@RequestHeader("X-Auth-Token") String token) {
         AuthOutputDto tkn = authService.refreshToken(token);
         return ResponseGenerator.generateResponseOK(tkn);
     }
 
     @PostMapping("/logout")
     @Operation(summary = "Logout user (optional token invalidation)")
-    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<Void> logout(@RequestHeader("X-Auth-Token") String token) {
         authService.logout(token);
         return ResponseGenerator.generateResponseOK(null);
     }

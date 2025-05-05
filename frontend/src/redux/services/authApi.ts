@@ -27,7 +27,7 @@ export const authApi = createApi({
                 url: `auth/logout`,
                 method: "POST",
                 headers: {
-                    token: token
+                    "X-Auth-Token": token
                 }
             }),
         }),
