@@ -66,8 +66,8 @@ importers:
         specifier: ^7.53.2
         version: 7.55.0(react@18.3.1)
       react-hook-form-mui:
-        specifier: ^7.4.0
-        version: 7.6.0(5ymjeqansctn5d3blhsjnobfbq)
+        specifier: ^7.6.0
+        version: 7.6.0(c2b9de16640e92e31b573319a3acded4)
       react-redux:
         specifier: ^9.1.2
         version: 9.2.0(@types/react@18.3.20)(react@18.3.1)(redux@5.0.1)
@@ -4360,7 +4360,7 @@ snapshots:
       prop-types: 15.8.1
       react: 18.3.1
 
-  react-hook-form-mui@7.6.0(5ymjeqansctn5d3blhsjnobfbq):
+  react-hook-form-mui@7.6.0(c2b9de16640e92e31b573319a3acded4):
     dependencies:
       '@mui/material': 6.4.11(@emotion/react@11.14.0(@types/react@18.3.20)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@18.3.1))(@types/react@18.3.20)(react@18.3.1))(@types/react@18.3.20)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1

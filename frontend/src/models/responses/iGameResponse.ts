@@ -1,4 +1,5 @@
 export interface IGameResponse {
     id: string;
-    name: string;
+    title: string;
+    description: string;
 }

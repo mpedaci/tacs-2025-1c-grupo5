@@ -1,11 +1,13 @@
 package utn.tacs.grupo5.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,25 +17,33 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.card.CardInputDto;
 import utn.tacs.grupo5.entity.card.Card;
+import utn.tacs.grupo5.entity.card.Game;
 import utn.tacs.grupo5.mapper.CardMapper;
 import utn.tacs.grupo5.repository.CardRepository;
+import utn.tacs.grupo5.repository.GameRepository;
 import utn.tacs.grupo5.service.impl.CardService;
 
 @ExtendWith(MockitoExtension.class)
 public class CardServiceTest {
 
     @Mock
-    private CardRepository cardRepository;
+    CardRepository cardRepository;
 
     @Mock
-    private CardMapper cardMapper;
+    CardMapper cardMapper;
+
+    @Mock
+    GameRepository gameRepository;
+
+    @Mock
+    IExternalCardService externalCardClient;
 
     @InjectMocks
-    private CardService cardService;
+    CardService cardService;
 
     @Test
     void get_shouldReturnOptionalCard_whenCardExists() {
-        Long cardId = 1L;
+        UUID cardId = UUID.randomUUID();
         Card card = new Card();
         card.setId(cardId);
 
@@ -48,7 +58,7 @@ public class CardServiceTest {
 
     @Test
     void get_shouldReturnEmptyOptional_whenCardDoesNotExist() {
-        Long cardId = 1L;
+        UUID cardId = UUID.randomUUID();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.empty());
 
@@ -75,7 +85,7 @@ public class CardServiceTest {
 
     @Test
     void update_shouldUpdateCard_whenCardExists() {
-        Long cardId = 1L;
+        UUID cardId = UUID.randomUUID();
         CardInputDto dto = new CardInputDto();
         Card card = new Card();
         card.setId(cardId);
@@ -95,7 +105,7 @@ public class CardServiceTest {
 
     @Test
     void update_shouldThrowNotFoundException_whenCardDoesNotExist() {
-        Long cardId = 1L;
+        UUID cardId = UUID.randomUUID();
         CardInputDto dto = new CardInputDto();
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.empty());
@@ -108,7 +118,7 @@ public class CardServiceTest {
 
     @Test
     void delete_shouldDeleteCard_whenCardExists() {
-        Long cardId = 1L;
+        UUID cardId = UUID.randomUUID();
 
         doNothing().when(cardRepository).deleteById(cardId);
 
@@ -118,30 +128,97 @@ public class CardServiceTest {
     }
 
     @Test
-    void getAllByGameId_shouldReturnListOfCards_whenGameHasCards() {
-        Long gameId = 1L;
-        List<Card> cards = List.of(new Card(), new Card());
+    void getAllByGameId_shouldThrowNotFoundException_whenGameDoesNotExist() {
+        UUID gameId = UUID.randomUUID();
 
-        when(cardRepository.findByGameId(gameId)).thenReturn(cards);
+        when(gameRepository.findById(gameId)).thenReturn(Optional.empty());
 
-        List<Card> result = cardService.getAllByGameId(gameId, "");
-
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        verify(cardRepository, times(1)).findByGameId(gameId);
+        assertThrows(NotFoundException.class, () -> cardService.getAllByGameId(gameId, ""));
+        verify(gameRepository, times(1)).findById(gameId);
+        verify(cardRepository, never()).findByGameId(any());
     }
 
     @Test
-    void getAllByGameId_shouldReturnEmptyList_whenGameHasNoCardsOrDoesntExist() {
-        Long gameId = 1L;
+    void getAllByGameId_shouldReturnFilteredCards_whenCardsInDB() {
+        UUID gameId = UUID.randomUUID();
+        Game game = new Game();
+        game.setId(gameId);
+        game.setTitle("Test Game");
+        game.setName(Game.Name.MAGIC);
 
-        when(cardRepository.findByGameId(gameId)).thenReturn(new ArrayList<Card>());
+        Card card1 = new Card();
+        card1.setName("Card One");
+        card1.setGame(game);
 
-        List<Card> result = cardService.getAllByGameId(gameId, "");
+        Card card2 = new Card();
+        card2.setName("Another Card");
+        card2.setGame(game);
+
+        List<Card> cards = List.of(card1, card2);
+
+        when(gameRepository.findById(gameId)).thenReturn(Optional.of(game));
+        when(cardRepository.findAll()).thenReturn(cards);
+
+        List<Card> result = cardService.getAllByGameId(gameId, "One");
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("Card One", result.get(0).getName());
+        verify(gameRepository, times(1)).findById(gameId);
+        verify(cardRepository, times(1)).findAll();
+    }
+
+    @Test
+    void getAllByGameId_shouldFetchAndSaveCardsFromExternalApi_whenNoMatchingCardsInDb() {
+        UUID gameId = UUID.randomUUID();
+        Game game = new Game();
+        game.setId(gameId);
+        game.setTitle("Test Game");
+        game.setName(Game.Name.MAGIC);
+
+        Card externalCard = new Card();
+        externalCard.setName("External Card");
+        externalCard.setExternalId("ext-123");
+        externalCard.setGame(game);
+
+        List<Card> cardsInDbSecondTime = new ArrayList<>();
+        cardsInDbSecondTime.add(externalCard);
+
+        when(gameRepository.findById(gameId)).thenReturn(Optional.of(game));
+        when(cardRepository.findAll()).thenReturn(new ArrayList<Card>()).thenReturn(cardsInDbSecondTime);
+        when(externalCardClient.getCardsByName(game, "External")).thenReturn(List.of(externalCard));
+        when(cardRepository.save(any(Card.class))).thenReturn(externalCard);
+
+        List<Card> result = cardService.getAllByGameId(gameId, "External");
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("External Card", result.get(0).getName());
+        verify(gameRepository, times(1)).findById(gameId);
+        verify(cardRepository, times(2)).findAll();
+        verify(externalCardClient, times(1)).getCardsByName(game, "External");
+        verify(cardRepository, times(1)).save(externalCard);
+    }
+
+    @Test
+    void getAllByGameId_shouldReturnEmptyList_whenNoCardsMatchFilterInDbOrApi() {
+        UUID gameId = UUID.randomUUID();
+        Game game = new Game();
+        game.setId(gameId);
+        game.setTitle("Test Game");
+        game.setName(Game.Name.MAGIC);
+
+        when(gameRepository.findById(gameId)).thenReturn(Optional.of(game));
+        when(cardRepository.findAll()).thenReturn(new ArrayList<>());
+        when(externalCardClient.getCardsByName(game, "Nonexistent")).thenReturn(new ArrayList<>());
+
+        List<Card> result = cardService.getAllByGameId(gameId, "Nonexistent");
 
         assertNotNull(result);
         assertTrue(result.isEmpty());
-        verify(cardRepository, times(1)).findByGameId(gameId);
+        verify(gameRepository, times(1)).findById(gameId);
+        verify(cardRepository, times(1)).findAll();
+        verify(externalCardClient, times(1)).getCardsByName(game, "Nonexistent");
     }
 
 }

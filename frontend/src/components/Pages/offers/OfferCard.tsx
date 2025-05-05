@@ -1,14 +1,16 @@
 "use client";
 import {IUserResponse} from "@models/responses/iUserResponse";
 import {conservationStateLabels} from "@models/enums/ConservationState";
-import {postStateLabels} from "@models/enums/PostState";
 import Grid from "@mui/material/Grid2";
 import MainCard from "@/components/Cards/MainCard";
 import {Button, Chip, Divider, Typography} from "@mui/material";
 import {IOfferedCardResponse} from "@models/responses/IOfferedCardResponse";
-import {OfferState} from "@models/enums/OfferState";
+import {OfferState, offerStateLabels} from "@models/enums/OfferState";
 import BaseCarousel from "@components/Carousel/BaseCarousel";
 import React from "react";
+import ImageCarousel from "@components/Carousel/ImageCarousel";
+import {useUpdateOfferStateMutation} from "@redux/services/offersApi";
+import {useNotification} from "@components/Notifications/NotificationContext";
 
 export const OfferCard = ({
                               id,
@@ -16,15 +18,37 @@ export const OfferCard = ({
                               cards,
                               money,
                               state,
-                              publishedAt
+                              publishedAt,
+                              postOwner,
                           }: {
     id: string;
     offeror: IUserResponse;
     cards: IOfferedCardResponse[];
     money: number;
     state: OfferState;
-    publishedAt: Date;
+    publishedAt: string;
+    postOwner: boolean;
 }) => {
+    const [
+        updateOfferState,
+        {isLoading: isUpdatingOfferState}
+    ] = useUpdateOfferStateMutation();
+    const {addNotification} = useNotification();
+
+    const handleUpdateOfferState = async (newState: OfferState) => {
+        try {
+            await updateOfferState({
+                offerId: id,
+                body: {
+                    state: newState
+                }
+            });
+            addNotification("Estado de la oferta actualizado correctamente", "success");
+        } catch (error) {
+            addNotification("Error al actualizar el estado de la oferta", "error");
+        }
+    }
+
     return (
         <Grid size={{xs: 12, sm: 6, md: 4}} key={id}>
             <MainCard border={false} boxShadow sx={{height: '100%'}}>
@@ -34,7 +58,7 @@ export const OfferCard = ({
                             {offeror.name}
                         </Typography>
                         <Typography variant="subtitle1" component="h3" color="text.secondary">
-                            Publicado el: {publishedAt.toLocaleDateString()}
+                            Publicado el: {publishedAt}
                         </Typography>
                     </Grid>
                     <Grid size={12}>
@@ -53,27 +77,20 @@ export const OfferCard = ({
                             items={
                                 cards.map((offer: IOfferedCardResponse, i) => (
                                         <Grid container justifyContent="center" key={offer.id}>
-                                            <Grid size={12}>
+                                            <Grid size={12} key={"card-name"}>
                                                 <Typography variant="h5" component="h2">
                                                     {offer.card.name}
                                                 </Typography>
                                                 <Typography variant="subtitle1" component="h3" color="text.secondary">
-                                                    {offer.card.game.name}
+                                                    {offer.card.game.title}
                                                 </Typography>
                                             </Grid>
-                                            <Grid size={12}>
-                                                <Chip label={conservationStateLabels[offer.state]} color="secondary"/>
+                                            <Grid size={12} key={"card-state"}>
+                                                <Chip label={conservationStateLabels[offer.conservationStatus]}
+                                                      color="secondary"/>
                                             </Grid>
-                                            <Grid size={12}>
-                                                <img
-                                                    src={offer.card.image}
-                                                    style={{
-                                                        width: '100%',
-                                                        height: '400px',
-                                                        objectFit: 'cover',
-                                                        borderRadius: '10px'
-                                                    }}
-                                                />
+                                            <Grid size={12} key={"card-images"}>
+                                                <ImageCarousel images={[offer.card.imageUrl, offer.image]}/>
                                             </Grid>
                                         </Grid>
                                     )
@@ -87,22 +104,30 @@ export const OfferCard = ({
                     <Grid size={12}>
                         {
                             (state === OfferState.Rejected || state === OfferState.Accepted) ? (
-                                <Chip label={postStateLabels[state]} color={
+                                <Chip label={offerStateLabels[state]} color={
                                     state === OfferState.Accepted ? "success" : "error"
                                 } sx={{width: "100%"}}/>
                             ) : (
-                                <Grid container spacing={1} justifyContent="center">
-                                    <Grid size={6}>
-                                        <Button variant="contained" color="error" fullWidth onClick={() => {}}>
-                                            Rechazar
-                                        </Button>
+                                postOwner ? (
+                                    <Grid container spacing={1} justifyContent="center">
+                                        <Grid size={6}>
+                                            <Button variant="contained" color="error" fullWidth
+                                                    onClick={() => handleUpdateOfferState(OfferState.Rejected)}
+                                                    disabled={isUpdatingOfferState}>
+                                                Rechazar
+                                            </Button>
+                                        </Grid>
+                                        <Grid size={6}>
+                                            <Button variant="contained" color="primary" fullWidth
+                                                    onClick={() => handleUpdateOfferState(OfferState.Accepted)}
+                                                    disabled={isUpdatingOfferState}>
+                                                Aceptar
+                                            </Button>
+                                        </Grid>
                                     </Grid>
-                                    <Grid size={6}>
-                                        <Button variant="contained" color="primary" fullWidth onClick={() => {}}>
-                                            Aceptar
-                                        </Button>
-                                    </Grid>
-                                </Grid>
+                                ) : (
+                                    <Chip label={offerStateLabels[state]} color="warning" sx={{width: "100%"}}/>
+                                )
                             )
                         }
                     </Grid>

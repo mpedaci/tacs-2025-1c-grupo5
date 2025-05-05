@@ -14,6 +14,7 @@ import utn.tacs.grupo5.service.IPostService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class OfferService implements IOfferService {
@@ -31,12 +32,12 @@ public class OfferService implements IOfferService {
     }
 
     @Override
-    public Optional<Offer> get(Long aLong) {
+    public Optional<Offer> get(UUID aLong) {
         return offerRepository.findById(aLong);
     }
 
     @Override
-    public List<Offer> getAllByPostId(Long postId) {
+    public List<Offer> getAllByPostId(UUID postId) {
         if (postService.get(postId).isEmpty()) {
             throw new NotFoundException("Post not found");
         }
@@ -55,7 +56,7 @@ public class OfferService implements IOfferService {
     }
 
     @Override
-    public Offer update(Long id, OfferInputDto dto) {
+    public Offer update(UUID id, OfferInputDto dto) {
         Offer existingOffer = offerRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Offer not found"));
         Offer offer = offerMapper.toEntity(dto);
@@ -65,12 +66,12 @@ public class OfferService implements IOfferService {
     }
 
     @Override
-    public void delete(Long offerId) {
+    public void delete(UUID offerId) {
         offerRepository.deleteById(offerId);
     }
 
     @Override
-    public void updateStatus(Long offerId, Status newStatus) {
+    public void updateStatus(UUID offerId, Status newStatus) {
         Offer offer = offerRepository.findById(offerId)
                 .orElseThrow(() -> new NotFoundException("Offer not found"));
 

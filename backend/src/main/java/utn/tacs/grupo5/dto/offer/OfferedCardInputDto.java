@@ -4,12 +4,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import utn.tacs.grupo5.entity.post.ConservationStatus;
 
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 public class OfferedCardInputDto {
 
-    // private String image;
-    private Long cardId;
+    private UUID cardId;
     private ConservationStatus conservationStatus;
+    private String image;
 
 }

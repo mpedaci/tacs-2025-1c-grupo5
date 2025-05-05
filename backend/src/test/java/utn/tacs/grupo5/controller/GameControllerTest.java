@@ -2,6 +2,7 @@ package utn.tacs.grupo5.controller;
 
 import static org.mockito.Mockito.when;
 import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
@@ -39,15 +40,17 @@ public class GameControllerTest {
     @Test
     void save_shouldReturnOK_whenValidInput() throws Exception {
         GameInputDto gameInputDto = new GameInputDto();
-        gameInputDto.setName("Test Game");
+        gameInputDto.setTitle("Test Game");
+
+        UUID gameId = UUID.randomUUID();
 
         GameOutputDto gameOutputDto = new GameOutputDto();
-        gameOutputDto.setId(1L);
-        gameOutputDto.setName(gameInputDto.getName());
+        gameOutputDto.setId(gameId);
+        gameOutputDto.setTitle(gameInputDto.getTitle());
 
         Game game = new Game();
-        game.setName(gameInputDto.getName());
-        game.setId(1L);
+        game.setTitle(gameInputDto.getTitle());
+        game.setId(gameId);
 
         when(gameService.save(gameInputDto)).thenReturn(game);
         when(gameMapper.toDto(game)).thenReturn(gameOutputDto);
@@ -58,20 +61,20 @@ public class GameControllerTest {
                         .content(objectMapper.writeValueAsString(gameInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Test Game"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(gameId.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Test Game"));
     }
 
     @Test
     void get_shouldReturnGame_whenGameExists() throws Exception {
-        Long gameId = 1L;
+        UUID gameId = UUID.randomUUID();
         Game game = new Game();
         game.setId(gameId);
-        game.setName("Test Game");
+        game.setTitle("Test Game");
 
         GameOutputDto dto = new GameOutputDto();
         dto.setId(gameId);
-        dto.setName("Test Game");
+        dto.setTitle("Test Game");
 
         when(gameService.get(gameId)).thenReturn(Optional.of(game));
         when(gameMapper.toDto(game)).thenReturn(dto);
@@ -80,13 +83,13 @@ public class GameControllerTest {
                 MockMvcRequestBuilders.get("/games/" + gameId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(gameId))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Test Game"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(gameId.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Test Game"));
     }
 
     @Test
     void get_shouldReturnNotFound_whenGameDoesntExist() throws Exception {
-        Long gameId = 999L;
+        UUID gameId = UUID.randomUUID();
 
         when(gameService.get(gameId)).thenReturn(Optional.empty());
 
@@ -98,16 +101,16 @@ public class GameControllerTest {
 
     @Test
     void update_shouldReturnOK_whenValidInput() throws Exception {
-        Long gameId = 1L;
+        UUID gameId = UUID.randomUUID();
         GameInputDto gameInputDto = new GameInputDto();
-        gameInputDto.setName("Updated Game");
+        gameInputDto.setTitle("Updated Game");
 
         GameOutputDto gameOutputDto = new GameOutputDto();
         gameOutputDto.setId(gameId);
-        gameOutputDto.setName(gameInputDto.getName());
+        gameOutputDto.setTitle(gameInputDto.getTitle());
 
         Game game = new Game();
-        game.setName(gameInputDto.getName());
+        game.setTitle(gameInputDto.getTitle());
 
         when(gameService.update(gameId, gameInputDto)).thenReturn(game);
         when(gameMapper.toDto(game)).thenReturn(gameOutputDto);
@@ -118,13 +121,13 @@ public class GameControllerTest {
                         .content(objectMapper.writeValueAsString(gameInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(gameId))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Updated Game"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(gameId.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Updated Game"));
     }
 
     @Test
     void update_shouldReturnNotFound_whenGameDoesntExist() throws Exception {
-        Long gameId = 999L;
+        UUID gameId = UUID.randomUUID();
         GameInputDto gameInputDto = new GameInputDto();
         gameInputDto.setName("Updated Game");
 
@@ -139,7 +142,7 @@ public class GameControllerTest {
 
     @Test
     void delete_shouldReturnOK_whenGameExists() throws Exception {
-        Long gameId = 1L;
+        UUID gameId = UUID.randomUUID();
 
         mockMvc.perform(
                 MockMvcRequestBuilders.delete("/games/" + gameId))

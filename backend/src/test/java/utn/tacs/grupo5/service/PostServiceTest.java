@@ -17,6 +17,7 @@ import utn.tacs.grupo5.service.impl.PostService;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -40,13 +41,13 @@ public class PostServiceTest {
     @Test
     public void save_shouldSavePost_whenValidInput() {
         PostInputDto requestDto = new PostInputDto();
-        requestDto.setUserId(1L);
+        requestDto.setUserId(UUID.randomUUID());
         requestDto.setConservationStatus(ConservationStatus.GOOD);
 
         User user = new User();
-        user.setId(1L);
+        user.setId(requestDto.getUserId());
         Post createdPost = new Post();
-        createdPost.setId(1L);
+        createdPost.setId(UUID.randomUUID());
         createdPost.setUser(user);
 
         when(postMapper.toEntity(requestDto)).thenReturn(createdPost);
@@ -59,30 +60,29 @@ public class PostServiceTest {
         assertEquals(Post.Status.PUBLISHED, result.getStatus());
         assertNull(result.getFinishedAt());
         assertEquals(requestDto.getUserId(), result.getUser().getId());
-
     }
 
     @Test
     public void update_shouldUpdatePost_whenPostExists() {
         PostInputDto requestDto = new PostInputDto();
-        requestDto.setUserId(1L);
+        requestDto.setUserId(UUID.randomUUID());
         requestDto.setConservationStatus(ConservationStatus.PERFECT);
 
         Post existingPost = new Post();
-        existingPost.setId(1L);
+        existingPost.setId(UUID.randomUUID());
         existingPost.setEstimatedValue(BigDecimal.ONE);
 
         Post updatedPost = new Post();
-        updatedPost.setId(1L);
+        updatedPost.setId(existingPost.getId());
         updatedPost.setEstimatedValue(BigDecimal.TEN);
 
-        when(postRepository.findById(anyLong())).thenReturn(Optional.of(existingPost));
+        when(postRepository.findById(any(UUID.class))).thenReturn(Optional.of(existingPost));
         when(postMapper.toEntity(requestDto)).thenReturn(updatedPost);
         when(postRepository.save(updatedPost)).thenReturn(updatedPost);
 
-        Post result = postService.update(1L, requestDto);
+        Post result = postService.update(existingPost.getId(), requestDto);
 
-        verify(postRepository).findById(1L);
+        verify(postRepository).findById(existingPost.getId());
         verify(postRepository).save(updatedPost);
 
         assertEquals(existingPost.getId(), result.getId());
@@ -91,14 +91,16 @@ public class PostServiceTest {
 
     @Test
     public void delete_shouldDeletePost_whenPostExists() {
-        postService.delete(1L);
-        verify(postRepository).deleteById(1L);
+        UUID postId = UUID.randomUUID();
+        postService.delete(postId);
+        verify(postRepository).deleteById(postId);
     }
 
     @Test
     public void get_shouldReturnPost_whenPostExists() {
-        postService.get(1L);
-        verify(postRepository).findById(1L);
+        UUID postId = UUID.randomUUID();
+        postService.get(postId);
+        verify(postRepository).findById(postId);
     }
 
     @Test
@@ -109,15 +111,16 @@ public class PostServiceTest {
 
     @Test
     public void updateStatus_shouldUpdateStatus_whenPostExists() {
+        UUID postId = UUID.randomUUID();
         Post existingPost = new Post();
-        existingPost.setId(1L);
+        existingPost.setId(postId);
         existingPost.setStatus(Post.Status.PUBLISHED);
 
-        when(postRepository.findById(1L)).thenReturn(Optional.of(existingPost));
+        when(postRepository.findById(postId)).thenReturn(Optional.of(existingPost));
 
-        postService.updateStatus(1L, Post.Status.FINISHED);
+        postService.updateStatus(postId, Post.Status.FINISHED);
 
-        verify(postRepository).findById(1L);
+        verify(postRepository).findById(postId);
         verify(postRepository).save(existingPost);
 
         assertEquals(Post.Status.FINISHED, existingPost.getStatus());
@@ -126,15 +129,16 @@ public class PostServiceTest {
 
     @Test
     public void updateStatus_shouldThrowNotFoundException_whenPostDoesNotExist() {
-        when(postRepository.findById(1L)).thenReturn(Optional.empty());
+        UUID postId = UUID.randomUUID();
+        when(postRepository.findById(postId)).thenReturn(Optional.empty());
 
         try {
-            postService.updateStatus(1L, Post.Status.CANCELLED);
+            postService.updateStatus(postId, Post.Status.CANCELLED);
         } catch (NotFoundException e) {
             assertEquals("Post not found", e.getMessage());
         }
 
-        verify(postRepository).findById(1L);
+        verify(postRepository).findById(postId);
         verify(postRepository, never()).save(any());
     }
 }

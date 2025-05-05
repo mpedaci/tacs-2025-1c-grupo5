@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,13 +31,11 @@ public class InMemoryUserRepositoryTest {
     void save_shouldSaveUser_whenUserDoenstExist() {
         User user = new User();
         user.setUsername("testUser");
-        user.setEmail("test@example.com");
 
         User savedUser = userRepository.save(user);
 
         assertNotNull(savedUser.getId(), "User ID should be generated");
         assertEquals("testUser", savedUser.getUsername());
-        assertEquals("test@example.com", savedUser.getEmail());
         assertEquals(1, userRepository.findAll().size(), "Repository should contain one user");
     }
 
@@ -44,20 +43,17 @@ public class InMemoryUserRepositoryTest {
     void save_shouldUpdateSavedUser_whenUserExists() {
         User user = new User();
         user.setUsername("testUser");
-        user.setEmail("test@example.com");
 
         User savedUser = userRepository.save(user);
 
         User updatedUser = new User();
         updatedUser.setId(savedUser.getId());
         updatedUser.setUsername("updatedUser");
-        updatedUser.setEmail("updated@example.com");
 
         User savedUpdatedUser = userRepository.save(updatedUser);
 
         assertEquals(savedUser.getId(), savedUpdatedUser.getId(), "User ID should remain the same");
         assertEquals("updatedUser", savedUpdatedUser.getUsername());
-        assertEquals("updated@example.com", savedUpdatedUser.getEmail());
         assertEquals(1, userRepository.findAll().size(), "Repository should still contain one user");
     }
 
@@ -65,11 +61,9 @@ public class InMemoryUserRepositoryTest {
     void save_shouldSaveUsersWithUniqueIds() {
         User user1 = new User();
         user1.setUsername("user1");
-        user1.setEmail("user1@example.com");
 
         User user2 = new User();
         user2.setUsername("user2");
-        user2.setEmail("user2@example.com");
 
         User savedUser1 = userRepository.save(user1);
         User savedUser2 = userRepository.save(user2);
@@ -82,7 +76,6 @@ public class InMemoryUserRepositoryTest {
     void findById_shouldReturnUser_whenUserExists() {
         User user = new User();
         user.setUsername("testUser");
-        user.setEmail("test@example.com");
 
         User savedUser = userRepository.save(user);
 
@@ -94,7 +87,7 @@ public class InMemoryUserRepositoryTest {
 
     @Test
     void findById_shouldReturnEmpty_whenUserDoesNotExist() {
-        Optional<User> foundUser = userRepository.findById(999L);
+        Optional<User> foundUser = userRepository.findById(UUID.randomUUID());
 
         assertFalse(foundUser.isPresent(), "User should not be found");
     }
@@ -103,11 +96,9 @@ public class InMemoryUserRepositoryTest {
     void findAll_shouldReturnAllUsers() {
         User user1 = new User();
         user1.setUsername("user1");
-        user1.setEmail("user1@example.com");
 
         User user2 = new User();
         user2.setUsername("user2");
-        user2.setEmail("user2@example.com");
 
         userRepository.save(user1);
         userRepository.save(user2);
@@ -119,7 +110,6 @@ public class InMemoryUserRepositoryTest {
     void deleteById_shouldRemoveUser_whenUserExists() {
         User user = new User();
         user.setUsername("testUser");
-        user.setEmail("test@example.com");
 
         User savedUser = userRepository.save(user);
 
@@ -130,10 +120,9 @@ public class InMemoryUserRepositoryTest {
 
     @Test
     void deleteById_shouldDoNothing_whenUserDoesNotExist() {
-        Long nonExistingUserId = 999L;
+        UUID nonExistingUserId = UUID.randomUUID();
         User user = new User();
         user.setUsername("testUser");
-        user.setEmail("test@example.com");
 
         User savedUser = userRepository.save(user);
 
@@ -144,31 +133,9 @@ public class InMemoryUserRepositoryTest {
     }
 
     @Test
-    void findByEmail_shouldReturnUser_whenEmailExists() {
-        User user = new User();
-        user.setUsername("testUser");
-        user.setEmail("test@example.com");
-
-        userRepository.save(user);
-
-        Optional<User> foundUser = userRepository.findByEmail("test@example.com");
-
-        assertTrue(foundUser.isPresent(), "User should be found");
-        assertEquals("test@example.com", foundUser.get().getEmail());
-    }
-
-    @Test
-    void findByEmail_shouldReturnEmpty_whenEmailDoesNotExist() {
-        Optional<User> foundUser = userRepository.findByEmail("nonexistent@example.com");
-
-        assertFalse(foundUser.isPresent(), "User should not be found");
-    }
-
-    @Test
     void findByUsername_shouldReturnUser_whenUsernameExists() {
         User user = new User();
         user.setUsername("testUser");
-        user.setEmail("test@example.com");
 
         userRepository.save(user);
 

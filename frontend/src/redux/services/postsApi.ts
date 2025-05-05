@@ -3,16 +3,26 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {IPostResponse} from "@models/responses/iPostResponse";
 import {IPostCreateRequest} from "@models/requests/posts/iPostCreateRequest";
 import {IPostUpdateStateRequest} from "@models/requests/posts/iPostUpdateStateRequest";
+import {ConservationState} from "@models/enums/ConservationState";
 
 export const postsApi = createApi({
     reducerPath: "PostsApi",
     baseQuery: fetchBaseQuery({baseUrl: config.apiUrl}),
     tagTypes: ["Posts"],
     endpoints: (builder) => ({
-        getPosts: builder.query<IPostResponse[], void>({
-            query: () => ({
+        getPosts: builder.query<IPostResponse[], {
+            gameId?: string;
+            name?: string;
+            state?: ConservationState;
+        }>({
+            query: ({gameId, name, state}) => ({
                 url: `posts`,
                 method: "GET",
+                params: {
+                    gameId: gameId,
+                    name: name,
+                    state: state
+                }
             }),
             providesTags: ["Posts"],
         }),
@@ -30,6 +40,7 @@ export const postsApi = createApi({
                 method: "POST",
                 body,
             }),
+            invalidatesTags: ["Posts"],
         }),
         updatePost: builder.mutation<IPostResponse, {
             id: string;
@@ -40,6 +51,7 @@ export const postsApi = createApi({
                 method: "PUT",
                 body,
             }),
+            invalidatesTags: ["Posts"],
         }),
         updatePostState: builder.mutation<IPostResponse, {
             id: string;
@@ -50,6 +62,7 @@ export const postsApi = createApi({
                 method: "PATCH",
                 body,
             }),
+            invalidatesTags: ["Posts"],
         }),
         deletePost: builder.mutation<void, { id: string }>({
             query: ({id}) => ({

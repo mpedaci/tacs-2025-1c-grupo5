@@ -4,12 +4,14 @@ export interface User {
     id: string;
     name: string;
     isAdmin: boolean;
+    token: string;
 }
 
 const initialState: User = {
     id: '00000000-0000-0000-0000-000000000000',
-    name: 'developer',
-    isAdmin: true,
+    name: '',
+    isAdmin: false,
+    token: '',
 };
 
 const userSlice = createSlice({
@@ -20,6 +22,7 @@ const userSlice = createSlice({
             state.id = action.payload.id;
             state.name = action.payload.name;
             state.isAdmin = action.payload.isAdmin;
+            state.token = action.payload.token;
         },
         clearUser: (state) => {
             state.id = '';

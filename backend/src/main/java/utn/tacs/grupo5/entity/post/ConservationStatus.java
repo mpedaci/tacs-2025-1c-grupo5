@@ -6,5 +6,14 @@ public enum ConservationStatus {
     GOOD,
     EXCELLENT,
     ALMOST_PERFECT,
-    PERFECT
+    PERFECT;
+
+    public static ConservationStatus fromString(String status) {
+        try {
+            return ConservationStatus.valueOf(status.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
+                    "Conservation status '" + status + "' is not valid");
+        }
+    }
 }

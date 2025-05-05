@@ -3,6 +3,7 @@ package utn.tacs.grupo5.controller;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,18 +46,16 @@ public class UserControllerTest {
     @Test
     void save_shouldReturnOK_whenValidInput() throws Exception {
         UserInputDto userInputDto = new UserInputDto();
-        userInputDto.setFirstName("John Doe");
-        userInputDto.setEmail("john.doe@example.com");
+        userInputDto.setName("John Doe");
 
         UserOutputDto userOutputDto = new UserOutputDto();
-        userOutputDto.setId(1L);
-        userOutputDto.setEmail(userInputDto.getEmail());
-        userOutputDto.setFirstName(userInputDto.getFirstName());
+        UUID userId = UUID.randomUUID();
+        userOutputDto.setId(userId);
+        userOutputDto.setName(userInputDto.getName());
 
         User user = new User();
-        user.setFirstName(userInputDto.getFirstName());
-        user.setEmail(userInputDto.getEmail());
-        user.setId(1L);
+        user.setName(userInputDto.getName());
+        user.setId(userId);
 
         when(userService.save(userInputDto)).thenReturn(user);
         when(userMapper.toDto(user)).thenReturn(userOutputDto);
@@ -67,16 +66,14 @@ public class UserControllerTest {
                         .content(objectMapper.writeValueAsString(userInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(userOutputDto.getEmail()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName")
-                        .value(userOutputDto.getFirstName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(userOutputDto.getName()))
+                ;
     }
 
     @Test
     void save_shouldReturnConflict_whenValidUserExists() throws Exception {
         UserInputDto userInputDto = new UserInputDto();
-        userInputDto.setFirstName("John Doe");
-        userInputDto.setEmail("john.doe@example.com");
+        userInputDto.setName("John Doe");
 
         when(userService.save(userInputDto)).thenThrow(new ConflictException("User already exists"));
 
@@ -89,16 +86,14 @@ public class UserControllerTest {
 
     @Test
     void get_shouldReturnUser_whenUserExists() throws Exception {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
         User user = new User();
         user.setId(userId);
-        user.setFirstName("John Doe");
-        user.setEmail("john.doe@example.com");
+        user.setName("John Doe");
 
         UserOutputDto userOutputDto = new UserOutputDto();
         userOutputDto.setId(userId);
-        userOutputDto.setFirstName(user.getFirstName());
-        userOutputDto.setEmail(user.getEmail());
+        userOutputDto.setName(user.getName());
 
         when(userService.get(userId)).thenReturn(Optional.of(user));
         when(userMapper.toDto(user)).thenReturn(userOutputDto);
@@ -107,13 +102,13 @@ public class UserControllerTest {
                 MockMvcRequestBuilders.get("/users/" + userId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("John Doe"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("John Doe"));
     }
 
     @Test
     void get_shouldReturnNotFound_whenUserDoesntExists() throws Exception {
-        Long userId = 999L;
+        UUID userId = UUID.randomUUID();
 
         when(userService.get(userId)).thenReturn(Optional.empty());
 
@@ -125,20 +120,17 @@ public class UserControllerTest {
 
     @Test
     void update_shouldReturnOK_whenValidInput() throws Exception {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
         UserInputDto userInputDto = new UserInputDto();
-        userInputDto.setFirstName("Updated Name");
-        userInputDto.setEmail("updated.email@example.com");
+        userInputDto.setName("Updated Name");
 
         UserOutputDto userOutputDto = new UserOutputDto();
         userOutputDto.setId(userId);
-        userOutputDto.setFirstName(userInputDto.getFirstName());
-        userOutputDto.setEmail(userInputDto.getEmail());
+        userOutputDto.setName(userInputDto.getName());
 
         User user = new User();
         user.setId(userId);
-        user.setFirstName(userInputDto.getFirstName());
-        user.setEmail(userInputDto.getEmail());
+        user.setName(userInputDto.getName());
 
         when(userService.update(userId, userInputDto)).thenReturn(user);
         when(userMapper.toDto(user)).thenReturn(userOutputDto);
@@ -149,16 +141,15 @@ public class UserControllerTest {
                         .content(objectMapper.writeValueAsString(userInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("Updated Name"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(userId.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Updated Name"));
     }
 
     @Test
     void update_shouldReturnNotFound_whenUserDoesntExists() throws Exception {
-        Long userId = 999L;
+        UUID userId = UUID.randomUUID();
         UserInputDto userInputDto = new UserInputDto();
-        userInputDto.setFirstName("Updated Name");
-        userInputDto.setEmail("updated.email@example.com");
+        userInputDto.setName("Updated Name");
 
         when(userService.update(userId, userInputDto)).thenThrow(new NotFoundException("User not found"));
 
@@ -171,7 +162,7 @@ public class UserControllerTest {
 
     @Test
     void testDeleteUser() throws Exception {
-        Long userId = 1L;
+        UUID userId = UUID.randomUUID();
 
         mockMvc.perform(
                 MockMvcRequestBuilders.delete("/users/" + userId))

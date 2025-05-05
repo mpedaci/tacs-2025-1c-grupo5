@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -89,7 +90,7 @@ public class InMemoryOfferRepositoryTest {
 
     @Test
     void findById_shouldReturnEmpty_whenOfferDoesNotExist() {
-        Optional<Offer> foundOffer = offerRepository.findById(999L);
+        Optional<Offer> foundOffer = offerRepository.findById(UUID.randomUUID());
 
         assertFalse(foundOffer.isPresent(), "Offer should not be found");
     }
@@ -122,7 +123,7 @@ public class InMemoryOfferRepositoryTest {
 
     @Test
     void deleteById_shouldDoNothing_whenOfferDoesNotExist() {
-        Long nonExistingOfferId = 999L;
+        UUID nonExistingOfferId = UUID.randomUUID();
         Offer offer = new Offer();
         offer.setMoney(BigDecimal.valueOf(100.0));
 
@@ -137,9 +138,9 @@ public class InMemoryOfferRepositoryTest {
     @Test
     void findAllByPostId_shouldReturnOffers_whenPostIdExists() {
         Post post1 = new Post();
-        post1.setId(1L);
+        post1.setId(UUID.randomUUID());
         Post post2 = new Post();
-        post2.setId(2L);
+        post2.setId(UUID.randomUUID());
 
         Offer offer1 = new Offer();
         offer1.setMoney(BigDecimal.valueOf(100.0));
@@ -157,24 +158,24 @@ public class InMemoryOfferRepositoryTest {
         offerRepository.save(offer2);
         offerRepository.save(offer3);
 
-        List<Offer> offersByPostId = offerRepository.findAllByPostId(1L);
+        List<Offer> offersByPostId = offerRepository.findAllByPostId(post1.getId());
 
         assertEquals(2, offersByPostId.size(), "Should return two offers for post ID 1");
-        assertTrue(offersByPostId.stream().allMatch(offer -> offer.getPost().getId().equals(1L)));
+        assertTrue(offersByPostId.stream().allMatch(offer -> offer.getPost().getId().equals(post1.getId())));
     }
 
     @Test
     void findAllByPostId_shouldReturnEmpty_whenPostIdDoesNotExist() {
         Post post = new Post();
-        post.setId(1L);
+        post.setId(UUID.randomUUID());
         Offer offer = new Offer();
         offer.setPost(post);
-        offer.setId(1L);
+        offer.setId(UUID.randomUUID());
         offer.setMoney(BigDecimal.valueOf(100.0));
 
         offerRepository.save(offer);
 
-        List<Offer> offersByPostId = offerRepository.findAllByPostId(999L);
+        List<Offer> offersByPostId = offerRepository.findAllByPostId(UUID.randomUUID());
 
         assertTrue(offersByPostId.isEmpty(), "Should return an empty list for non-existing post ID");
     }

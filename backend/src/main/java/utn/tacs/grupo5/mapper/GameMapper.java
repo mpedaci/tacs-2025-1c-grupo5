@@ -13,7 +13,7 @@ public class GameMapper implements IMapper<Game, GameInputDto, GameOutputDto> {
     public GameOutputDto toDto(Game game) {
         GameOutputDto dto = new GameOutputDto();
         dto.setId(game.getId());
-        dto.setName(game.getName());
+        dto.setTitle(game.getTitle());
         dto.setDescription(game.getDescription());
         return dto;
     }
@@ -21,7 +21,8 @@ public class GameMapper implements IMapper<Game, GameInputDto, GameOutputDto> {
     @Override
     public Game toEntity(GameInputDto dto) {
         Game game = new Game();
-        game.setName(dto.getName());
+        game.setTitle(dto.getName());
+        game.setName(Game.Name.fromString(dto.getName()));
         game.setDescription(dto.getDescription());
         return game;
     }

@@ -1,6 +1,7 @@
 package utn.tacs.grupo5.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ import utn.tacs.grupo5.service.ICardService;
 
 @RestController
 @Tag(name = "Cards", description = "Card operations")
-public class CardController {
+public class CardController extends BaseController {
 
         private final ICardService cardService;
         private final CardMapper cardMapper;
@@ -56,7 +57,7 @@ public class CardController {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CardOutputDto.class))
                         })
         })
-        public ResponseEntity<CardOutputDto> get(@PathVariable Long id) {
+        public ResponseEntity<CardOutputDto> get(@PathVariable UUID id) {
                 Card card = cardService.get(id)
                                 .orElseThrow(() -> new NotFoundException("Card not found"));
                 return ResponseGenerator.generateResponseOK(cardMapper.toDto(card));
@@ -72,7 +73,7 @@ public class CardController {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CardOutputDto.class))
                         })
         })
-        public ResponseEntity<CardOutputDto> update(@RequestBody CardInputDto cardDto, @PathVariable Long id) {
+        public ResponseEntity<CardOutputDto> update(@RequestBody CardInputDto cardDto, @PathVariable UUID id) {
                 Card card = cardService.update(id, cardDto);
                 return ResponseGenerator.generateResponseOK(cardMapper.toDto(card));
         }
@@ -85,13 +86,13 @@ public class CardController {
                         }),
                         @ApiResponse(responseCode = "200", description = "OK")
         })
-        public ResponseEntity<String> delete(@PathVariable Long id) {
+        public ResponseEntity<String> delete(@PathVariable UUID id) {
                 cardService.delete(id);
                 return ResponseGenerator.generateResponseOK("Card deleted successfully");
         }
 
         @GetMapping(value = "/games/{id}/cards") // TODO hacer pageable en un futuro
-        @Operation(summary = "Get all card by game id", description = "Get all cards by game id and name")
+        @Operation(summary = "Get all card by game id and name", description = "Get all cards by game id and name")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {
                                         @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))
@@ -100,8 +101,9 @@ public class CardController {
                                         @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CardOutputDto.class)))
                         })
         })
-        public ResponseEntity<List<CardOutputDto>> getAllCardsByGame(@PathVariable Long id, @RequestParam(required = false) String cardName) {
-                List<CardOutputDto> cards = cardService.getAllByGameId(id, cardName)
+        public ResponseEntity<List<CardOutputDto>> getAllCardsByGameIdAndCardName(@PathVariable UUID id,
+                        @RequestParam(required = false) String name) {
+                List<CardOutputDto> cards = cardService.getAllByGameId(id, name)
                                 .stream()
                                 .map(cardMapper::toDto)
                                 .toList();

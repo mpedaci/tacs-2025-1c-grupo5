@@ -9,6 +9,7 @@ import utn.tacs.grupo5.entity.post.Offer;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -17,11 +18,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Schema(name = "Offer", description = "Offer schema for output")
 public class OfferOutputDto {
 
-    private Long id;
+    private UUID id;
     private BigDecimal money;
     private List<OfferedCardOutputDto> offeredCards;
     private UserOutputDto offerer;
-    private Long postId;
+    private UUID postId;
     private Offer.Status state;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime publishedAt;

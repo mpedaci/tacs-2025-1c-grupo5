@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
+
+import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
@@ -15,12 +16,11 @@ import utn.tacs.grupo5.repository.CardRepository;
 public class InMemoryCardRepository implements CardRepository {
 
     private final List<Card> cards = Collections.synchronizedList(new ArrayList<>());
-    private final AtomicLong idGenerator = new AtomicLong();
 
     @Override
     public Card save(Card card) {
         if (card.getId() == null) {
-            card.setId(idGenerator.incrementAndGet());
+            card.setId(UUID.randomUUID());
         } else {
             deleteById(card.getId()); // replace if exists
         }
@@ -29,7 +29,7 @@ public class InMemoryCardRepository implements CardRepository {
     }
 
     @Override
-    public Optional<Card> findById(Long id) {
+    public Optional<Card> findById(UUID id) {
         synchronized (cards) {
             return cards.stream()
                     .filter(card -> card.getId().equals(id))
@@ -45,14 +45,14 @@ public class InMemoryCardRepository implements CardRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         synchronized (cards) {
             cards.removeIf(card -> card.getId().equals(id));
         }
     }
 
     @Override
-    public List<Card> findByGameId(Long gameId) {
+    public List<Card> findByGameId(UUID gameId) {
         synchronized (cards) {
             return cards.stream()
                     .filter(card -> card.getGame().getId().equals(gameId))
