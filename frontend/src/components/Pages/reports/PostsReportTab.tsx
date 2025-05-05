@@ -1,17 +1,16 @@
 "use client";
-import ReportGraph, {GraphItem} from "@components/Pages/reports/ReportGraph";
-import {useState} from "react";
-import {postsMockData} from "@components/Pages/reports/mockData";
+import ReportGraph from "@components/Pages/reports/ReportGraph";
 import Grid from "@mui/material/Grid2";
 import MainCard from "@components/Cards/MainCard";
+import {useGetPostsMetricsQuery} from "@redux/services/metricsApi";
 
 
 export default function PostsReportTab() {
-    const [graphData, setGraphData] = useState<GraphItem[]>(postsMockData);
+    const {data: graphData} = useGetPostsMetricsQuery();
 
     return (
         <Grid container spacing={3}>
-            {graphData
+            {(graphData || [])
                 .map(({title, data, serie}, index) => (
                     <Grid size={{
                         xs: 12,

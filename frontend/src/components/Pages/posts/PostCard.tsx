@@ -31,8 +31,8 @@ export const PostCard = ({
     estimatedValue: number;
     wishedCards: ICardResponse[];
     state: PostState;
-    publishedAt: Date;
-    endAt: Date;
+    publishedAt: string;
+    endAt: string;
     showState?: boolean;
 }) => {
     return (
@@ -44,28 +44,32 @@ export const PostCard = ({
                             {card.name}
                         </Typography>
                         <Typography variant="subtitle1" component="h3" color="text.secondary">
-                            {card.game.name}
+                            {card.game.title}
                         </Typography>
                         <Typography variant="subtitle1" component="h3" color="text.secondary">
-                            Publicado el: {publishedAt.toLocaleDateString()}
+                            Publicado el: {publishedAt}
                         </Typography>
                         {
                             showState && state === PostState.Finished && (
                                 <Typography variant="subtitle1" component="h3" color="text.secondary">
-                                    Finalizado el: {endAt.toLocaleDateString()}
+                                    Finalizado el: {endAt}
                                 </Typography>
                             )
                         }
                     </Grid>
                     <Grid size={12}>
-                        <ImageCarousel images={[...images, card.image]}/>
+                        <ImageCarousel images={[card.imageUrl, ...images]}/>
                     </Grid>
-                    <Grid size={6}>
+                    <Grid size={estimatedValue ? 6 : 12}>
                         <Chip label={conservationStateLabels[conservationState]} color="secondary"/>
                     </Grid>
-                    <Grid size={6}>
-                        <Chip label={`Valor: $${estimatedValue}`} color="secondary"/>
-                    </Grid>
+                    {
+                        estimatedValue && (
+                            <Grid size={6}>
+                                <Chip label={`Valor: $${estimatedValue}`} color="secondary"/>
+                            </Grid>
+                        )
+                    }
                     {
                         showState && (
                             <Grid size={12}>

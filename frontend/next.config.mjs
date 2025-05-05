@@ -1,18 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    transpilePackages: ['mui-file-input'],
     webpack: (config) => {
         config.resolve.alias.canvas = false;
         return config;
     },
     output: "standalone",
-    images: {
-        remotePatterns: [
-            {
-                protocol: "https",
-                hostname: "lh3.googleusercontent.com"
-            }
-        ],
-    },
     async redirects() {
         return [
             {

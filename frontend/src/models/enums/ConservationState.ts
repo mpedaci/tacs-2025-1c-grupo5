@@ -1,10 +1,10 @@
 export enum ConservationState {
-    Bad,
-    Regular,
-    Good,
-    Excellent,
-    AlmostPerfect,
-    Perfect,
+    Bad = "BAD",
+    Regular = "REGULAR",
+    Good = "GOOD",
+    Excellent = "EXCELLENT",
+    AlmostPerfect = "ALMOST_PERFECT",
+    Perfect = "PERFECT",
 }
 
 export const conservationStateLabels = {

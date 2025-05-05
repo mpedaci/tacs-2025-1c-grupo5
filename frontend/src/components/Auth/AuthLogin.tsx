@@ -34,24 +34,19 @@ const AuthLogin = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleLogin = async (response: {
-        userExists: boolean;
+    const handleLogin = (response: {
         token: string;
     }) => {
-        const userExists: boolean = response.userExists;
-        if (userExists) {
-            const tokenCookie = response.token;
-            const jsonRes = parseJwt(tokenCookie);
-            const user: User = {
-                id: jsonRes.id ?? "",
-                name: jsonRes.name ?? "",
-                isAdmin: jsonRes.admin ?? false,
-            }
-            dispatch(setUser(user));
-            router.push(postsRoute());
-        } else {
-            addNotification("Usuario o contraseña incorrectos", "error");
+        const tokenCookie = response.token;
+        const jsonRes = parseJwt(tokenCookie);
+        const user: User = {
+            id: jsonRes.jti ?? "",
+            name: jsonRes.sub ?? "",
+            isAdmin: jsonRes.admin ?? false,
+            token: tokenCookie,
         }
+        dispatch(setUser(user));
+        router.push(postsRoute());
     }
 
     const handleSubmit = async () => {
@@ -60,8 +55,8 @@ const AuthLogin = () => {
             return;
         }
         try {
-            // const response = await login({username, password}).unwrap();
-            // handleLogin(response);
+            const response = await login({username, password}).unwrap();
+            handleLogin(response);
             router.push(postsRoute());
         } catch {
             addNotification("Error al iniciar sesión", "error");
@@ -111,6 +106,11 @@ const AuthLogin = () => {
                             </InputAdornment>
                         }
                         placeholder="Ingrese su contraseña"
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                handleSubmit();
+                            }
+                        }}
                     />
                 </Stack>
             </Grid>

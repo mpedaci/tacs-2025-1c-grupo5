@@ -102,9 +102,9 @@ public class PostController extends BaseController {
         })
         public ResponseEntity<List<PostOutputDto>> getAll(
                         @RequestParam(required = false) String name,
-                        @RequestParam(required = false) String game,
+                        @RequestParam(required = false) UUID gameId,
                         @RequestParam(required = false) String state) {
-                List<PostOutputDto> posts = postService.getAllWithFilters(name, game, state)
+                List<PostOutputDto> posts = postService.getAllWithFilters(name, gameId, state)
                                 .stream()
                                 .map(postMapper::toDto)
                                 .toList();
