@@ -63,7 +63,7 @@ public class AuthControllerTest {
 
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/auth/refresh")
-                        .header("Authorization", token))
+                        .header("X-Auth-Token", token))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.token").value("newMockToken"));
 
@@ -78,7 +78,7 @@ public class AuthControllerTest {
 
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/auth/logout")
-                        .header("Authorization", token))
+                        .header("X-Auth-Token", token))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
         verify(authService, times(1)).logout(token);
