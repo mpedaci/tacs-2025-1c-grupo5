@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Import(TestContainersConfig.class)
-class InMemoryCardRepositoryTest {
+class MongoCardRepositoryTest {
 
     @Autowired
     private CardRepository repository;
