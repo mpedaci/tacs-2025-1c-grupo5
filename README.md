@@ -40,6 +40,14 @@ docker-compose up
 The backend will be available at `http://localhost:8080`\
 The frontend will be available at `http://localhost:3000`
 
+#### 4. Admin access
+****
+To create an admin user, run the following command:
+
+```bash
+curl 'http://localhost:8080/api/users' -H 'Content-Type: application/json' --data-raw $'{"name": "admin", "username": "admin", "password": "admin", "admin": true}'
+```
+
 ## Documentation
 
 To access api documentation visit the `/api/docs` url or click in this [link](http://localhost:8080/api/docs)
