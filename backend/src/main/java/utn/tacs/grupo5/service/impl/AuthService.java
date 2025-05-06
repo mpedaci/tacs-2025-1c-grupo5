@@ -2,6 +2,8 @@ package utn.tacs.grupo5.service.impl;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import utn.tacs.grupo5.controller.exceptions.CredentialException;
+import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.auth.AuthInputDto;
 import utn.tacs.grupo5.dto.auth.AuthOutputDto;
 import utn.tacs.grupo5.repository.UserRepository;
@@ -21,11 +23,11 @@ public class AuthService implements IAuthService {
     @Override
     public AuthOutputDto login(AuthInputDto authInputDto) {
         var user = userRepository.findByUsername(authInputDto.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new CredentialException("User not found or password invalid"));
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(authInputDto.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Credentials invalid");
+            throw new CredentialException("User not found or password invalid");
         }
 
         String token = jwtUtil.generateToken(user);
@@ -37,12 +39,12 @@ public class AuthService implements IAuthService {
     @Override
     public AuthOutputDto refreshToken(String refreshToken) {
         if (!jwtUtil.validateToken(refreshToken)) {
-            throw new RuntimeException("Refresh token invalid");
+            throw new CredentialException("Invalid token");
         }
 
         String username = jwtUtil.getUsernameFromToken(refreshToken);
         var user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new CredentialException("User not found"));
         String newToken = jwtUtil.generateToken(user);
 
         return new AuthOutputDto(newToken);
