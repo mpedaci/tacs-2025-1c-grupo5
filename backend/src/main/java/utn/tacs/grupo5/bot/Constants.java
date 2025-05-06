@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.telegram.bot;
+package utn.tacs.grupo5.bot;
 
 public class Constants {
     public static final String START_DESCRIPTION = "Starts the bot";

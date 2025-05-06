@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.telegram.bot;
+package utn.tacs.grupo5.bot;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -8,9 +8,8 @@ import org.telegram.abilitybots.api.objects.Ability;
 import org.telegram.abilitybots.api.objects.Flag;
 import org.telegram.abilitybots.api.objects.Reply;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import utn.tacs.grupo5.handler.ResponseHandler;
+import utn.tacs.grupo5.bot.handler.ResponseHandler;
 
-import java.util.List;
 import java.util.function.BiConsumer;
 
 import static org.telegram.abilitybots.api.objects.Locality.USER;
@@ -46,7 +45,7 @@ public class TelegramBot extends AbilityBot {
         return Ability
                 .builder()
                 .name("start")
-                .info(Constants.START_DESCRIPTION)
+                .info(utn.tacs.grupo5.bot.Constants.START_DESCRIPTION)
                 .locality(USER)
                 .privacy(PUBLIC)
                 .action(ctx -> responseHandler.replyToStart(ctx.chatId()))
@@ -54,7 +53,8 @@ public class TelegramBot extends AbilityBot {
     }
 
     public Reply replyToButtons() {
-        BiConsumer<BaseAbilityBot, Update> action = (abilityBot, upd) -> responseHandler.replyToButtons(getChatId(upd), upd.getMessage());
+        BiConsumer<BaseAbilityBot, Update> action =
+                (abilityBot, upd) -> responseHandler.replyToButtons(getChatId(upd), upd.getMessage());
         return Reply.of(action, Flag.TEXT, upd -> responseHandler.userIsActive(getChatId(upd)));
     }
 

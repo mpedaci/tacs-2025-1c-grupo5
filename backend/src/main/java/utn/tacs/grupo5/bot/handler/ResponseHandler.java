@@ -1,17 +1,18 @@
-package utn.tacs.grupo5.handler;
+package utn.tacs.grupo5.bot.handler;
 
 import org.telegram.abilitybots.api.db.DBContext;
 import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
-import utn.tacs.grupo5.telegram.bot.Constants;
-import utn.tacs.grupo5.telegram.bot.UserState;
+import utn.tacs.grupo5.bot.Constants;
+import utn.tacs.grupo5.bot.UserState;
 
 import java.util.Map;
 
-import static utn.tacs.grupo5.telegram.bot.Constants.START_TEXT;
-import static utn.tacs.grupo5.telegram.bot.UserState.AWAITING_USER;
+import static utn.tacs.grupo5.bot.Constants.START_TEXT;
+import static utn.tacs.grupo5.bot.UserState.AWAITING_USER;
+
 
 public class ResponseHandler {
     private final SilentSender sender;
