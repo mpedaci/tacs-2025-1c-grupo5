@@ -1,14 +1,12 @@
 version: '3.8'
 
 services:
-  # mongodb:
-  #   image: 'mongo:latest'
-  #   environment:
-  #     - 'MONGO_INITDB_DATABASE=mydatabase'
-  #     - 'MONGO_INITDB_ROOT_PASSWORD=secret'
-  #     - 'MONGO_INITDB_ROOT_USERNAME=root'
-  #   ports:
-  #     - '27017'
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
 
   backend:
     build:
@@ -19,6 +17,12 @@ services:
       - '8080:8080'
     networks:
       - default
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/tacsdb
+    depends_on:
+      - mongo
+
 
   frontend:
     build:
@@ -31,3 +35,6 @@ services:
       - '3000:3000'
     networks:
       - default
+
+volumes:
+  mongo-data:

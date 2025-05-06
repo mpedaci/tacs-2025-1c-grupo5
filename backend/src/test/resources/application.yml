@@ -11,3 +11,12 @@ server:
 logging:
   level:
     root: OFF
+
+external:
+  api:
+    magic:
+      url: http://localhost:8081
+    pokemon:
+      url: http://localhost:8082
+    yugioh:
+      url: http://localhost:8083

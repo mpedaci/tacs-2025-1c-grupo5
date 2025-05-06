@@ -3,7 +3,7 @@ spring:
     name: tacs-2025-1c-grupo5
   data:
     mongodb:
-      uri: mongodb://localhost:27017/tacs-2025-1c-grupo5
+      uri: mongodb://mongo:27017/tacsdb
   profiles:
     active: dev
   web:
