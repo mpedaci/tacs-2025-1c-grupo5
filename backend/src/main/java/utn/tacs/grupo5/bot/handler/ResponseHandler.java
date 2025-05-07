@@ -6,8 +6,10 @@ import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.User;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import utn.tacs.grupo5.bot.Constants;
+import utn.tacs.grupo5.bot.KeyboardFactory;
 import utn.tacs.grupo5.bot.UserState;
 import utn.tacs.grupo5.service.impl.BotService;
 
@@ -36,12 +38,28 @@ public class ResponseHandler {
         return chatStates.containsKey(chatId);
     }
 
-    public void replyToStart(long chatId) {
+    protected void reply(long chatId, String text, ReplyKeyboard replyKeyboard, UserState userState) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
-        message.setText(START_TEXT);
+        message.setText(text);
+        if (replyKeyboard != null) {
+            message.setReplyMarkup(replyKeyboard);
+        }
         sender.execute(message);
-        chatStates.put(chatId, AWAITING_LOG_IN);
+        chatStates.put(chatId, userState);
+    }
+
+    public void replyToStart(long chatId) {
+        reply(chatId,START_TEXT,KeyboardFactory.getStartOption(),AWAITING_SESSION);
+    }
+
+    private void stopChat(long chatId) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setText("Saliendo");
+        chatStates.remove(chatId);
+        sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
+        sender.execute(sendMessage);
     }
 
     public void replyToButtons(long chatId, Message message) {
@@ -49,25 +67,26 @@ public class ResponseHandler {
             stopChat(chatId);
         }
         switch (message.getChatId()) {
-            case AWAITING_LOG_IN: replyToUser(message.getChatId(), message);
+            case AWAITING_SESSION: replyToStartSession(message.getChatId(), message);
             default:
         }
     }
 
-    private void stopChat(long chatId) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(chatId);
-        sendMessage.setText("exiting");
-        chatStates.remove(chatId);
-        sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
-        sender.execute(sendMessage);
-    }
-
-    private void replyToUser(long chatId, Message message){
-        Optional<User> user = botService.searchForUser();
-        if (user.isPresent()){
-            //hello user
+    private void replyToStartSession(long chatId, Message message){
+        if ("Log In".equalsIgnoreCase(message.getText())){
+            Optional<User> user = botService.findUser();
+            if (user.isPresent()){
+                String stringResponse = "Bienvenido " + user.get().getFirstName() + " " + user.get().getLastName();
+                reply(chatId, stringResponse, KeyboardFactory.getCardsOption(), CHOOSING_OPTIONS);
+            }
+            else {
+                String stringResponse = "Usuario no encontrado, vuelva a intentar";
+                reply(chatId, stringResponse, null, AWAITING_SESSION);
+            }
         }
-        else;//not a valid user try again
+        else if ("Registrarse".equalsIgnoreCase(message.getText())){
+            //flujo de registro
+        }
     }
 }
+

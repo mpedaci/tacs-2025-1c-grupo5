@@ -35,6 +35,7 @@ public class TelegramBot extends AbilityBot {
         this.botUsername = botUsername;
         this.botCreatorId = botCreatorId;
         this.responseHandler = responseHandler;
+        responseHandler.init(silent, db);
     }
 
     @Override
