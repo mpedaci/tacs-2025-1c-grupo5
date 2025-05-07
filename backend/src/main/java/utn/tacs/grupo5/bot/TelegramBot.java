@@ -28,12 +28,13 @@ public class TelegramBot extends AbilityBot {
     public TelegramBot (
             @Value("${telegram.bot.token}") String botToken,
             @Value("${telegram.bot.name}") String botUsername,
-            @Value("${telegram.bot.cid}")Long botCreatorId) {
+            @Value("${telegram.bot.cid}")Long botCreatorId,
+            ResponseHandler responseHandler) {
         super(botToken, botUsername);
         this.botToken = botToken;
         this.botUsername = botUsername;
         this.botCreatorId = botCreatorId;
-        this.responseHandler = new ResponseHandler(silent, db);
+        this.responseHandler = responseHandler;
     }
 
     @Override
