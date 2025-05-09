@@ -44,6 +44,7 @@ public class TelegramBot extends AbilityBot {
     }
 
     public Ability startBot() {
+        db.getMap(Constants.CHAT_STATES).clear(); //TODO eliminar esto despues de testear
         return Ability
                 .builder()
                 .name("start")

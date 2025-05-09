@@ -63,30 +63,71 @@ public class ResponseHandler {
     }
 
     public void replyToButtons(long chatId, Message message) {
+        UserState state = chatStates.get(chatId);
+
         if (message.getText().equalsIgnoreCase("/stop")) {
             stopChat(chatId);
         }
-        switch (message.getChatId()) {
-            case AWAITING_SESSION: replyToStartSession(message.getChatId(), message);
-            default:
+        switch (state) {
+            case AWAITING_SESSION:
+                replyToStartSession(message.getChatId(), message);
+                break;
+            case LOGIN_IN:
+                replyToLogIn(message.getChatId(), message);
+                break;
+            case REGISTERING_NAME:
+                replyToRegisterName(message.getChatId(), message);
+                break;
+            case REGISTERING_PASSWORD:
+                replyToRegisterPassword(message.getChatId(), message);
+                break;
+            default: break;
         }
     }
 
     private void replyToStartSession(long chatId, Message message){
         if ("Log In".equalsIgnoreCase(message.getText())){
-            Optional<User> user = botService.findUser();
-            if (user.isPresent()){
-                String stringResponse = "Bienvenido " + user.get().getFirstName() + " " + user.get().getLastName();
-                reply(chatId, stringResponse, KeyboardFactory.getCardsOption(), CHOOSING_OPTIONS);
-            }
-            else {
-                String stringResponse = "Usuario no encontrado, vuelva a intentar";
-                reply(chatId, stringResponse, null, AWAITING_SESSION);
-            }
+            reply(chatId, "ingrese su usuario y contraseña \n->usuario, contraseña", null, LOGIN_IN);
         }
         else if ("Registrarse".equalsIgnoreCase(message.getText())){
-            //flujo de registro
+            reply(chatId, "Ingrese el nombre de usuario", null, REGISTERING_NAME);
         }
     }
+
+    private void replyToLogIn(long chatId, Message message){
+        Optional<User> user = botService.findUser(message.getText());
+        if (user.isPresent()){
+            String stringResponse = "Bienvenido " + user.get().getFirstName() + " " + user.get().getLastName();
+            reply(chatId, stringResponse, KeyboardFactory.getCardsOption(), CHOOSING_OPTIONS);
+        }
+        else {
+            String stringResponse = "Usuario no encontrado, vuelva a intentar";
+            reply(chatId, stringResponse, null, LOGIN_IN);
+        }
+    }
+
+    private void replyToRegisterName(long chatId, Message message){
+        if(!botService.findExistingUsername(message.getText())){
+            reply(chatId, "ingrese su contraseña", null, REGISTERING_PASSWORD);
+        }
+        else {
+            reply(chatId, "El nombre de usuario ya existe, ingrese otro", null, REGISTERING_NAME);
+        }
+    }
+
+    private void replyToRegisterPassword(long chatId, Message message) {
+        if (PasswordVerifier(message.getText())){
+            reply(chatId, "Usuario registrado", KeyboardFactory.getCardsOption(), CHOOSING_OPTIONS);
+        }
+        else {
+            reply(chatId, "La contraseña no es válida, ingrese otra", null, REGISTERING_PASSWORD);
+        }
+    }
+
+    private boolean PasswordVerifier(String text) {
+        return true;
+    }
+
+
 }
 
