@@ -3,10 +3,10 @@ import {config} from "@config/config";
 
 export const authApi = createApi({
     reducerPath: "AuthApi",
-    baseQuery: fetchBaseQuery({baseUrl: config.apiUrl, credentials: "include"}),
+    baseQuery: fetchBaseQuery({baseUrl: config.apiUrl}),
     endpoints: (builder) => ({
         login: builder.mutation<
-            { userExists: boolean, token: string },
+            { token: string },
             { username: string, password: string }
         >({
             query: ({
@@ -22,10 +22,13 @@ export const authApi = createApi({
             }),
         }),
 
-        logout: builder.mutation<void, void>({
-            query: () => ({
+        logout: builder.mutation<void, { token: string }>({
+            query: ({token}) => ({
                 url: `auth/logout`,
                 method: "POST",
+                headers: {
+                    "X-Auth-Token": token
+                }
             }),
         }),
     })

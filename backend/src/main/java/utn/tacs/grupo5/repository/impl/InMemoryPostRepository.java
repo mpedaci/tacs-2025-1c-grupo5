@@ -8,6 +8,7 @@ import utn.tacs.grupo5.repository.PostRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 @Getter
@@ -16,8 +17,8 @@ public class InMemoryPostRepository implements PostRepository {
 
     @Override
     public Post save(Post post) {
-        if(post.getId() == null) {
-            post.setId((long) (posts.size() + 1));
+        if (post.getId() == null) {
+            post.setId(UUID.randomUUID());
         } else {
             deleteById(post.getId());
         }
@@ -28,7 +29,7 @@ public class InMemoryPostRepository implements PostRepository {
     }
 
     @Override
-    public Optional<Post> findById(Long id) {
+    public Optional<Post> findById(UUID id) {
         return posts.stream().filter(post -> post.getId().equals(id)).findFirst();
     }
 
@@ -38,7 +39,7 @@ public class InMemoryPostRepository implements PostRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         posts.removeIf(post -> post.getId().equals(id));
     }
 }

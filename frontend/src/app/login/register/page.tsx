@@ -110,9 +110,9 @@ export default function RegisterPage() {
                                     </CardActions>
                                     <CardContent>
                                         <Grid container marginTop={3} spacing={3} alignItems="center">
-                                            <Grid size={121} key={"nombre"}>
+                                            <Grid size={12} key={"name"}>
                                                 <TextFieldElement
-                                                    name={"nombre"}
+                                                    name={"name"}
                                                     label={"Nombre"}
                                                     placeholder={"Ingrese su nombre"}
                                                     required={true}

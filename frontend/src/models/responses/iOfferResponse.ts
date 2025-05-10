@@ -4,10 +4,10 @@ import {IUserResponse} from "@models/responses/iUserResponse";
 
 export interface IOfferResponse {
     id: string;
-    offeror: IUserResponse;
-    cards: IOfferedCardResponse[];
+    offerer: IUserResponse;
+    offeredCards: IOfferedCardResponse[];
     money: number;
     state: OfferState;
-    publishedAt: Date;
-    finishedAt: Date;
+    publishedAt: string;
+    finishedAt: string;
 }

@@ -1,10 +1,8 @@
 import {jwtDecode} from 'jwt-decode'
 
 export interface DecodedUser {
-    aud?: string;
-
-    id?: string;
-    name?: string;
+    jti?: string;
+    sub?: string;
     admin?: boolean;
 }
 

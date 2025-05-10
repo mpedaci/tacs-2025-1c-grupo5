@@ -20,6 +20,7 @@ import utn.tacs.grupo5.service.impl.PostService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.mockito.Mockito.when;
 
@@ -44,10 +45,11 @@ public class PostControllerTest {
         PostInputDto postInputDto = new PostInputDto();
 
         PostOutputDto postOutputDto = new PostOutputDto();
-        postOutputDto.setId(1L);
+        UUID postId = UUID.randomUUID();
+        postOutputDto.setId(postId);
 
         Post post = new Post();
-        post.setId(1L);
+        post.setId(postId);
 
         when(postService.save(postInputDto)).thenReturn(post);
         when(postMapper.toDto(post)).thenReturn(postOutputDto);
@@ -58,13 +60,13 @@ public class PostControllerTest {
                         .content(objectMapper.writeValueAsString(postInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1L));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(postId.toString()));
     }
 
     // Update
     @Test
     void update_shouldReturnOK_whenValidInput() throws Exception {
-        Long postId = 1L;
+        UUID postId = UUID.randomUUID();
         PostInputDto postInputDto = new PostInputDto();
 
         PostOutputDto postOutputDto = new PostOutputDto();
@@ -82,20 +84,21 @@ public class PostControllerTest {
                         .content(objectMapper.writeValueAsString(postInputDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(postId));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(postId.toString()));
     }
 
     @Test
     void delete_shouldReturnOK_whenPostExists() throws Exception {
+        UUID postId = UUID.randomUUID();
         mockMvc.perform(
-                MockMvcRequestBuilders.delete("/posts/" + 1L)
+                MockMvcRequestBuilders.delete("/posts/" + postId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     void get_shouldReturnPost_whenPostExists() throws Exception {
-        Long postId = 1L;
+        UUID postId = UUID.randomUUID();
 
         Post post = new Post();
         post.setId(postId);
@@ -110,12 +113,12 @@ public class PostControllerTest {
                 MockMvcRequestBuilders.get("/posts/" + postId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(postId));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(postId.toString()));
     }
 
     @Test
     void get_shouldReturnNotFound_whenPostDoesNotExist() throws Exception {
-        Long postId = 1L;
+        UUID postId = UUID.randomUUID();
 
         when(postService.get(postId)).thenReturn(Optional.empty());
 
@@ -136,18 +139,21 @@ public class PostControllerTest {
     }
 
     @Test
-    void getAll_shouldReturnListOfPosts_whenPostsExist() throws Exception {
+    void getAll_shouldReturnListOfPosts_whenPostsExistAndNoFilters() throws Exception {
+        UUID postId1 = UUID.randomUUID();
+        UUID postId2 = UUID.randomUUID();
+
         Post post1 = new Post();
-        post1.setId(1L);
+        post1.setId(postId1);
         Post post2 = new Post();
-        post2.setId(2L);
+        post2.setId(postId2);
 
         PostOutputDto postOutputDto1 = new PostOutputDto();
-        postOutputDto1.setId(1L);
+        postOutputDto1.setId(postId1);
         PostOutputDto postOutputDto2 = new PostOutputDto();
-        postOutputDto2.setId(2L);
+        postOutputDto2.setId(postId2);
 
-        when(postService.getAll()).thenReturn(List.of(post1, post2));
+        when(postService.getAllWithFilters(null, null, null)).thenReturn(List.of(post1, post2));
         when(postMapper.toDto(post1)).thenReturn(postOutputDto1);
         when(postMapper.toDto(post2)).thenReturn(postOutputDto2);
 
@@ -156,8 +162,8 @@ public class PostControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(2L));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(postId1.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(postId2.toString()));
     }
 
 }

@@ -1,8 +1,8 @@
 import {ConservationState} from "@models/enums/ConservationState";
 
 export interface IPostUpdateRequest {
-    conservationState: ConservationState;
+    conservationStatus: ConservationState;
     images: string[];
     estimatedValue: number;
-    wishedCards: string[];
+    wantedCardsIds: string[];
 }

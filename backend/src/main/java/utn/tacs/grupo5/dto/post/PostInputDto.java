@@ -7,6 +7,7 @@ import utn.tacs.grupo5.entity.post.ConservationStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * This dto represents the post data received to create a new post.
@@ -16,12 +17,12 @@ import java.util.List;
 @Schema(name = "Post Input", description = "Post schema for input")
 public class PostInputDto {
 
-    private Long userId;
+    private UUID userId;
     private List<String> images;
-    private Long cardId;
+    private UUID cardId;
     private ConservationStatus conservationStatus;
     private BigDecimal estimatedValue;
-    private List<Long> wantedCardsIds;
+    private List<UUID> wantedCardsIds;
     private String description;
 
 }

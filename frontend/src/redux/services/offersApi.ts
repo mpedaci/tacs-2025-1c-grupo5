@@ -16,28 +16,31 @@ export const offersApi = createApi({
             }),
             providesTags: ["Offers"],
         }),
-        getOfferById: builder.query<IOfferResponse, { postId: string, offerId: string }>({
-            query: ({postId, offerId}) => ({
-                url: `posts/${postId}/offers/${offerId}`,
+        getOfferById: builder.query<IOfferResponse, { offerId: string }>({
+            query: ({offerId}) => ({
+                url: `/offers/${offerId}`,
                 method: "GET",
             }),
         }),
         createOffer: builder.mutation<IOfferResponse, {
-            postId: string;
             body: IOfferCreateRequest;
         }>({
-            query: ({postId, body}) => ({
-                url: `posts/${postId}/offers`,
+            query: ({body}) => ({
+                url: `/offers`,
                 method: "POST",
                 body,
             }),
+            invalidatesTags: ["Offers"],
         }),
-        updateOfferState: builder.mutation<any, { postId: string; offerId: string; body: IOfferUpdateStateRequest }>({
-            query: ({postId, offerId, body}) => ({
-                url: `posts/${postId}/offers/${offerId}`,
+        updateOfferState: builder.mutation<void, {offerId: string; body: IOfferUpdateStateRequest }>({
+            query: ({offerId, body}) => ({
+                url: `/offers/${offerId}`,
                 method: "PATCH",
-                body,
+                params: {
+                    status: body.state,
+                }
             }),
+            invalidatesTags: ["Offers"],
         }),
     })
 });

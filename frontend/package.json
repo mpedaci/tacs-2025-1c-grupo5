@@ -28,7 +28,7 @@
     "react-dom": "^18",
     "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.53.2",
-    "react-hook-form-mui": "^7.4.0",
+    "react-hook-form-mui": "^7.6.0",
     "react-redux": "^9.1.2",
     "react-slick": "^0.30.3",
     "recharts": "^2.15.2",

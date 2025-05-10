@@ -3,6 +3,7 @@ package utn.tacs.grupo5.service.impl;
 import org.springframework.stereotype.Service;
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.post.PostInputDto;
+import utn.tacs.grupo5.entity.post.ConservationStatus;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.entity.post.Post.Status;
 import utn.tacs.grupo5.mapper.PostMapper;
@@ -10,8 +11,10 @@ import utn.tacs.grupo5.repository.PostRepository;
 import utn.tacs.grupo5.service.IPostService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PostService implements IPostService {
@@ -27,7 +30,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Optional<Post> get(Long id) {
+    public Optional<Post> get(UUID id) {
         return postRepository.findById(id);
     }
 
@@ -43,7 +46,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Post update(Long id, PostInputDto postInputDto) {
+    public Post update(UUID id, PostInputDto postInputDto) {
         Post existingPost = get(id)
                 .orElseThrow(() -> new NotFoundException("Post not found"));
 
@@ -59,7 +62,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         postRepository.deleteById(id);
     }
 
@@ -69,7 +72,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public void updateStatus(Long postId, Status newStatus) {
+    public void updateStatus(UUID postId, Status newStatus) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("Post not found"));
 
@@ -93,5 +96,24 @@ public class PostService implements IPostService {
         } else {
             post.setFinishedAt(null);
         }
+    }
+
+    @Override
+    public List<Post> getAllWithFilters(String cardName, UUID gameId, String cardStatus) {
+        List<Post> posts = new ArrayList<>(postRepository.findAll());
+
+        Optional.ofNullable(cardName)
+                .filter(name -> !name.isEmpty())
+                .ifPresent(name -> posts
+                        .removeIf(post -> !post.getCard().getName().toLowerCase().contains(name.toLowerCase())));
+
+        Optional.ofNullable(gameId)
+                .ifPresent(id -> posts.removeIf(post -> !post.getCard().getGame().getId().equals(id)));
+
+        Optional.ofNullable(cardStatus)
+                .map(status -> ConservationStatus.fromString(status))
+                .ifPresent(status -> posts.removeIf(post -> !post.getConservationStatus().equals(status)));
+
+        return posts;
     }
 }

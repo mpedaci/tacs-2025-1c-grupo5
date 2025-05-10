@@ -1,6 +1,7 @@
 package utn.tacs.grupo5.dto.user;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -16,11 +17,8 @@ import lombok.NoArgsConstructor;
 @Schema(name = "User Output Schema", description = "User schema for output")
 public class UserOutputDto {
 
-    private Long id;
-    private String email;
-    private String phone;
-    private String firstName;
-    private String lastName;
+    private UUID id;
+    private String name;
     private String username;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;

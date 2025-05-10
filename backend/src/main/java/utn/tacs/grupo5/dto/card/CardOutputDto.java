@@ -5,11 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import utn.tacs.grupo5.dto.game.GameOutputDto;
 
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 @Schema(name = "Card", description = "Card schema for output")
 public class CardOutputDto {
-    private Long id;
+    private UUID id;
     private GameOutputDto game;
     private String name;
     private String imageUrl;

@@ -5,18 +5,16 @@ import {ICardResponse} from "@models/responses/iCardResponse";
 export const cardsApi = createApi({
     reducerPath: "CardsApi",
     baseQuery: fetchBaseQuery({baseUrl: config.apiUrl}),
-    tagTypes: ["Cards"],
     endpoints: (builder) => ({
         getCards: builder.query<ICardResponse[], {
-            gameId?: string;
+            gameId: string;
             name?: string;
         }>({
             query: ({gameId, name}) => ({
-                url: `cards`,
+                url: `games/${gameId}/cards`,
                 method: "GET",
                 params: {gameId, name}
             }),
-            providesTags: ["Cards"],
         }),
         getCard: builder.query<ICardResponse, {
             id: string;

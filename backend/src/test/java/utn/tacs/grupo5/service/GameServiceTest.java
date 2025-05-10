@@ -3,6 +3,7 @@ package utn.tacs.grupo5.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,7 +31,7 @@ public class GameServiceTest {
 
     @Test
     void get_shouldReturnOptionalGame_whenGameExists() {
-        Long gameId = 1L;
+        UUID gameId = UUID.randomUUID();
         Game game = new Game();
         when(gameRepository.findById(gameId)).thenReturn(Optional.of(game));
 
@@ -43,7 +44,7 @@ public class GameServiceTest {
 
     @Test
     void get_shouldReturnEmptyOptional_whenGameDoesntExists() {
-        Long gameId = 999L;
+        UUID gameId = UUID.randomUUID();
 
         when(gameRepository.findById(gameId)).thenReturn(Optional.empty());
 
@@ -70,7 +71,7 @@ public class GameServiceTest {
 
     @Test
     void update_shouldUpdateGame_whenGameExists() {
-        Long gameId = 1L;
+        UUID gameId = UUID.randomUUID();
         GameInputDto dto = new GameInputDto();
         Game game = new Game();
         when(gameRepository.findById(gameId)).thenReturn(Optional.of(new Game()));
@@ -89,7 +90,7 @@ public class GameServiceTest {
 
     @Test
     void update_shouldThrowNotFoundException_whenGameDoesNotExist() {
-        Long gameId = 1L;
+        UUID gameId = UUID.randomUUID();
         GameInputDto dto = new GameInputDto();
         when(gameRepository.findById(gameId)).thenReturn(Optional.empty());
 
@@ -99,7 +100,7 @@ public class GameServiceTest {
 
     @Test
     void delete_shouldDeleteGame_whenGameExists() {
-        Long gameId = 1L;
+        UUID gameId = UUID.randomUUID();
 
         gameService.delete(gameId);
 

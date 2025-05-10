@@ -2,6 +2,7 @@ package utn.tacs.grupo5.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -26,16 +27,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<User> get(Long id) {
+    public Optional<User> get(UUID id) {
         return userRepository.findById(id);
     }
 
     @Override
     public User save(UserInputDto dto) {
-        userRepository.findByEmail(dto.getEmail())
-                .ifPresent(user -> {
-                    throw new ConflictException("User already exists");
-                });
         userRepository.findByUsername(dto.getUsername())
                 .ifPresent(user -> {
                     throw new ConflictException("Username already exists");
@@ -52,7 +49,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User update(Long id, UserInputDto dto) {
+    public User update(UUID id, UserInputDto dto) {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
@@ -66,7 +63,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
         userRepository.deleteById(id);
     }
 
