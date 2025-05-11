@@ -26,6 +26,10 @@ public class UserService implements IUserService {
         this.userMapper = userMapper;
     }
 
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     @Override
     public Optional<User> get(UUID id) {
         return userRepository.findById(id);

@@ -5,14 +5,17 @@ import org.telegram.abilitybots.api.db.DBContext;
 import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import utn.tacs.grupo5.bot.Constants;
 import utn.tacs.grupo5.bot.KeyboardFactory;
 import utn.tacs.grupo5.bot.UserState;
+import utn.tacs.grupo5.bot.handler.exception.BotException;
+import utn.tacs.grupo5.controller.exceptions.NotFoundException;
+import utn.tacs.grupo5.entity.User;
 import utn.tacs.grupo5.service.impl.BotService;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,6 +26,7 @@ import static utn.tacs.grupo5.bot.UserState.*;
 public class ResponseHandler {
     private SilentSender sender;
     private Map<Long, UserState> chatStates;
+    private Map<Long, User> chatUsers = new HashMap<>();
     private BotService botService;
 
     public ResponseHandler(BotService botservice){
@@ -58,6 +62,7 @@ public class ResponseHandler {
         sendMessage.setChatId(chatId);
         sendMessage.setText("Saliendo");
         chatStates.remove(chatId);
+        chatUsers.remove(chatId);
         sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
         sender.execute(sendMessage);
     }
@@ -75,11 +80,8 @@ public class ResponseHandler {
             case LOGIN_IN:
                 replyToLogIn(message.getChatId(), message);
                 break;
-            case REGISTERING_NAME:
-                replyToRegisterName(message.getChatId(), message);
-                break;
-            case REGISTERING_PASSWORD:
-                replyToRegisterPassword(message.getChatId(), message);
+            case REGISTERING:
+                replyToRegister(message.getChatId(), message);
                 break;
             default: break;
         }
@@ -90,44 +92,37 @@ public class ResponseHandler {
             reply(chatId, "ingrese su usuario y contraseña \n->usuario, contraseña", null, LOGIN_IN);
         }
         else if ("Registrarse".equalsIgnoreCase(message.getText())){
-            reply(chatId, "Ingrese el nombre de usuario", null, REGISTERING_NAME);
+            reply(chatId, "Ingrese: \n-> nombre, username, password", null, REGISTERING);
         }
     }
 
     private void replyToLogIn(long chatId, Message message){
-        Optional<User> user = botService.findUser(message.getText());
-        if (user.isPresent()){
-            String stringResponse = "Bienvenido " + user.get().getFirstName() + " " + user.get().getLastName();
-            reply(chatId, stringResponse, KeyboardFactory.getCardsOption(), CHOOSING_OPTIONS);
-        }
-        else {
-            String stringResponse = "Usuario no encontrado, vuelva a intentar";
-            reply(chatId, stringResponse, null, LOGIN_IN);
-        }
-    }
-
-    private void replyToRegisterName(long chatId, Message message){
-        if(!botService.findExistingUsername(message.getText())){
-            reply(chatId, "ingrese su contraseña", null, REGISTERING_PASSWORD);
-        }
-        else {
-            reply(chatId, "El nombre de usuario ya existe, ingrese otro", null, REGISTERING_NAME);
+        try {
+            Optional<User> user = botService.findUser(message.getText());
+            if (user.isPresent()){
+                chatUsers.put(message.getChatId(), user.get());
+                String stringResponse = "Bienvenido " + user.get().getName();
+                reply(chatId, stringResponse, KeyboardFactory.getCardsOption(), CHOOSING_OPTIONS);
+            }
+        } catch (BotException e) {
+            reply(chatId, e.getMessage(), null, LOGIN_IN);
         }
     }
 
-    private void replyToRegisterPassword(long chatId, Message message) {
-        if (PasswordVerifier(message.getText())){
-            reply(chatId, "Usuario registrado", KeyboardFactory.getCardsOption(), CHOOSING_OPTIONS);
-        }
-        else {
-            reply(chatId, "La contraseña no es válida, ingrese otra", null, REGISTERING_PASSWORD);
+    private void replyToRegister(long chatId, Message message){
+        try {
+            botService.registerUser(message.getText());
+            reply(chatId, "Registrado con éxito", KeyboardFactory.getCardsOption(), CHOOSING_OPTIONS);
+        } catch (BotException e) {
+            reply(chatId, e.getMessage(), null, REGISTERING);
+        } catch (Exception e) {
+            reply(chatId, "Ha ocurrido un error inesperado. Intente nuevamente más tarde.", null, AWAITING_SESSION);
         }
     }
 
-    private boolean PasswordVerifier(String text) {
-        return true;
+
+    private boolean getUserFromChatId(long chatId) {
+        return chatUsers.containsKey(chatId);
     }
-
-
 }
 
