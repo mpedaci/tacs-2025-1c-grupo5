@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import utn.tacs.grupo5.entity.post.ConservationStatus;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @Schema(name = "Post Input", description = "Post schema for input")
-public class PostInputDto {
+public class PostInputDto implements Serializable {
 
     private UUID userId;
     private List<String> images;

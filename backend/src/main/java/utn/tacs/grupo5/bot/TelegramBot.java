@@ -45,6 +45,7 @@ public class TelegramBot extends AbilityBot {
 
     public Ability startBot() {
         db.getMap(Constants.CHAT_STATES).clear(); //TODO eliminar esto despues de testear
+        db.getMap(Constants.CHAT_DATA).clear();
         return Ability
                 .builder()
                 .name("start")
@@ -55,10 +56,21 @@ public class TelegramBot extends AbilityBot {
                 .build();
     }
 
-    public Reply replyToButtons() {
-        BiConsumer<BaseAbilityBot, Update> action =
-                (abilityBot, upd) -> responseHandler.replyToButtons(getChatId(upd), upd.getMessage());
-        return Reply.of(action, Flag.TEXT, upd -> responseHandler.userIsActive(getChatId(upd)));
+    public Reply replyToMessages() {
+        BiConsumer<BaseAbilityBot, Update> action = (bot, upd) -> {
+            if (upd.getMessage().hasText()) {
+                responseHandler.replyToButtons(getChatId(upd), upd.getMessage());
+            } else if (upd.getMessage().hasPhoto()) {
+                responseHandler.replyToPhoto(getChatId(upd), upd.getMessage().getPhoto());
+            }
+        };
+
+        return Reply.of(
+                action,
+                upd -> responseHandler.userIsActive(getChatId(upd)) &&
+                        upd.getMessage() != null &&
+                        (upd.getMessage().hasText() || upd.getMessage().hasPhoto())
+        );
     }
 
 }

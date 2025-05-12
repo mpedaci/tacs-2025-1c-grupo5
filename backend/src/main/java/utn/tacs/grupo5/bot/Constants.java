@@ -5,4 +5,5 @@ public class Constants {
 
     public static final String CHAT_STATES = "chatStates";
     public static final String START_TEXT = "Bienvenido a CardsTradinsBot";
+    public static final String CHAT_DATA = "ChatData";
 }

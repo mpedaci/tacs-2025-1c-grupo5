@@ -1,9 +1,11 @@
 package utn.tacs.grupo5.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import utn.tacs.grupo5.bot.handler.exception.*;
 import utn.tacs.grupo5.dto.auth.AuthInputDto;
 import utn.tacs.grupo5.dto.auth.AuthOutputDto;
+import utn.tacs.grupo5.dto.post.PostInputDto;
 import utn.tacs.grupo5.dto.user.UserInputDto;
 import utn.tacs.grupo5.entity.User;
 import utn.tacs.grupo5.entity.card.Card;
@@ -11,6 +13,9 @@ import utn.tacs.grupo5.repository.impl.InMemoryGameRepository;
 import utn.tacs.grupo5.security.JwtUtil;
 import utn.tacs.grupo5.service.IBotService;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,17 +25,20 @@ public class BotService implements IBotService {
     private AuthService authService;
     UserService userService;
     CardService cardService;
+    PostService postService;
     InMemoryGameRepository gameRepository;
     JwtUtil jwtUtil;
 
     public BotService(AuthService authService,
                       UserService userService,
                       CardService cardService,
+                      PostService postService,
                       InMemoryGameRepository gameRepository,
                       JwtUtil jwtUtil) {
         this.authService = authService;
         this.userService = userService;
         this.cardService = cardService;
+        this.postService = postService;
         this.gameRepository = gameRepository;
         this.jwtUtil = jwtUtil;
     }
@@ -95,12 +103,49 @@ public class BotService implements IBotService {
         UUID gameId = gameRepository.findByName(game)
                 .orElseThrow(() -> new NotFoundException("Juego no encontrado."))
                 .getId();
-        Card card = cardService.getAllByGameId(gameId, cardName).getFirst();
-        if (card == null) {
-            throw new NotFoundException("Carta no encontrada.");
-        }
-        return card;
+        return cardService.getAllByGameId(gameId, cardName).stream().findFirst()
+                .orElseThrow(() -> new NotFoundException("Carta: " + cardName + " del juego: " + game + " no encontrada"));
 
     }
 
+    public List<String> savePhotos(List<PhotoSize> photos) { //TODO implementar
+        return photos.stream()
+                .map(photo -> {
+                    String fileId = photo.getFileId();
+                    String filePath = photo.getFilePath();
+                    return fileId + "," + filePath;
+                })
+                .toList();
+    }
+
+    public void saveValue(String text, PostInputDto postInputDto,String game, String helpStringValue) throws BotException {
+        postInputDto.setWantedCardsIds(new ArrayList<>());
+        switch (helpStringValue) {
+            case "Ambos" -> {
+                String[] string = text.split("\\n");
+                String money = string[0].trim();
+                String[] cards = string[1].split(", ");
+                postInputDto.setEstimatedValue(BigDecimal.valueOf(Long.parseLong(money)));
+                for (String card : cards) {
+                    Card validCard = findCard(game, card);
+                    postInputDto.getWantedCardsIds().add(validCard.getId());
+                }
+            }
+            case "Dinero" -> {
+                String money = text.trim();
+                postInputDto.setEstimatedValue(new BigDecimal(money));
+            }
+            case "Cartas" -> {
+                String[] cards = text.split(", ");
+                for (String card : cards) {
+                    Card validCard = findCard(game, card);
+                    postInputDto.getWantedCardsIds().add(validCard.getId());
+                }
+            }
+        }
+    }
+
+    public void createPost(PostInputDto postInputDto) {
+        postService.save(postInputDto);
+    }
 }

@@ -47,4 +47,12 @@ public class KeyboardFactory {
         return new ReplyKeyboardMarkup(List.of(row));
     }
 
+    public static ReplyKeyboard getCardValueOption() {
+        KeyboardRow row = new KeyboardRow();
+        row.add("Dinero");
+        row.add("Cartas");
+        row.add("Ambos");
+        return new ReplyKeyboardMarkup(List.of(row));
+    }
+
 }

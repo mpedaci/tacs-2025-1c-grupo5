@@ -5,6 +5,7 @@ import org.telegram.abilitybots.api.db.DBContext;
 import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import utn.tacs.grupo5.bot.Chatdata;
@@ -19,10 +20,7 @@ import utn.tacs.grupo5.entity.card.Card;
 import utn.tacs.grupo5.entity.post.ConservationStatus;
 import utn.tacs.grupo5.service.impl.BotService;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static utn.tacs.grupo5.bot.Constants.START_TEXT;
 import static utn.tacs.grupo5.bot.UserState.*;
@@ -41,6 +39,7 @@ public class ResponseHandler {
     public void init(SilentSender sender, DBContext db) {
         this.sender = sender;
         chatStates = db.getMap(Constants.CHAT_STATES);
+        //chatData = db.getMap(Constants.CHAT_DATA); //TODO hacer persistente el estado de los chats
     }
 
     public boolean userIsActive(Long chatId) {
@@ -59,7 +58,7 @@ public class ResponseHandler {
     }
 
     public void replyToStart(long chatId) {
-        chatData.put(chatId, new Chatdata(null, null, null));
+       chatData.put(chatId, new Chatdata(null, null, new PostInputDto(), null));
         reply(chatId,START_TEXT,KeyboardFactory.getStartOption(),AWAITING_SESSION);
     }
 
@@ -78,6 +77,7 @@ public class ResponseHandler {
 
         if (message.getText().equalsIgnoreCase("/stop")) {
             stopChat(chatId);
+            return;
         }
         switch (state) {
             case AWAITING_SESSION:
@@ -99,7 +99,37 @@ public class ResponseHandler {
                 replyToChosenCard(message.getChatId(), message);
                 break;
             case CHOOSING_CONDITION:
+                replyToChosenCondition(message.getChatId(), message);
+                break;
+            case CHOOSING_PHOTO_PUBLICATION:
+                if (Objects.equals(message.getText(), "Si")) {
+                    reply(message.getChatId(), "Envíe las fotos", null, CHOOSING_PHOTO_PUBLICATION);
+                } else {
+                    reply(message.getChatId(), "No se enviarán fotos", KeyboardFactory.getCardValueOption(), CHOOSING_VALUE_TYPE);
+                    reply(chatId, "Elija el tipo de intercambio", KeyboardFactory.getCardValueOption(), CHOOSING_VALUE_TYPE);
+                }
+            case CHOOSING_VALUE_TYPE:
+                replyToChosenValueType(message.getChatId(), message);
+                break;
+            case CHOOSING_VALUE:
+                replyToChosenValue(message.getChatId(), message);
+                break;
+            case CHOOSING_DESCRIPTION:
+                replyToChosenDescription(message.getChatId(), message);
+                break;
             default: break;
+        }
+    }
+
+    public void replyToPhoto(long chatId, List<PhotoSize> photos) {
+        UserState state = chatStates.get(chatId);
+
+        switch (state) {
+            case CHOOSING_PHOTO_PUBLICATION:
+                replyToChosenPhotoPublication(chatId, photos);
+                break;
+            default:
+                break;
         }
     }
 
@@ -138,6 +168,7 @@ public class ResponseHandler {
 
     private void replyToChoosingOptions(long chatId, Message message){
         if ("Publicar Carta".equalsIgnoreCase(message.getText())){
+            chatData.get(chatId).getPostInputDto().setUserId(getUserFromChatId(chatId));
             reply(chatId, "Elija el juego", KeyboardFactory.getGameOption(), CHOOSING_GAME);
         }
     }
@@ -159,12 +190,60 @@ public class ResponseHandler {
 
     private void replyToChosenCondition(long chatId, Message message){
         try {
-            chatData.get(chatId).getPostInputDto().setConservationStatus(ConservationStatus.valueOf(message.getText()));
-            reply(chatId, "Ingrese el valor estimado de la carta", null, CHOOSING_VALUE);
+            chatData.get(chatId).getPostInputDto().setConservationStatus(ConservationStatus.valueOf(message.getText().toUpperCase()));
+            reply(chatId, "Desea ingresar imagenes de la carta?", KeyboardFactory.getYesOrNo(), CHOOSING_PHOTO_PUBLICATION);
         } catch (IllegalArgumentException e) {
             reply(chatId, "Estado de conservación inválido. Intente nuevamente.", null, CHOOSING_CONDITION);
         }
     }
+
+    private void replyToChosenPhotoPublication(long chatId, List<PhotoSize> photos) {
+        List<String> savedPhotos= botService.savePhotos(photos);
+        chatData.get(chatId).getPostInputDto().setImages(savedPhotos);
+        reply(chatId, "Elija el tipo de intercambio", KeyboardFactory.getCardValueOption(), CHOOSING_VALUE_TYPE);
+    }
+
+    public void replyToChosenValueType(long chatId, Message message) {
+        String caseMoney = "Ingrese el monto \n-> monto";
+        String caseCards = "Ingrese el nombre de la carta \n-> carta1, carta2, cartaN";
+        switch (message.getText()) {
+            case "Dinero" -> {
+                reply(chatId, caseMoney, null, CHOOSING_VALUE);
+                chatData.get(chatId).setHelpStringValue(message.getText());
+            }
+            case "Cartas" -> {
+                reply(chatId, caseCards, null, CHOOSING_VALUE);
+                chatData.get(chatId).setHelpStringValue(message.getText());
+            }
+            case "Ambos" -> {
+                reply(chatId, caseMoney + "\n" + caseCards, null, CHOOSING_VALUE);
+                chatData.get(chatId).setHelpStringValue(message.getText());
+            }
+        }
+    }
+
+    public void replyToChosenValue(long chatId, Message message) {
+        try{
+            botService.saveValue(message.getText(),
+                    chatData.get(chatId).getPostInputDto(),
+                    chatData.get(chatId).getGame(),
+                    chatData.get(chatId).getHelpStringValue());
+            reply(chatId, "Ingrese una descripción de la publicación", null, CHOOSING_DESCRIPTION);
+        }catch (BotException e) {
+            reply(chatId, e.getMessage(), null, CHOOSING_VALUE);
+        }
+    }
+
+    public void replyToChosenDescription(long chatId, Message message) {
+        chatData.get(chatId).getPostInputDto().setDescription(message.getText());
+        try {
+            botService.createPost(chatData.get(chatId).getPostInputDto());
+            reply(chatId, "Publicación creada con éxito", null, CHOOSING_OPTIONS);
+        } catch (NotFoundException e) {
+            reply(chatId, e.getMessage(), null, AWAITING_SESSION);
+        }
+    }
+
 
     private UUID getUserFromChatId(long chatId) {
         return chatData.get(chatId).getUser();
