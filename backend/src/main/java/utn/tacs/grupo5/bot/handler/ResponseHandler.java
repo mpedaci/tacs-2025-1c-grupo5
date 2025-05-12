@@ -7,17 +7,22 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
+import utn.tacs.grupo5.bot.Chatdata;
 import utn.tacs.grupo5.bot.Constants;
 import utn.tacs.grupo5.bot.KeyboardFactory;
 import utn.tacs.grupo5.bot.UserState;
 import utn.tacs.grupo5.bot.handler.exception.BotException;
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
+import utn.tacs.grupo5.dto.post.PostInputDto;
 import utn.tacs.grupo5.entity.User;
+import utn.tacs.grupo5.entity.card.Card;
+import utn.tacs.grupo5.entity.post.ConservationStatus;
 import utn.tacs.grupo5.service.impl.BotService;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import static utn.tacs.grupo5.bot.Constants.START_TEXT;
 import static utn.tacs.grupo5.bot.UserState.*;
@@ -26,7 +31,7 @@ import static utn.tacs.grupo5.bot.UserState.*;
 public class ResponseHandler {
     private SilentSender sender;
     private Map<Long, UserState> chatStates;
-    private Map<Long, User> chatUsers = new HashMap<>();
+    private Map<Long, Chatdata> chatData = new HashMap<>();
     private BotService botService;
 
     public ResponseHandler(BotService botservice){
@@ -54,6 +59,7 @@ public class ResponseHandler {
     }
 
     public void replyToStart(long chatId) {
+        chatData.put(chatId, new Chatdata(null, null, null));
         reply(chatId,START_TEXT,KeyboardFactory.getStartOption(),AWAITING_SESSION);
     }
 
@@ -62,7 +68,7 @@ public class ResponseHandler {
         sendMessage.setChatId(chatId);
         sendMessage.setText("Saliendo");
         chatStates.remove(chatId);
-        chatUsers.remove(chatId);
+        chatData.remove(chatId);
         sendMessage.setReplyMarkup(new ReplyKeyboardRemove(true));
         sender.execute(sendMessage);
     }
@@ -83,6 +89,16 @@ public class ResponseHandler {
             case REGISTERING:
                 replyToRegister(message.getChatId(), message);
                 break;
+            case CHOOSING_OPTIONS:
+                replyToChoosingOptions(message.getChatId(), message);
+                break;
+            case CHOOSING_GAME:
+                replyToChosenGame(message.getChatId(), message);
+                break;
+            case CHOOSING_CARD:
+                replyToChosenCard(message.getChatId(), message);
+                break;
+            case CHOOSING_CONDITION:
             default: break;
         }
     }
@@ -100,7 +116,7 @@ public class ResponseHandler {
         try {
             Optional<User> user = botService.findUser(message.getText());
             if (user.isPresent()){
-                chatUsers.put(message.getChatId(), user.get());
+                chatData.get(chatId).setUser(user.get().getId());
                 String stringResponse = "Bienvenido " + user.get().getName();
                 reply(chatId, stringResponse, KeyboardFactory.getCardsOption(), CHOOSING_OPTIONS);
             }
@@ -120,9 +136,38 @@ public class ResponseHandler {
         }
     }
 
+    private void replyToChoosingOptions(long chatId, Message message){
+        if ("Publicar Carta".equalsIgnoreCase(message.getText())){
+            reply(chatId, "Elija el juego", KeyboardFactory.getGameOption(), CHOOSING_GAME);
+        }
+    }
 
-    private boolean getUserFromChatId(long chatId) {
-        return chatUsers.containsKey(chatId);
+    private void replyToChosenGame(long chatId, Message message){
+        chatData.get(chatId).setGame(message.getText());
+        reply(chatId, "Elija la carta (el nombre debe ser exacto)", null, CHOOSING_CARD);
+    }
+
+    private void replyToChosenCard(long chatId, Message message){
+        try {
+            Card card = botService.findCard(chatData.get(chatId).getGame(),message.getText());
+            chatData.get(chatId).getPostInputDto().setCardId(card.getId());
+            reply(chatId, "Elija el estado de conservacion de la carta", KeyboardFactory.getCardConditionOption(), CHOOSING_CONDITION);
+        } catch (BotException e) {
+            reply(chatId, e.getMessage(), null, CHOOSING_CARD);
+        }
+    }
+
+    private void replyToChosenCondition(long chatId, Message message){
+        try {
+            chatData.get(chatId).getPostInputDto().setConservationStatus(ConservationStatus.valueOf(message.getText()));
+            reply(chatId, "Ingrese el valor estimado de la carta", null, CHOOSING_VALUE);
+        } catch (IllegalArgumentException e) {
+            reply(chatId, "Estado de conservación inválido. Intente nuevamente.", null, CHOOSING_CONDITION);
+        }
+    }
+
+    private UUID getUserFromChatId(long chatId) {
+        return chatData.get(chatId).getUser();
     }
 }
 

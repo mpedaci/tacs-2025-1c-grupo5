@@ -71,4 +71,11 @@ public class InMemoryGameRepository implements GameRepository {
         }
     }
 
+    public Optional<Game> findByName(String name) {
+        synchronized (games) {
+            return games.stream()
+                    .filter(game -> game.getName().name().equalsIgnoreCase(name))
+                    .findFirst();
+        }
+    }
 }

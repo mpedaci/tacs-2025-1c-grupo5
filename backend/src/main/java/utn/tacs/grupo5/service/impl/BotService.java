@@ -6,21 +6,32 @@ import utn.tacs.grupo5.dto.auth.AuthInputDto;
 import utn.tacs.grupo5.dto.auth.AuthOutputDto;
 import utn.tacs.grupo5.dto.user.UserInputDto;
 import utn.tacs.grupo5.entity.User;
+import utn.tacs.grupo5.entity.card.Card;
+import utn.tacs.grupo5.repository.impl.InMemoryGameRepository;
 import utn.tacs.grupo5.security.JwtUtil;
 import utn.tacs.grupo5.service.IBotService;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class BotService implements IBotService {
 
     private AuthService authService;
     UserService userService;
+    CardService cardService;
+    InMemoryGameRepository gameRepository;
     JwtUtil jwtUtil;
 
-    public BotService(AuthService authService, UserService userService, JwtUtil jwtUtil) {
+    public BotService(AuthService authService,
+                      UserService userService,
+                      CardService cardService,
+                      InMemoryGameRepository gameRepository,
+                      JwtUtil jwtUtil) {
         this.authService = authService;
         this.userService = userService;
+        this.cardService = cardService;
+        this.gameRepository = gameRepository;
         this.jwtUtil = jwtUtil;
     }
 
@@ -42,7 +53,7 @@ public class BotService implements IBotService {
         String user = jwtUtil.getUsernameFromToken(token.getToken());
 
         return userService.findByUsername(user)
-                .or(() -> { throw new UserNotFoundException("Usuario no encontrado tras autenticación."); });
+                .or(() -> { throw new NotFoundException("Usuario no encontrado tras autenticación."); });
     }
 
     public void registerUser(String text) throws BotException {
@@ -65,7 +76,7 @@ public class BotService implements IBotService {
         userService.save(userInputDto);
     }
 
-    private void validatePassword(String password) {
+    private void validatePassword(String password) { //TODO esto es un util no va aca
         if (password.length() < 8) {
             throw new InvalidPasswordException("La contraseña debe tener al menos 8 caracteres.");
         }
@@ -79,4 +90,17 @@ public class BotService implements IBotService {
             throw new InvalidPasswordException("La contraseña debe contener al menos un número.");
         }
     }
+
+    public Card findCard(String game, String cardName) throws BotException {
+        UUID gameId = gameRepository.findByName(game)
+                .orElseThrow(() -> new NotFoundException("Juego no encontrado."))
+                .getId();
+        Card card = cardService.getAllByGameId(gameId, cardName).getFirst();
+        if (card == null) {
+            throw new NotFoundException("Carta no encontrada.");
+        }
+        return card;
+
+    }
+
 }
