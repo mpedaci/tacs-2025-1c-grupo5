@@ -1,9 +1,10 @@
-package utn.tacs.grupo5.bot.handler.command;
+package utn.tacs.grupo5.bot.handler.command.post;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import utn.tacs.grupo5.bot.UserState;
 import utn.tacs.grupo5.bot.handler.ResponseHandler;
+import utn.tacs.grupo5.bot.handler.command.StateCommand;
 import utn.tacs.grupo5.bot.handler.exception.BotException; /**
  * Command for handling choosing value state
  */
@@ -18,9 +19,26 @@ public class ChoosingValueCommand implements StateCommand {
                     handler.getChatData().get(chatId).getGame(),
                     handler.getChatData().get(chatId).getHelpStringValue()
             );
-            handler.reply(chatId, "Ingrese una descripción de la publicación", null, UserState.CHOOSING_DESCRIPTION);
         } catch (BotException e) {
             handler.reply(chatId, e.getMessage(), null, UserState.CHOOSING_VALUE);
+        }
+    }
+
+    @Override
+    public void onEnter(long chatId, ResponseHandler handler) {  //TODO refactor
+        String caseMoney = "Ingrese el monto \n-> monto";
+        String caseCards = "Ingrese el nombre de la carta \n-> carta1, carta2, cartaN";
+
+        switch (handler.getChatData().get(chatId).getHelpStringValue()) {
+            case "Dinero" -> {
+                handler.reply(chatId, caseMoney, null);
+            }
+            case "Cartas" -> {
+                handler.reply(chatId, caseCards, null);
+            }
+            case "Ambos" -> {
+                handler.reply(chatId, caseMoney + "\n" + caseCards, null);
+            }
         }
     }
 }

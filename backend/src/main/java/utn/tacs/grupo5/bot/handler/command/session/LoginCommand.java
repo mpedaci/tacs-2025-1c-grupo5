@@ -19,10 +19,15 @@ public class LoginCommand implements StateCommand {
             if (user.isPresent()) {
                 handler.getChatData().get(chatId).setUser(user.get().getId());
                 String stringResponse = "Bienvenido " + user.get().getName();
-                handler.reply(chatId, stringResponse, KeyboardFactory.getCardsOption(), UserState.CHOOSING_OPTIONS);
+                handler.reply(chatId, stringResponse, KeyboardFactory.getCardsOption());
             }
         } catch (utn.tacs.grupo5.bot.handler.exception.BotException e) {
             handler.reply(chatId, e.getMessage(), null, UserState.LOGIN_IN);
         }
+    }
+
+    @Override
+    public void onEnter(long chatId, ResponseHandler handler) {
+        handler.reply(chatId, "ingrese su usuario y contraseña \n->usuario, contraseña", null);
     }
 }

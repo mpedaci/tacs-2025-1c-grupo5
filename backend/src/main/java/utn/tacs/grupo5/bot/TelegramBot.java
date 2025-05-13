@@ -7,7 +7,6 @@ import org.telegram.abilitybots.api.bot.BaseAbilityBot;
 import org.telegram.abilitybots.api.objects.Ability;
 import org.telegram.abilitybots.api.objects.Reply;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.bots.AbsSender;
 import utn.tacs.grupo5.bot.handler.ResponseHandler;
 
 import java.util.function.BiConsumer;
@@ -35,8 +34,7 @@ public class TelegramBot extends AbilityBot {
         this.botUsername = botUsername;
         this.botCreatorId = botCreatorId;
         this.responseHandler = responseHandler;
-        //this.absSender = absSender;
-        responseHandler.init(silent, db);
+        responseHandler.init(silent, db, this);
     }
 
     @Override
@@ -53,14 +51,16 @@ public class TelegramBot extends AbilityBot {
                 .info(Constants.START_DESCRIPTION)
                 .locality(USER)
                 .privacy(PUBLIC)
-                .action(ctx -> responseHandler.replyToStart(ctx.chatId()))
+                .action(ctx -> {
+                    responseHandler.replyToStart(ctx.chatId());
+                })
                 .build();
     }
 
     public Reply replyToMessages() {
         BiConsumer<BaseAbilityBot, Update> action = (bot, upd) -> {
             if (upd.getMessage().hasText()) {
-                responseHandler.replyToButtons(getChatId(upd), upd.getMessage());
+                responseHandler.replyToChat(getChatId(upd), upd.getMessage());
             } else if (upd.getMessage().hasPhoto()) {
                 responseHandler.replyToPhoto(getChatId(upd), upd.getMessage().getPhoto());
             }

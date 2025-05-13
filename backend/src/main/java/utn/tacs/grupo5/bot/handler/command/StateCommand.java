@@ -31,4 +31,6 @@ public interface StateCommand {
     default void handlePhoto(long chatId, List<PhotoSize> photos, ResponseHandler handler) {
         // Default implementation does nothing
     }
+
+    void onEnter(long chatId, ResponseHandler handler);
 }

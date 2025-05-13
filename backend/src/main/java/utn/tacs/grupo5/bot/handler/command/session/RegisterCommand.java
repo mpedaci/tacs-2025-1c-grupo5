@@ -17,11 +17,15 @@ public class RegisterCommand implements StateCommand {
     public void execute(long chatId, Message message, ResponseHandler handler) {
         try {
             handler.getBotService().registerUser(message.getText());
-            handler.reply(chatId, "Registrado con éxito", KeyboardFactory.getCardsOption(), UserState.CHOOSING_OPTIONS);
+            handler.reply(chatId, "Registrado con éxito", KeyboardFactory.getCardsOption());
         } catch (BotException e) {
             handler.reply(chatId, e.getMessage(), null, UserState.REGISTERING);
         } catch (Exception e) {
             handler.reply(chatId, "Ha ocurrido un error inesperado. Intente nuevamente más tarde.", null, UserState.AWAITING_SESSION);
         }
+    }
+    @Override
+    public void onEnter(long chatId, ResponseHandler handler) {
+        handler.reply(chatId, "Ingrese: \n-> nombre, username, password", null);
     }
 }

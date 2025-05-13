@@ -2,13 +2,18 @@ package utn.tacs.grupo5.bot.handler.command;
 
 import org.springframework.stereotype.Component;
 import utn.tacs.grupo5.bot.UserState;
+import utn.tacs.grupo5.bot.handler.ResponseHandler;
+import utn.tacs.grupo5.bot.handler.command.card.*;
 import utn.tacs.grupo5.bot.handler.command.post.*;
 import utn.tacs.grupo5.bot.handler.command.session.AwaitingSessionCommand;
 import utn.tacs.grupo5.bot.handler.command.session.LoginCommand;
 import utn.tacs.grupo5.bot.handler.command.session.RegisterCommand;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static utn.tacs.grupo5.bot.UserState.*;
 
 /**
  * Factory for creating state commands based on the user state
@@ -16,6 +21,7 @@ import java.util.Map;
 @Component
 public class StateCommandFactory {
     private final Map<UserState, StateCommand> commands = new HashMap<>();
+    private final Map<String, List<UserState>> flows = new HashMap<>();
 
     // Inject all command implementations
     public StateCommandFactory(
@@ -26,24 +32,56 @@ public class StateCommandFactory {
             ChoosingGameCommand choosingGameCommand,
             ChoosingCardCommand choosingCardCommand,
             ChoosingConditionCommand choosingConditionCommand,
-            ChoosingPhotoPublicationCommand choosingPhotoPublicationCommand,
+            ChoosingPhotoCommand choosingPhotoCommand,
             ChoosingValueTypeCommand choosingValueTypeCommand,
             ChoosingValueCommand choosingValueCommand,
-            ChoosingDescriptionCommand choosingDescriptionCommand) {
+            ChoosingDescriptionCommand choosingDescriptionCommand,
+            SavePostCommand savePostCommand) {
 
-        commands.put(UserState.AWAITING_SESSION, awaitingSessionCommand);
-        commands.put(UserState.LOGIN_IN, loginCommand);
-        commands.put(UserState.REGISTERING, registerCommand);
-        commands.put(UserState.CHOOSING_OPTIONS, choosingOptionsCommand);
-        commands.put(UserState.CHOOSING_GAME, choosingGameCommand);
-        commands.put(UserState.CHOOSING_CARD, choosingCardCommand);
-        commands.put(UserState.CHOOSING_CONDITION, choosingConditionCommand);
-        commands.put(UserState.CHOOSING_PHOTO_PUBLICATION, choosingPhotoPublicationCommand);
-        commands.put(UserState.CHOOSING_VALUE_TYPE, choosingValueTypeCommand);
-        commands.put(UserState.CHOOSING_VALUE, choosingValueCommand);
-        commands.put(UserState.CHOOSING_DESCRIPTION, choosingDescriptionCommand);
+        commands.put(AWAITING_SESSION, awaitingSessionCommand);
+        commands.put(LOGIN_IN, loginCommand);
+        commands.put(REGISTERING, registerCommand);
+        commands.put(CHOOSING_OPTIONS, choosingOptionsCommand);
+        commands.put(CHOOSING_GAME, choosingGameCommand);
+        commands.put(CHOOSING_CARD, choosingCardCommand);
+        commands.put(CHOOSING_CONDITION, choosingConditionCommand);
+        commands.put(CHOOSING_PHOTO_OPTION, choosingPhotoCommand);
+        commands.put(CHOOSING_VALUE_TYPE, choosingValueTypeCommand);
+        commands.put(CHOOSING_VALUE, choosingValueCommand);
+        commands.put(CHOOSING_DESCRIPTION, choosingDescriptionCommand);
+        commands.put(CREATING_POST, savePostCommand);
+        
+        flows.put("register", List.of(
+                REGISTERING
+        ));
+        flows.put("login", List.of(
+                LOGIN_IN
+        ));
+        flows.put("post", List.of(
+                CHOOSING_GAME,
+                CHOOSING_CARD,
+                CHOOSING_CONDITION,
+                CHOOSING_PHOTO_OPTION,
+                CHOOSING_VALUE_TYPE,
+                CHOOSING_VALUE,
+                CHOOSING_DESCRIPTION,
+                CREATING_POST
+        ));
     }
 
+    public void addFlow(String flowName, List<UserState> commands) {
+        flows.put(flowName, commands);
+    }
+    
+    public UserState nextUserStateInFlow(String flowName, UserState currentUserState) {
+        List<UserState> flow = flows.get(flowName);
+        int currentIndex = flow.indexOf(currentUserState);
+        if (currentIndex < flow.size() - 1) {
+            return flow.get(currentIndex + 1);
+        }else return CHOOSING_OPTIONS;
+    }
+    
+    
     /**
      * Get the command for the given state
      *
@@ -65,7 +103,12 @@ public class StateCommandFactory {
     private static class NoOpCommand implements StateCommand {
         @Override
         public void execute(long chatId, org.telegram.telegrambots.meta.api.objects.Message message,
-                            utn.tacs.grupo5.bot.handler.ResponseHandler handler) {
+                            ResponseHandler handler) {
+            // No-op
+        }
+
+        @Override
+        public void onEnter(long chatId, ResponseHandler handler) {
             // No-op
         }
     }

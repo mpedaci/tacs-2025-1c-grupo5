@@ -135,9 +135,9 @@ public class BotService implements IBotService {
         }
     }
 
-    public void createPost(PostInputDto postInputDto) throws BotException{
+    public UUID createPost(PostInputDto postInputDto) throws BotException{
         try {
-            postService.save(postInputDto);
+            return postService.save(postInputDto).getId();
         }catch (Exception e) {
             throw new BotException("Error al crear la publicación. \n" + e.getMessage());
         }

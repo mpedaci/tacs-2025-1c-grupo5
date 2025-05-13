@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.bot.handler.command.post;
+package utn.tacs.grupo5.bot.handler.command.card;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -16,11 +16,15 @@ public class ChoosingConditionCommand implements StateCommand {
         try {
             handler.getChatData().get(chatId).getPostInputDto()
                     .setConservationStatus(ConservationStatus.valueOf(message.getText().toUpperCase()));
-            handler.reply(chatId, "Desea ingresar imagenes de la carta?",
-                    KeyboardFactory.getYesOrNo(), UserState.CHOOSING_PHOTO_PUBLICATION);
         } catch (IllegalArgumentException e) {
             handler.reply(chatId, "Estado de conservación inválido. Intente nuevamente.",
                     null, UserState.CHOOSING_CONDITION);
         }
+    }
+
+    @Override
+    public void onEnter(long chatId, ResponseHandler handler) {
+        handler.reply(chatId, "Elija el estado de conservacion de la carta",
+                KeyboardFactory.getCardConditionOption());
     }
 }

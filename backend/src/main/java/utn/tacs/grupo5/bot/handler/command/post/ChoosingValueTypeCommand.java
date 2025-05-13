@@ -1,11 +1,11 @@
-package utn.tacs.grupo5.bot.handler.command;
+package utn.tacs.grupo5.bot.handler.command.post;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import utn.tacs.grupo5.bot.KeyboardFactory;
 import utn.tacs.grupo5.bot.UserState;
 import utn.tacs.grupo5.bot.handler.ResponseHandler;
-import utn.tacs.grupo5.bot.handler.exception.BotException;
-import utn.tacs.grupo5.controller.exceptions.NotFoundException;
+import utn.tacs.grupo5.bot.handler.command.StateCommand;
 
 /**
  * Command for handling choosing value type state
@@ -14,23 +14,22 @@ import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 public class ChoosingValueTypeCommand implements StateCommand {
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
-        String caseMoney = "Ingrese el monto \n-> monto";
-        String caseCards = "Ingrese el nombre de la carta \n-> carta1, carta2, cartaN";
-
-        switch (message.getText()) {
+        switch (message.getText()) { //TODO refactor
             case "Dinero" -> {
-                handler.reply(chatId, caseMoney, null, UserState.CHOOSING_VALUE);
                 handler.getChatData().get(chatId).setHelpStringValue(message.getText());
             }
             case "Cartas" -> {
-                handler.reply(chatId, caseCards, null, UserState.CHOOSING_VALUE);
                 handler.getChatData().get(chatId).setHelpStringValue(message.getText());
             }
             case "Ambos" -> {
-                handler.reply(chatId, caseMoney + "\n" + caseCards, null, UserState.CHOOSING_VALUE);
                 handler.getChatData().get(chatId).setHelpStringValue(message.getText());
             }
         }
+    }
+
+    @Override
+    public void onEnter(long chatId, ResponseHandler handler) {
+        handler.reply(chatId, "Elija el tipo de intercambio", KeyboardFactory.getCardValueOption());
     }
 }
 

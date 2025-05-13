@@ -13,13 +13,13 @@ import java.util.Objects; /**
  * Command for handling choosing photo publication state
  */
 @Component
-public class ChoosingPhotoPublicationCommand implements StateCommand {
+public class ChoosingPhotoCommand implements StateCommand {
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
         if (Objects.equals(message.getText(), "Si")) {
-            handler.reply(chatId, "Envíe las fotos", null, UserState.CHOOSING_PHOTO_PUBLICATION);
+            handler.reply(chatId, "Envíe las fotos", null, UserState.CHOOSING_PHOTO);
         } else {
-            handler.reply(chatId, "No se enviarán fotos \nElija el tipo de intercambio", KeyboardFactory.getCardValueOption(),
+            handler.reply(chatId, "No se enviarán fotos", KeyboardFactory.getCardValueOption(),
                     UserState.CHOOSING_VALUE_TYPE);
         }
     }
@@ -28,7 +28,11 @@ public class ChoosingPhotoPublicationCommand implements StateCommand {
     public void handlePhoto(long chatId, List<PhotoSize> photos, ResponseHandler handler) {
         List<String> savedPhotos = handler.getBotService().savePhotos(photos);
         handler.getChatData().get(chatId).getPostInputDto().setImages(savedPhotos);
-        handler.reply(chatId, "Elija el tipo de intercambio", KeyboardFactory.getCardValueOption(),
-                UserState.CHOOSING_VALUE_TYPE);
+    }
+
+    @Override
+    public void onEnter(long chatId, ResponseHandler handler) {
+        handler.reply(chatId, "Desea ingresar imagenes de la carta?",
+                KeyboardFactory.getYesOrNo());
     }
 }

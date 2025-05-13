@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.bot.handler.command.post;
+package utn.tacs.grupo5.bot.handler.command.card;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -17,10 +17,14 @@ public class ChoosingCardCommand implements StateCommand {
         try {
             Card card = handler.getBotService().findCard(handler.getChatData().get(chatId).getGame(), message.getText());
             handler.getChatData().get(chatId).getPostInputDto().setCardId(card.getId());
-            handler.reply(chatId, "Elija el estado de conservacion de la carta",
-                    KeyboardFactory.getCardConditionOption(), UserState.CHOOSING_CONDITION);
+
         } catch (BotException e) {
             handler.reply(chatId, e.getMessage(), null, UserState.CHOOSING_CARD);
         }
+    }
+
+    @Override
+    public void onEnter(long chatId, ResponseHandler handler) {
+        handler.reply(chatId, "Elija la carta (el nombre debe ser exacto)", null);
     }
 }
