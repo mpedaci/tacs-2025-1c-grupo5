@@ -12,6 +12,7 @@ import utn.tacs.grupo5.entity.card.Card;
 import utn.tacs.grupo5.repository.impl.InMemoryGameRepository;
 import utn.tacs.grupo5.security.JwtUtil;
 import utn.tacs.grupo5.service.IBotService;
+import utn.tacs.grupo5.util.PasswordVerifier;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -78,25 +79,14 @@ public class BotService implements IBotService {
             throw new InvalidUsernameException("El nombre de usuario ya existe.");
         }
 
-        validatePassword(password);
+        try {
+            PasswordVerifier.validatePassword(password);
+        } catch (InvalidPasswordException e) {
+            throw new InvalidPasswordException("La contraseña no es válida. \n" + e.getMessage());
+        }
 
         UserInputDto userInputDto = new UserInputDto(name, username, password, false);
         userService.save(userInputDto);
-    }
-
-    private void validatePassword(String password) { //TODO esto es un util no va aca
-        if (password.length() < 8) {
-            throw new InvalidPasswordException("La contraseña debe tener al menos 8 caracteres.");
-        }
-        if (!password.matches(".*[A-Z].*")) {
-            throw new InvalidPasswordException("La contraseña debe contener al menos una letra mayúscula.");
-        }
-        if (!password.matches(".*[a-z].*")) {
-            throw new InvalidPasswordException("La contraseña debe contener al menos una letra minúscula.");
-        }
-        if (!password.matches(".*\\d.*")) {
-            throw new InvalidPasswordException("La contraseña debe contener al menos un número.");
-        }
     }
 
     public Card findCard(String game, String cardName) throws BotException {
@@ -118,7 +108,7 @@ public class BotService implements IBotService {
                 .toList();
     }
 
-    public void saveValue(String text, PostInputDto postInputDto,String game, String helpStringValue) throws BotException {
+    public void saveCardValue(String text, PostInputDto postInputDto, String game, String helpStringValue) throws BotException {
         postInputDto.setWantedCardsIds(new ArrayList<>());
         switch (helpStringValue) {
             case "Ambos" -> {
@@ -145,7 +135,11 @@ public class BotService implements IBotService {
         }
     }
 
-    public void createPost(PostInputDto postInputDto) {
-        postService.save(postInputDto);
+    public void createPost(PostInputDto postInputDto) throws BotException{
+        try {
+            postService.save(postInputDto);
+        }catch (Exception e) {
+            throw new BotException("Error al crear la publicación. \n" + e.getMessage());
+        }
     }
 }

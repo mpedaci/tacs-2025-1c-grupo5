@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 import org.telegram.abilitybots.api.bot.AbilityBot;
 import org.telegram.abilitybots.api.bot.BaseAbilityBot;
 import org.telegram.abilitybots.api.objects.Ability;
-import org.telegram.abilitybots.api.objects.Flag;
 import org.telegram.abilitybots.api.objects.Reply;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.bots.AbsSender;
 import utn.tacs.grupo5.bot.handler.ResponseHandler;
 
 import java.util.function.BiConsumer;
@@ -16,14 +16,14 @@ import static org.telegram.abilitybots.api.objects.Locality.USER;
 import static org.telegram.abilitybots.api.objects.Privacy.PUBLIC;
 import static org.telegram.abilitybots.api.util.AbilityUtils.getChatId;
 
+
 @Component
 public class TelegramBot extends AbilityBot {
-
-
     private final String botToken;
     private final String botUsername;
     private final Long botCreatorId;
     private final ResponseHandler responseHandler;
+    //private final AbsSender absSender;
 
     public TelegramBot (
             @Value("${telegram.bot.token}") String botToken,
@@ -35,6 +35,7 @@ public class TelegramBot extends AbilityBot {
         this.botUsername = botUsername;
         this.botCreatorId = botCreatorId;
         this.responseHandler = responseHandler;
+        //this.absSender = absSender;
         responseHandler.init(silent, db);
     }
 
@@ -49,7 +50,7 @@ public class TelegramBot extends AbilityBot {
         return Ability
                 .builder()
                 .name("start")
-                .info(utn.tacs.grupo5.bot.Constants.START_DESCRIPTION)
+                .info(Constants.START_DESCRIPTION)
                 .locality(USER)
                 .privacy(PUBLIC)
                 .action(ctx -> responseHandler.replyToStart(ctx.chatId()))
@@ -72,5 +73,4 @@ public class TelegramBot extends AbilityBot {
                         (upd.getMessage().hasText() || upd.getMessage().hasPhoto())
         );
     }
-
 }
