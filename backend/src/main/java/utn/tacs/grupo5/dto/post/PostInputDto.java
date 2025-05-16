@@ -1,6 +1,7 @@
 package utn.tacs.grupo5.dto.post;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import utn.tacs.grupo5.entity.post.ConservationStatus;
@@ -15,6 +16,7 @@ import java.util.UUID;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Schema(name = "Post Input", description = "Post schema for input")
 public class PostInputDto implements Serializable {
 

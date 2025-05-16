@@ -15,7 +15,7 @@ import utn.tacs.grupo5.bot.handler.exception.BotException;
 public class ChoosingDescriptionCommand implements StateCommand {
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
-        handler.getChatData().get(chatId).getPostInputDto().setDescription(message.getText());
+        handler.getChatData().get(chatId).setDescription(message.getText());
     }
 
     @Override

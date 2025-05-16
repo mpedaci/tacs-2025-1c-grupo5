@@ -16,7 +16,7 @@ public class ChoosingCardCommand implements StateCommand {
     public void execute(long chatId, Message message, ResponseHandler handler) {
         try {
             Card card = handler.getBotService().findCard(handler.getChatData().get(chatId).getGame(), message.getText());
-            handler.getChatData().get(chatId).getPostInputDto().setCardId(card.getId());
+            handler.getChatData().get(chatId).setCardId(card.getId());
 
         } catch (BotException e) {
             handler.reply(chatId, e.getMessage(), null, UserState.CHOOSING_CARD);

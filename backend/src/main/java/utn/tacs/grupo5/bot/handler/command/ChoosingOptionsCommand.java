@@ -14,7 +14,7 @@ public class ChoosingOptionsCommand implements StateCommand {
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
         if ("Publicar Carta".equalsIgnoreCase(message.getText())) {
-            handler.getChatData().get(chatId).getPostInputDto().setUserId(handler.getChatData().get(chatId).getUser());
+            handler.getChatData().get(chatId).setUserId(handler.getChatData().get(chatId).getUser());
             handler.getChatData().get(chatId).setFlow("post");
         }
         else if ("Hacer Una Oferta".equals(message.getText())) {

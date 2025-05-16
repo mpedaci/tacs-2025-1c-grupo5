@@ -15,7 +15,7 @@ public class ChoosingValueCommand implements StateCommand {
         try {
             handler.getBotService().saveCardValue(
                     message.getText(),
-                    handler.getChatData().get(chatId).getPostInputDto(),
+                    handler.getChatData().get(chatId),
                     handler.getChatData().get(chatId).getGame(),
                     handler.getChatData().get(chatId).getHelpStringValue()
             );

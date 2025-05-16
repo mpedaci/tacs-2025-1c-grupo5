@@ -14,7 +14,7 @@ public class ChoosingConditionCommand implements StateCommand {
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
         try {
-            handler.getChatData().get(chatId).getPostInputDto()
+            handler.getChatData().get(chatId)
                     .setConservationStatus(ConservationStatus.valueOf(message.getText().toUpperCase()));
         } catch (IllegalArgumentException e) {
             handler.reply(chatId, "Estado de conservación inválido. Intente nuevamente.",

@@ -27,7 +27,7 @@ public class ChoosingPhotoCommand implements StateCommand {
     @Override
     public void handlePhoto(long chatId, List<PhotoSize> photos, ResponseHandler handler) {
         List<String> savedPhotos = handler.getBotService().savePhotos(photos);
-        handler.getChatData().get(chatId).getPostInputDto().setImages(savedPhotos);
+        handler.getChatData().get(chatId).setImages(savedPhotos);
     }
 
     @Override

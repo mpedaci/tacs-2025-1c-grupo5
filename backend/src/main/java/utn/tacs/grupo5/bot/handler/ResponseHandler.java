@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.abilitybots.api.db.DBContext;
 import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.GetFile;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -95,7 +96,7 @@ public class ResponseHandler {
 
 
     public void replyToStart(long chatId) {
-        chatData.put(chatId, new Chatdata(new PostInputDto()));
+        chatData.put(chatId, new Chatdata());
         StateCommand command = commandFactory.getCommand(AWAITING_SESSION);
         command.onEnter(chatId, this);
 
@@ -131,6 +132,8 @@ public class ResponseHandler {
         UserState state = chatStates.get(chatId);
         StateCommand command = commandFactory.getCommand(state);
         command.handlePhoto(chatId, photos, this);
+
+
 
         chatStates.put(chatId, CHOOSING_PHOTO_OPTION);//TODO refactor
 

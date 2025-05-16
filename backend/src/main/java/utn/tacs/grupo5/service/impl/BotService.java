@@ -2,6 +2,8 @@ package utn.tacs.grupo5.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
+import utn.tacs.grupo5.bot.Chatdata;
+import utn.tacs.grupo5.bot.handler.ResponseHandler;
 import utn.tacs.grupo5.bot.handler.exception.*;
 import utn.tacs.grupo5.dto.auth.AuthInputDto;
 import utn.tacs.grupo5.dto.auth.AuthOutputDto;
@@ -108,28 +110,28 @@ public class BotService implements IBotService {
                 .toList();
     }
 
-    public void saveCardValue(String text, PostInputDto postInputDto, String game, String helpStringValue) throws BotException {
-        postInputDto.setWantedCardsIds(new ArrayList<>());
+    public void saveCardValue(String text, Chatdata chatdata, String game, String helpStringValue) throws BotException {
+        chatdata.setWantedCardsIds(new ArrayList<>());
         switch (helpStringValue) {
             case "Ambos" -> {
                 String[] string = text.split("\\n");
                 String money = string[0].trim();
                 String[] cards = string[1].split(", ");
-                postInputDto.setEstimatedValue(BigDecimal.valueOf(Long.parseLong(money)));
+                chatdata.setEstimatedValue(BigDecimal.valueOf(Long.parseLong(money)));
                 for (String card : cards) {
                     Card validCard = findCard(game, card);
-                    postInputDto.getWantedCardsIds().add(validCard.getId());
+                    chatdata.getWantedCardsIds().add(validCard.getId());
                 }
             }
             case "Dinero" -> {
                 String money = text.trim();
-                postInputDto.setEstimatedValue(new BigDecimal(money));
+                chatdata.setEstimatedValue(new BigDecimal(money));
             }
             case "Cartas" -> {
                 String[] cards = text.split(", ");
                 for (String card : cards) {
                     Card validCard = findCard(game, card);
-                    postInputDto.getWantedCardsIds().add(validCard.getId());
+                    chatdata.getWantedCardsIds().add(validCard.getId());
                 }
             }
         }
