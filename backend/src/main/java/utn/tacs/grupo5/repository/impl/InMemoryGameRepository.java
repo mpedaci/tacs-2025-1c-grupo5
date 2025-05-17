@@ -71,11 +71,12 @@ public class InMemoryGameRepository implements GameRepository {
         }
     }
 
-    public Optional<Game> findByName(String name) {
+    public Optional<UUID> findByName(String name) {
         synchronized (games) {
             return games.stream()
                     .filter(game -> game.getName().name().equalsIgnoreCase(name))
-                    .findFirst();
+                    .findFirst()
+                    .map(Game::getId);
         }
     }
 }
