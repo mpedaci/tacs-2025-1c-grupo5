@@ -74,7 +74,6 @@ public class OfferService implements IOfferService {
         Offer offer = offerMapper.toEntity(dto);
         offer.setId(existingOffer.getId());
         LocalDateTime now = LocalDateTime.now();
-        offer.setPublishedAt(now);
         offer.setUpdatedAt(now);
         offer.setFinishedAt(null);
         return offerRepository.save(offer);
