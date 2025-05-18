@@ -10,8 +10,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class OfferedCardInputDto {
 
-    // private String image;
     private UUID cardId;
     private ConservationStatus conservationStatus;
+    private String image;
 
 }

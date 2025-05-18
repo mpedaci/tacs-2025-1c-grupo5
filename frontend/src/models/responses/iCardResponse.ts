@@ -5,5 +5,5 @@ export interface ICardResponse {
     game: IGameResponse;
     name: string;
     externalId: string;
-    image: string;
+    imageUrl: string;
 }

@@ -30,13 +30,17 @@ export const offersApi = createApi({
                 method: "POST",
                 body,
             }),
+            invalidatesTags: ["Offers"],
         }),
-        updateOfferState: builder.mutation<any, { postId: string; offerId: string; body: IOfferUpdateStateRequest }>({
-            query: ({postId, offerId, body}) => ({
+        updateOfferState: builder.mutation<void, {offerId: string; body: IOfferUpdateStateRequest }>({
+            query: ({offerId, body}) => ({
                 url: `/offers/${offerId}`,
                 method: "PATCH",
-                body,
+                params: {
+                    status: body.state,
+                }
             }),
+            invalidatesTags: ["Offers"],
         }),
     })
 });

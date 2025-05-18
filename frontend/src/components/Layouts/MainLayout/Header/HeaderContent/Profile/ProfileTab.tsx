@@ -5,7 +5,7 @@ import {loginRoute} from "@routes/router";
 import {useRouter} from "next/navigation";
 import {useLogoutMutation} from "@redux/services/authApi";
 import {useNotification} from "@components/Notifications/NotificationContext";
-import {useAppDispatch} from "@redux/hook";
+import {useAppDispatch, useAppSelector} from "@redux/hook";
 import {clearUser} from "@redux/features/userSlice";
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
@@ -18,10 +18,11 @@ const ProfileTab = () => {
         {isLoading: isLogoutLoading}
     ] = useLogoutMutation();
     const dispatch = useAppDispatch();
+    const user = useAppSelector(state => state.user);
 
     const handleLogout = async () => {
         try {
-            await logout().unwrap();
+            await logout({token: user.token}).unwrap();
             addNotification("Sesión cerrada correctamente", "success");
             dispatch(clearUser());
             router.push(loginRoute());

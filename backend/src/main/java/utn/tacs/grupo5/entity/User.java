@@ -11,11 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 public class User {
     @Id
-    private UUID id = UUID.randomUUID();
-    private String email;
-    private String phone;
-    private String firstName;
-    private String lastName;
+    private UUID id;
+    private String name;
     private String username;
     private String password;
     private LocalDateTime createdAt;

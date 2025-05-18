@@ -1,7 +1,7 @@
 export enum PostState {
-    Published,
-    Finished,
-    Cancelled,
+    Published = "PUBLISHED",
+    Finished = "FINISHED",
+    Cancelled = "CANCELLED",
 }
 
 export const postStateLabels = {

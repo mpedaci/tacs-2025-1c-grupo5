@@ -14,5 +14,5 @@ public class OfferedCard {
     @Transient
     private Card card;
     private ConservationStatus conservationStatus;
-    private String imageUrl;
+    private String image;
 }

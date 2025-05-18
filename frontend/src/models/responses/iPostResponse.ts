@@ -7,11 +7,11 @@ export interface IPostResponse {
     id: string;
     user: IUserResponse;
     card: ICardResponse;
-    conservationState: ConservationState;
+    conservationStatus: ConservationState;
     images: string[];
     estimatedValue: number;
-    wishedCards: ICardResponse[];
-    state: PostState;
-    publishedAt: Date;
-    endAt: Date;
+    wantedCards: ICardResponse[];
+    status: PostState;
+    publishedAt: string;
+    finishedAt: string;
 }

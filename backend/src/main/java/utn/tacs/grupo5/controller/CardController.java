@@ -25,7 +25,7 @@ import utn.tacs.grupo5.service.ICardService;
 
 @RestController
 @Tag(name = "Cards", description = "Card operations")
-public class CardController {
+public class CardController extends BaseController {
 
         private final ICardService cardService;
         private final CardMapper cardMapper;

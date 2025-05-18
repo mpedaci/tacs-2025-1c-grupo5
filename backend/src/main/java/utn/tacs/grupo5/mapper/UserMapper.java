@@ -13,10 +13,7 @@ public class UserMapper implements IMapper<User, UserInputDto, UserOutputDto> {
     public UserOutputDto toDto(User user) {
         UserOutputDto dto = new UserOutputDto();
         dto.setId(user.getId());
-        dto.setEmail(user.getEmail());
-        dto.setPhone(user.getPhone());
-        dto.setFirstName(user.getFirstName());
-        dto.setLastName(user.getLastName());
+        dto.setName(user.getName());
         dto.setUsername(user.getUsername());
         dto.setCreatedAt(user.getCreatedAt());
         dto.setUpdatedAt(user.getUpdatedAt());
@@ -26,12 +23,10 @@ public class UserMapper implements IMapper<User, UserInputDto, UserOutputDto> {
     @Override
     public User toEntity(UserInputDto dto) {
         User user = new User();
-        user.setEmail(dto.getEmail());
-        user.setPhone(dto.getPhone());
-        user.setFirstName(dto.getFirstName());
-        user.setLastName(dto.getLastName());
+        user.setName(dto.getName());
         user.setUsername(dto.getUsername());
         user.setPassword(dto.getPassword());
+        user.setAdmin(dto.isAdmin());
         return user;
     }
 

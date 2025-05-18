@@ -32,10 +32,6 @@ public class UserService implements IUserService {
 
     @Override
     public User save(UserInputDto dto) {
-        userRepository.findByEmail(dto.getEmail())
-                .ifPresent(user -> {
-                    throw new ConflictException("User already exists");
-                });
         userRepository.findByUsername(dto.getUsername())
                 .ifPresent(user -> {
                     throw new ConflictException("Username already exists");

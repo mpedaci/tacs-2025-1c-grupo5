@@ -1,9 +1,6 @@
 package utn.tacs.grupo5.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -68,26 +65,11 @@ public class UserServiceTest {
     }
 
     @Test
-    void save_shouldThrowConflictException_whenEmailAlreadyExists() {
-        UserInputDto dto = new UserInputDto();
-        dto.setEmail("test@example.com");
-        dto.setUsername("testuser");
-        dto.setPassword("password");
-
-        when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.of(new User()));
-
-        assertThrows(ConflictException.class, () -> userService.save(dto));
-        verify(userRepository, never()).save(any(User.class));
-    }
-
-    @Test
     void save_shouldThrowConflictException_whenUsernameAlreadyExists() {
         UserInputDto dto = new UserInputDto();
-        dto.setEmail("test@example.com");
         dto.setUsername("testuser");
         dto.setPassword("password");
 
-        when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.empty());
         when(userRepository.findByUsername(dto.getUsername())).thenReturn(Optional.of(new User()));
 
         assertThrows(ConflictException.class, () -> userService.save(dto));
@@ -99,23 +81,16 @@ public class UserServiceTest {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         UserInputDto dto = new UserInputDto();
-        dto.setEmail("test@example.com");
         dto.setUsername("testuser");
         dto.setPassword("password");
-        dto.setFirstName("Test");
-        dto.setLastName("User");
-        dto.setPhone("1234567890");
+        dto.setName("Test");
 
         User user = new User();
-        user.setEmail(dto.getEmail());
+        user.setName(dto.getName());
         user.setUsername(dto.getUsername());
-        user.setFirstName(dto.getFirstName());
-        user.setLastName(dto.getLastName());
-        user.setPhone(dto.getPhone());
 
         when(userMapper.toEntity(dto)).thenReturn(user);
 
-        when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.empty());
         when(userRepository.findByUsername(dto.getUsername())).thenReturn(Optional.empty());
         when(userMapper.toEntity(dto)).thenReturn(user);
 
@@ -132,15 +107,12 @@ public class UserServiceTest {
 
         assertNotNull(result);
         assertNotNull(result.getId());
-        assertEquals(dto.getFirstName(), result.getFirstName());
-        assertEquals(dto.getLastName(), result.getLastName());
-        assertEquals(dto.getPhone(), result.getPhone());
-        assertEquals(dto.getEmail(), result.getEmail());
+        assertEquals(dto.getName(), result.getName());
         assertEquals(dto.getUsername(), result.getUsername());
         assertNotNull(result.getCreatedAt());
         assertNotNull(result.getUpdatedAt());
 
-        assertEquals(true, passwordEncoder.matches(dto.getPassword(), result.getPassword()));
+        assertTrue(passwordEncoder.matches(dto.getPassword(), result.getPassword()));
     }
 
     @Test
@@ -162,20 +134,14 @@ public class UserServiceTest {
         existingUser.setCreatedAt(LocalDateTime.now());
 
         UserInputDto dto = new UserInputDto();
-        dto.setEmail("updated@example.com");
+        dto.setName("Updated User");
         dto.setUsername("updateduser");
-        dto.setFirstName("Updated");
-        dto.setLastName("User");
-        dto.setPhone("0987654321");
         dto.setPassword("newpassword");
 
         User user = new User();
         user.setPassword(dto.getPassword());
-        user.setEmail(dto.getEmail());
+        user.setName(dto.getName());
         user.setUsername(dto.getUsername());
-        user.setFirstName(dto.getFirstName());
-        user.setLastName(dto.getLastName());
-        user.setPhone(dto.getPhone());
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
         when(userMapper.toEntity(dto)).thenReturn(user);
@@ -186,14 +152,14 @@ public class UserServiceTest {
 
         assertNotNull(updatedUser);
         assertEquals(userId, updatedUser.getId());
-        assertEquals(dto.getEmail(), updatedUser.getEmail());
+        assertEquals(dto.getName(), updatedUser.getName());
         assertEquals(dto.getUsername(), updatedUser.getUsername());
         assertEquals(existingUser.getCreatedAt(), updatedUser.getCreatedAt());
         assertNotEquals(updatedUser.getCreatedAt(), updatedUser.getUpdatedAt());
         assertNotNull(updatedUser.getUpdatedAt());
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        assertEquals(true, passwordEncoder.matches(dto.getPassword(), updatedUser.getPassword()));
+        assertTrue(passwordEncoder.matches(dto.getPassword(), updatedUser.getPassword()));
     }
 
     @Test

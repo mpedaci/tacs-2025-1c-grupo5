@@ -72,6 +72,7 @@ public class OfferMapper implements IMapper<Offer, OfferInputDto, OfferOutputDto
         OfferedCardOutputDto dto = new OfferedCardOutputDto();
         dto.setCard(cardMapper.toDto(offeredCard.getCard()));
         dto.setConservationStatus(offeredCard.getConservationStatus());
+        dto.setImage(offeredCard.getImage());
         return dto;
     }
 
@@ -82,6 +83,7 @@ public class OfferMapper implements IMapper<Offer, OfferInputDto, OfferOutputDto
         offeredCard.setCard(card);
         offeredCard.setCardId(dto.getCardId());
         offeredCard.setConservationStatus(dto.getConservationStatus());
+        offeredCard.setImage(dto.getImage());
         return offeredCard;
     }
 
