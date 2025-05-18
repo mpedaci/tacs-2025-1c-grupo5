@@ -61,8 +61,10 @@ public class OfferMapper implements IMapper<Offer, OfferInputDto, OfferOutputDto
                 .toList());
         offer.setOfferer(userService.get(dto.getOffererId())
                 .orElseThrow(() -> new NotFoundException("User not found")));
+        offer.setOffererId(dto.getOffererId());
         offer.setPost(postService.get(dto.getPostId())
                 .orElseThrow(() -> new NotFoundException("Post not found")));
+        offer.setPostId(dto.getPostId());
         return offer;
     }
 
@@ -78,6 +80,7 @@ public class OfferMapper implements IMapper<Offer, OfferInputDto, OfferOutputDto
         Card card = cardService.get(dto.getCardId())
                 .orElseThrow(() -> new NotFoundException("Card not found"));
         offeredCard.setCard(card);
+        offeredCard.setCardId(dto.getCardId());
         offeredCard.setConservationStatus(dto.getConservationStatus());
         return offeredCard;
     }

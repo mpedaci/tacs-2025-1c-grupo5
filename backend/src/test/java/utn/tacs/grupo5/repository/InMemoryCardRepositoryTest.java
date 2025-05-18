@@ -2,28 +2,21 @@ package utn.tacs.grupo5.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-import utn.tacs.grupo5.config.TestContainersConfig;
 import utn.tacs.grupo5.entity.card.Card;
 import utn.tacs.grupo5.entity.card.Game;
-
+import utn.tacs.grupo5.repository.impl.InMemoryCardRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-@Import(TestContainersConfig.class)
-class MongoCardRepositoryTest {
+class InMemoryCardRepositoryTest {
 
-    @Autowired
-    private CardRepository repository;
+    private InMemoryCardRepository repository;
 
     @BeforeEach
     void setUp() {
-//        repository = new InMemoryCardRepository();
+        repository = new InMemoryCardRepository();
     }
 
     @Test
@@ -38,8 +31,8 @@ class MongoCardRepositoryTest {
     @Test
     void save_shouldUpdateSavedCard_whenCardExists() {
         Card card = new Card();
-        UUID cardId = card.getId();
-//        card.setId(cardId);
+        UUID cardId = UUID.randomUUID();
+        card.setId(cardId);
         card.setName("card1");
         repository.save(card);
 
@@ -49,6 +42,7 @@ class MongoCardRepositoryTest {
 
         repository.save(updatedCard);
 
+        assertTrue(repository.findById(cardId).isPresent());
         assertEquals("card2", repository.findById(cardId).get().getName());
         assertEquals(1, repository.findAll().size());
     }

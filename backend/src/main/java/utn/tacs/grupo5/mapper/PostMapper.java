@@ -54,9 +54,11 @@ public class PostMapper implements IMapper<Post, PostInputDto, PostOutputDto> {
         Post post = new Post();
         post.setUser(userService.get(dto.getUserId())
                 .orElseThrow(() -> new NotFoundException("User not found")));
+        post.setUserId(dto.getUserId());
         post.setImages(dto.getImages());
         post.setCard(cardService.get(dto.getCardId())
                 .orElseThrow(() -> new NotFoundException("Card not found")));
+        post.setCardId(dto.getCardId());
         post.setConservationStatus(dto.getConservationStatus());
         post.setEstimatedValue(dto.getEstimatedValue());
         post.setWantedCards(
@@ -64,6 +66,7 @@ public class PostMapper implements IMapper<Post, PostInputDto, PostOutputDto> {
                         .map(cardId -> cardService.get(cardId)
                                 .orElseThrow(() -> new NotFoundException("Card not found")))
                         .toList());
+        post.setWantedCardsIds(dto.getWantedCardsIds());
         post.setDescription(dto.getDescription());
         return post;
     }

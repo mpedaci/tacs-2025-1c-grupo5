@@ -1,39 +1,39 @@
 package utn.tacs.grupo5.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.card.CardInputDto;
 import utn.tacs.grupo5.entity.card.Card;
 import utn.tacs.grupo5.entity.card.Game;
 import utn.tacs.grupo5.mapper.CardMapper;
-import utn.tacs.grupo5.repository.CardRepository;
-import utn.tacs.grupo5.repository.GameRepository;
+import utn.tacs.grupo5.repository.impl.MongoCardRepository;
+import utn.tacs.grupo5.repository.impl.MongoGameRepository;
 import utn.tacs.grupo5.service.impl.CardService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CardServiceTest {
 
     @Mock
-    CardRepository cardRepository;
+    MongoCardRepository cardRepository;
 
     @Mock
     CardMapper cardMapper;
 
     @Mock
-    GameRepository gameRepository;
+    MongoGameRepository gameRepository;
 
     @Mock
     IExternalCardService externalCardClient;
@@ -48,6 +48,7 @@ public class CardServiceTest {
         card.setId(cardId);
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
+        when(gameRepository.findById(any())).thenReturn(Optional.of(new Game()));
 
         Optional<Card> result = cardService.get(cardId);
 
