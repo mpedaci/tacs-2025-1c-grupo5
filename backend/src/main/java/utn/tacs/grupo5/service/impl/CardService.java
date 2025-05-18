@@ -75,7 +75,7 @@ public class CardService implements ICardService {
         }
 
         List<Card> cardsInDb = cardRepository.findAll().stream()
-                .filter(card -> card.getGame().getId().equals(gameId))
+                .filter(card -> card.getGameId().equals(gameId))
                 .filter(card -> card.getName().toLowerCase().contains(name.toLowerCase()))
                 .toList();
 
@@ -90,13 +90,16 @@ public class CardService implements ICardService {
                                 .contains(card.getExternalId()))
                         .forEach(card -> {
                             card.setGame(game);
+                            card.setGameId(gameId);
+                            logger.info("Saving new card {} ", card);
                             cardRepository.save(card);
                         });
 
                 logger.info("Saved {} new cards from external API for game {}", cardsApi.size(), game.getName().name());
 
                 return cardRepository.findAll().stream()
-                        .filter(card -> card.getGame().getId().equals(gameId))
+
+                        .filter(card -> card.getGameId().equals(gameId))
                         .filter(card -> card.getName().toLowerCase().contains(name.toLowerCase()))
                         .toList();
             }

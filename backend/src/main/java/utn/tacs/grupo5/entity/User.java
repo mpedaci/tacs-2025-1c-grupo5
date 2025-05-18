@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 public class User {
     @Id
-    private UUID id;
+    private UUID id = UUID.randomUUID();
     private String name;
     private String username;
     private String password;
