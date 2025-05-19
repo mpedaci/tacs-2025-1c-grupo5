@@ -21,5 +21,5 @@ public class UserInputDto {
     private String password;
 
     @Hidden
-    private boolean admin;
+    private Boolean admin;
 }

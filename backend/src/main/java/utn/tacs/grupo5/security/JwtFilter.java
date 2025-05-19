@@ -3,6 +3,7 @@ package utn.tacs.grupo5.security;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import utn.tacs.grupo5.service.IAuthService;
 
 @Component
+@Profile("!test")
 public class JwtFilter extends OncePerRequestFilter {
 
     private final IAuthService authService;
