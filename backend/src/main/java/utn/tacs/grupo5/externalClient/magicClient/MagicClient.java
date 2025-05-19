@@ -21,7 +21,7 @@ public class MagicClient implements ICardClient {
     private WebClient magicClient;
     private final Game.Name gameName = Game.Name.MAGIC;
 
-    @Value("${external.api.magic.url}")
+    @Value("${MAGIC_API_URL}")
     private String apiBaseUrl;
 
     @PostConstruct

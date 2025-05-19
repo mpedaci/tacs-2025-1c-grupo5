@@ -21,7 +21,7 @@ public class YugiohClient implements ICardClient {
     private WebClient yugiohClient;
     private final Game.Name gameName = Game.Name.YUGIOH;
 
-    @Value("${external.api.yugioh.url}")
+    @Value("${YUGIOH_API_URL}")
     private String apiBaseUrl;
 
     @PostConstruct
@@ -41,7 +41,7 @@ public class YugiohClient implements ICardClient {
             response = yugiohClient.get()
                     .uri(uriBuilder -> {
                         uriBuilder.path("cardinfo.php");
-                                //.queryParam("name", name);
+                        // .queryParam("name", name);
                         logger.debug(gameName.name() + " URI: {}", uriBuilder.toUriString());
                         return uriBuilder.build();
                     })
