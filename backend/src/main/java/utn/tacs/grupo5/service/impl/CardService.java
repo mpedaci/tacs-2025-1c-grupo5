@@ -38,10 +38,7 @@ public class CardService implements ICardService {
     @Override
     public Optional<Card> get(UUID id) {
         Optional<Card> card = cardRepository.findById(id);
-        card.ifPresent(c -> c.setGame(gameRepository.findById(c.getGameId()).orElseThrow(() -> {
-            delete(id);
-            return new NotFoundException("Card game not found");
-        })));
+        card.ifPresent(this::updateCardInfo);
         return card;
     }
 
@@ -71,40 +68,45 @@ public class CardService implements ICardService {
                 .orElseThrow(() -> new NotFoundException("Game not found"));
 
         if (name == null || name.isEmpty()) {
-            return cardRepository.findByGameId(gameId);
+            List<Card> cards = cardRepository.findByGameId(gameId);
+            cards.forEach(this::updateCardInfo);
+            return cards;
         }
 
         List<Card> cardsInDb = cardRepository.findAll().stream()
                 .filter(card -> card.getGameId().equals(gameId))
                 .filter(card -> card.getName().toLowerCase().contains(name.toLowerCase()))
                 .toList();
-
+        cardsInDb.forEach(this::updateCardInfo);
         logger.info("Filtered cards in DB for game {}: {}", game.getName().name(), cardsInDb.size());
 
-        if (cardsInDb.isEmpty()) {
+        if(cardsInDb.isEmpty()) {
             List<Card> cardsApi = externalCardClient.getCardsByName(game, name);
-            if (!cardsApi.isEmpty()) {
+            if(!cardsApi.isEmpty()) {
                 // Filter out cards that are already in the database
-                cardsApi.stream()
-                        .filter(card -> !cardsInDb.stream().map(Card::getExternalId).toList()
-                                .contains(card.getExternalId()))
-                        .forEach(card -> {
-                            card.setGame(game);
-                            card.setGameId(gameId);
-                            logger.info("Saving new card {} ", card);
-                            cardRepository.save(card);
-                        });
+                cardsApi.forEach(card -> {
+                    card.setGame(game);
+                    card.setGameId(gameId);
+                    logger.info("Saving new card {} ", card);
+                    cardRepository.save(card);
+                });
 
                 logger.info("Saved {} new cards from external API for game {}", cardsApi.size(), game.getName().name());
 
-                return cardRepository.findAll().stream()
-
-                        .filter(card -> card.getGameId().equals(gameId))
-                        .filter(card -> card.getName().toLowerCase().contains(name.toLowerCase()))
-                        .toList();
+                List<Card> cards = cardRepository.findAll().stream().filter(card -> card.getGameId().equals(gameId))
+                        .filter(card -> card.getName().toLowerCase().contains(name.toLowerCase())).toList();
+                cards.forEach(this::updateCardInfo);
+                return cards;
             }
         }
 
         return cardsInDb;
+    }
+
+    private void updateCardInfo(Card c) {
+        c.setGame(gameRepository.findById(c.getGameId()).orElseThrow(() -> {
+            delete(c.getId());
+            return new NotFoundException("Card game not found");
+        }));
     }
 }
