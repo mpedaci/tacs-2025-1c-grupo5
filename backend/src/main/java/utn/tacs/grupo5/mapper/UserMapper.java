@@ -17,6 +17,7 @@ public class UserMapper implements IMapper<User, UserInputDto, UserOutputDto> {
         dto.setUsername(user.getUsername());
         dto.setCreatedAt(user.getCreatedAt());
         dto.setUpdatedAt(user.getUpdatedAt());
+        System.out.println("User is admin: " + user.getAdmin());
         return dto;
     }
 
@@ -26,7 +27,7 @@ public class UserMapper implements IMapper<User, UserInputDto, UserOutputDto> {
         user.setName(dto.getName());
         user.setUsername(dto.getUsername());
         user.setPassword(dto.getPassword());
-        user.setAdmin(dto.isAdmin());
+        user.setAdmin(dto.isAdmin() ? dto.isAdmin() : false);
         return user;
     }
 

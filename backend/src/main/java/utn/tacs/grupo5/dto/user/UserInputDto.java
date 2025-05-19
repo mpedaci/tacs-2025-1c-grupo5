@@ -1,5 +1,6 @@
 package utn.tacs.grupo5.dto.user;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,7 @@ public class UserInputDto {
     private String name;
     private String username;
     private String password;
+
+    @Hidden
     private boolean admin;
 }

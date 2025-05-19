@@ -1,7 +1,13 @@
 package utn.tacs.grupo5.service.impl;
 
+import java.util.List;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import utn.tacs.grupo5.controller.exceptions.CredentialException;
 import utn.tacs.grupo5.dto.auth.AuthInputDto;
 import utn.tacs.grupo5.dto.auth.AuthOutputDto;
@@ -11,6 +17,7 @@ import utn.tacs.grupo5.service.IAuthService;
 
 @Service
 public class AuthService implements IAuthService {
+
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
 
@@ -50,5 +57,31 @@ public class AuthService implements IAuthService {
 
     @Override
     public void logout(String refreshToken) {
+    }
+
+    @Override
+    public Boolean validateToken(String token) {
+        if (token == null) {
+            throw new CredentialException("No token provided");
+        }
+        return jwtUtil.validateToken(token);
+    }
+
+    @Override
+    public Authentication getAuthentication(String token) {
+        if (token == null) {
+            throw new CredentialException("Access Denied");
+        }
+        String username = jwtUtil.getUsernameFromToken(token);
+        var user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new CredentialException("Access Denied"));
+
+        List<SimpleGrantedAuthority> authorities = user.getAdmin() ? List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))
+                : List.of(new SimpleGrantedAuthority("ROLE_USER"));
+
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, "",
+                authorities);
+
+        return authentication;
     }
 }
