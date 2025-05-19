@@ -3,7 +3,6 @@ package utn.tacs.grupo5.service.impl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import utn.tacs.grupo5.controller.exceptions.CredentialException;
-import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.auth.AuthInputDto;
 import utn.tacs.grupo5.dto.auth.AuthOutputDto;
 import utn.tacs.grupo5.repository.UserRepository;
@@ -34,7 +33,6 @@ public class AuthService implements IAuthService {
 
         return new AuthOutputDto(token);
     }
-
 
     @Override
     public AuthOutputDto refreshToken(String refreshToken) {

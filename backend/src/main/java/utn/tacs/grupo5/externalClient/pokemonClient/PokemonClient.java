@@ -21,7 +21,7 @@ public class PokemonClient implements ICardClient {
     private WebClient pokemonClient;
     private final Game.Name gameName = Game.Name.POKEMON;
 
-    @Value("${external.api.pokemon.url}")
+    @Value("${POKEMON_API_URL}")
     private String apiBaseUrl;
 
     @PostConstruct
