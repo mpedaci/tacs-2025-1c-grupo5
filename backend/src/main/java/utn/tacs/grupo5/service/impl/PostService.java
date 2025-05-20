@@ -8,7 +8,7 @@ import utn.tacs.grupo5.entity.post.ConservationStatus;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.entity.post.Post.Status;
 import utn.tacs.grupo5.mapper.PostMapper;
-import utn.tacs.grupo5.repository.impl.MongoPostRepository;
+import utn.tacs.grupo5.repository.PostRepository;
 import utn.tacs.grupo5.service.IPostService;
 
 import java.time.LocalDateTime;
@@ -19,13 +19,13 @@ import java.util.UUID;
 
 @Service
 public class PostService implements IPostService {
-    private final MongoPostRepository postRepository;
+    private final PostRepository postRepository;
     private final CardService cardService;
     private final UserService userService;
     private final PostMapper postMapper;
 
-    public PostService(MongoPostRepository postRepository, CardService cardService, UserService userService,
-                       PostMapper postMapper) {
+    public PostService(PostRepository postRepository, CardService cardService, UserService userService,
+            PostMapper postMapper) {
         this.postRepository = postRepository;
         this.cardService = cardService;
         this.userService = userService;
@@ -138,7 +138,7 @@ public class PostService implements IPostService {
         List<UUID> cardsToDelete = new ArrayList<>();
         p.getWantedCardsIds().forEach(wantedCard -> cardService.get(wantedCard)
                 .ifPresentOrElse(wantedCards::add, () -> cardsToDelete.add(wantedCard)));
-        if(!cardsToDelete.isEmpty()) {
+        if (!cardsToDelete.isEmpty()) {
             p.getWantedCardsIds().removeAll(cardsToDelete);
             postRepository.save(p);
         }

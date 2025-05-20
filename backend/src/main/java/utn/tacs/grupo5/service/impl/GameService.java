@@ -5,7 +5,7 @@ import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.game.GameInputDto;
 import utn.tacs.grupo5.entity.card.Game;
 import utn.tacs.grupo5.mapper.GameMapper;
-import utn.tacs.grupo5.repository.impl.MongoGameRepository;
+import utn.tacs.grupo5.repository.GameRepository;
 import utn.tacs.grupo5.service.IGameService;
 
 import java.util.List;
@@ -14,17 +14,18 @@ import java.util.UUID;
 
 @Service
 public class GameService implements IGameService {
-    private final MongoGameRepository gameRepository;
+    private final GameRepository gameRepository;
     private final GameMapper gameMapper;
 
-    public GameService(MongoGameRepository gameRepository, GameMapper gameMapper) {
+    public GameService(GameRepository gameRepository, GameMapper gameMapper) {
         this.gameRepository = gameRepository;
         this.gameMapper = gameMapper;
         insertDefaultGames(gameRepository);
     }
 
-    private void insertDefaultGames(MongoGameRepository gameRepository) {
-        gameRepository.findByTitle("Magic the Gathering").ifPresentOrElse(game -> {}, () -> {
+    private void insertDefaultGames(GameRepository gameRepository) {
+        gameRepository.findByTitle("Magic the Gathering").ifPresentOrElse(game -> {
+        }, () -> {
             Game magic = new Game();
             magic.setId(UUID.randomUUID());
             magic.setTitle("Magic the Gathering");
@@ -35,7 +36,8 @@ public class GameService implements IGameService {
             gameRepository.save(magic);
         });
 
-        gameRepository.findByTitle("Pokemon").ifPresentOrElse(game -> {}, () -> {
+        gameRepository.findByTitle("Pokemon").ifPresentOrElse(game -> {
+        }, () -> {
             Game pokemon = new Game();
             pokemon.setId(UUID.randomUUID());
             pokemon.setTitle("Pokemon");
@@ -46,7 +48,8 @@ public class GameService implements IGameService {
             gameRepository.save(pokemon);
         });
 
-        gameRepository.findByTitle("Yu-Gi-Oh!").ifPresentOrElse(game -> {}, () -> {
+        gameRepository.findByTitle("Yu-Gi-Oh!").ifPresentOrElse(game -> {
+        }, () -> {
             Game yugioh = new Game();
             yugioh.setId(UUID.randomUUID());
             yugioh.setTitle("Yu-Gi-Oh!");

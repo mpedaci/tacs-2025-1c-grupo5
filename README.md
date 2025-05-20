@@ -45,7 +45,7 @@ docker compose --env-file ./path/to/env/file/.env up --build
 
 ---
 
-#### 2. Run the app
+#### 3. Run the app
 
 Run the following command to start the app:
 
@@ -55,14 +55,14 @@ docker-compose up
 
 ---
 
-#### 3. Access the app
+#### 4. Access the app
 
 The backend will be available at `http://localhost:8080`\
 The frontend will be available at `http://localhost:3000`
 
 ---
 
-#### 4. Admin access
+#### 5. Admin access
 
 To create an admin user, run the following command:
 

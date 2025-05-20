@@ -12,7 +12,7 @@ import utn.tacs.grupo5.entity.User;
 import utn.tacs.grupo5.entity.post.Offer;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.mapper.OfferMapper;
-import utn.tacs.grupo5.repository.impl.MongoOfferRepository;
+import utn.tacs.grupo5.repository.OfferRepository;
 import utn.tacs.grupo5.service.impl.OfferService;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 public class OfferServiceTest {
 
     @Mock
-    MongoOfferRepository offerRepository;
+    OfferRepository offerRepository;
 
     @Mock
     OfferMapper offerMapper;

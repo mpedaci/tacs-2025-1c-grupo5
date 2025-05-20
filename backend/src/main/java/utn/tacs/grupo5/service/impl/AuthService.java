@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 import utn.tacs.grupo5.controller.exceptions.CredentialException;
 import utn.tacs.grupo5.dto.auth.AuthInputDto;
 import utn.tacs.grupo5.dto.auth.AuthOutputDto;
-import utn.tacs.grupo5.repository.impl.MongoUserRepository;
+import utn.tacs.grupo5.repository.UserRepository;
 import utn.tacs.grupo5.security.JwtUtil;
 import utn.tacs.grupo5.service.IAuthService;
 
 @Service
 public class AuthService implements IAuthService {
-    private final MongoUserRepository userRepository;
+    private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
 
-    public AuthService(MongoUserRepository userRepository, JwtUtil jwtUtil) {
+    public AuthService(UserRepository userRepository, JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.jwtUtil = jwtUtil;
     }

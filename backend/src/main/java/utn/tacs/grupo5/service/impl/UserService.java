@@ -7,7 +7,7 @@ import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.user.UserInputDto;
 import utn.tacs.grupo5.entity.User;
 import utn.tacs.grupo5.mapper.UserMapper;
-import utn.tacs.grupo5.repository.impl.MongoUserRepository;
+import utn.tacs.grupo5.repository.UserRepository;
 import utn.tacs.grupo5.service.IUserService;
 
 import java.time.LocalDateTime;
@@ -17,10 +17,10 @@ import java.util.UUID;
 @Service
 public class UserService implements IUserService {
 
-    private final MongoUserRepository userRepository;
+    private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserService(MongoUserRepository userRepository, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }

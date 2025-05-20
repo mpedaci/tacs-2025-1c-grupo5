@@ -24,14 +24,13 @@ import utn.tacs.grupo5.dto.user.UserInputDto;
 import utn.tacs.grupo5.entity.User;
 import utn.tacs.grupo5.mapper.UserMapper;
 import utn.tacs.grupo5.repository.UserRepository;
-import utn.tacs.grupo5.repository.impl.MongoUserRepository;
 import utn.tacs.grupo5.service.impl.UserService;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
     @Mock
-    MongoUserRepository userRepository;
+    UserRepository userRepository;
 
     @Mock
     UserMapper userMapper;

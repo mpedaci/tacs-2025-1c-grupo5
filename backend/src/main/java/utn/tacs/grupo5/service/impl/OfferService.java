@@ -9,7 +9,7 @@ import utn.tacs.grupo5.entity.post.Offer.Status;
 import utn.tacs.grupo5.entity.post.OfferedCard;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.mapper.OfferMapper;
-import utn.tacs.grupo5.repository.impl.MongoOfferRepository;
+import utn.tacs.grupo5.repository.OfferRepository;
 import utn.tacs.grupo5.service.ICardService;
 import utn.tacs.grupo5.service.IOfferService;
 import utn.tacs.grupo5.service.IPostService;
@@ -23,14 +23,14 @@ import java.util.UUID;
 
 @Service
 public class OfferService implements IOfferService {
-    private final MongoOfferRepository offerRepository;
+    private final OfferRepository offerRepository;
     private final OfferMapper offerMapper;
     private final ICardService cardService;
     private final IPostService postService;
     private final IUserService userService;
 
-    public OfferService(MongoOfferRepository offerRepository, OfferMapper offerMapper, ICardService cardService,
-                        IPostService postService, IUserService userService) {
+    public OfferService(OfferRepository offerRepository, OfferMapper offerMapper, ICardService cardService,
+            IPostService postService, IUserService userService) {
         this.offerRepository = offerRepository;
         this.offerMapper = offerMapper;
         this.cardService = cardService;
@@ -96,7 +96,7 @@ public class OfferService implements IOfferService {
         offer.setUpdatedAt(now);
         offer.setFinishedAt(now);
 
-        if(Status.ACCEPTED.equals(dto.getStatus())) {
+        if (Status.ACCEPTED.equals(dto.getStatus())) {
             postService.updateStatus(offer.getPostId(), Post.Status.FINISHED);
         }
 
@@ -115,9 +115,9 @@ public class OfferService implements IOfferService {
         }));
 
         List<OfferedCard> deletedCards = new ArrayList<>();
-        o.getOfferedCards().forEach(oc ->
-                cardService.get(oc.getCardId()).ifPresentOrElse(oc::setCard, () -> deletedCards.add(oc)));
-        if(!deletedCards.isEmpty()) {
+        o.getOfferedCards().forEach(
+                oc -> cardService.get(oc.getCardId()).ifPresentOrElse(oc::setCard, () -> deletedCards.add(oc)));
+        if (!deletedCards.isEmpty()) {
             o.getOfferedCards().removeAll(deletedCards);
             offerRepository.save(o);
         }
