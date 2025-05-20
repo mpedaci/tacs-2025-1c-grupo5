@@ -8,6 +8,8 @@ import utn.tacs.grupo5.entity.post.Offer;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.repository.OfferRepository;
 import utn.tacs.grupo5.repository.PostRepository;
+import utn.tacs.grupo5.repository.impl.MongoOfferRepository;
+import utn.tacs.grupo5.repository.impl.MongoPostRepository;
 import utn.tacs.grupo5.service.IMetricService;
 
 import java.time.LocalDate;
@@ -18,10 +20,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class MetricService implements IMetricService {
-    private final OfferRepository offerRepository;
-    private final PostRepository postRepository;
+    private final MongoOfferRepository offerRepository;
+    private final MongoPostRepository postRepository;
 
-    public MetricService(OfferRepository offerRepository, PostRepository postRepository) {
+    public MetricService(MongoOfferRepository offerRepository, MongoPostRepository postRepository) {
         this.offerRepository = offerRepository;
         this.postRepository = postRepository;
     }

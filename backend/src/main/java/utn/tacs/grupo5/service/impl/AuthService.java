@@ -11,17 +11,16 @@ import org.springframework.stereotype.Service;
 import utn.tacs.grupo5.controller.exceptions.CredentialException;
 import utn.tacs.grupo5.dto.auth.AuthInputDto;
 import utn.tacs.grupo5.dto.auth.AuthOutputDto;
-import utn.tacs.grupo5.repository.UserRepository;
+import utn.tacs.grupo5.repository.impl.MongoUserRepository;
 import utn.tacs.grupo5.security.JwtUtil;
 import utn.tacs.grupo5.service.IAuthService;
 
 @Service
 public class AuthService implements IAuthService {
-
-    private final UserRepository userRepository;
+    private final MongoUserRepository userRepository;
     private final JwtUtil jwtUtil;
 
-    public AuthService(UserRepository userRepository, JwtUtil jwtUtil) {
+    public AuthService(MongoUserRepository userRepository, JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.jwtUtil = jwtUtil;
     }
@@ -29,11 +28,11 @@ public class AuthService implements IAuthService {
     @Override
     public AuthOutputDto login(AuthInputDto authInputDto) {
         var user = userRepository.findByUsername(authInputDto.getUsername())
-                .orElseThrow(() -> new CredentialException("User not found or password invalid"));
+                .orElseThrow(() -> new CredentialException("User. not found or password invalid"));
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(authInputDto.getPassword(), user.getPassword())) {
-            throw new CredentialException("User not found or password invalid");
+            throw new CredentialException("User not found or password. invalid");
         }
 
         String token = jwtUtil.generateToken(user);

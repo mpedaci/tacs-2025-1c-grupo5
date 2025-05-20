@@ -1,6 +1,7 @@
 package utn.tacs.grupo5.service;
 
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
+import utn.tacs.grupo5.dto.offer.OfferStatusInputDto;
 import utn.tacs.grupo5.entity.post.Offer;
 
 import java.util.List;
@@ -10,6 +11,6 @@ public interface IOfferService extends ICRUDService<Offer, UUID, OfferInputDto> 
 
     List<Offer> getAllByPostId(UUID postId);
 
-    void updateStatus(UUID offerId, Offer.Status newState);
+    void updateStatus(UUID offerId, OfferStatusInputDto newState);
 
 }

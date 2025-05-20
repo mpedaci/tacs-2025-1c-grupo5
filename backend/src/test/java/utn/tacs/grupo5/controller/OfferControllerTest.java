@@ -2,26 +2,30 @@ package utn.tacs.grupo5.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import utn.tacs.grupo5.TestSecurityConfig;
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
+import utn.tacs.grupo5.dto.offer.OfferOutputDto;
+import utn.tacs.grupo5.dto.offer.OfferStatusInputDto;
+import utn.tacs.grupo5.entity.post.Offer;
 import utn.tacs.grupo5.mapper.OfferMapper;
 import utn.tacs.grupo5.service.IOfferService;
-import org.mockito.Mockito;
-import org.springframework.http.MediaType;
-import utn.tacs.grupo5.dto.offer.OfferOutputDto;
-import utn.tacs.grupo5.entity.post.Offer;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = { OfferController.class })
 @Import(TestSecurityConfig.class)
@@ -58,13 +62,16 @@ public class OfferControllerTest {
     @Test
     void patchOfferStatus_shouldReturnOK_whenValidInput() throws Exception {
         UUID offerId = UUID.randomUUID();
-        Mockito.doNothing().when(offerService).updateStatus(eq(offerId), eq(Offer.Status.ACCEPTED));
+        OfferStatusInputDto inputDto = new OfferStatusInputDto();
+        inputDto.setStatus(Offer.Status.ACCEPTED);
+
+        Mockito.doNothing().when(offerService).updateStatus(eq(offerId), eq(inputDto));
 
         mockMvc.perform(patch("/offers/" + offerId)
-                .param("status", "ACCEPTED")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(inputDto)))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Offer state updated successfully"));
+                .andExpect(content().string("Offer status updated successfully"));
     }
 
     @Test

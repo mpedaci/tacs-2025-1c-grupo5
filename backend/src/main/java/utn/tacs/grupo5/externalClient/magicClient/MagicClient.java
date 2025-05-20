@@ -52,6 +52,7 @@ public class MagicClient implements ICardClient {
             return Collections.emptyList();
 
         return response.cards.stream().map(dto -> {
+            logger.info("Fetched magic card: {}", dto.name);
             Card card = new Card();
             card.setName(dto.name);
             card.setExternalId(String.valueOf(dto.id));

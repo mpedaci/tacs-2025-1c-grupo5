@@ -28,12 +28,15 @@ public class CardMapper implements IMapper<Card, CardInputDto, CardOutputDto> {
         dto.setImageUrl(card.getImageUrl());
         dto.setExternalId(card.getExternalId());
         dto.setGame(gameMapper.toDto(card.getGame()));
+//        dto.setGameId
         return dto;
     }
 
     @Override
     public Card toEntity(CardInputDto dto) {
+
         Card card = new Card();
+        card.setGameId(dto.getGameId());
         Game game = gameService.get(dto.getGameId())
                 .orElseThrow(() -> new NotFoundException("Game not found"));
         card.setGame(game);

@@ -5,34 +5,39 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.post.PostInputDto;
 import utn.tacs.grupo5.entity.User;
+import utn.tacs.grupo5.entity.card.Card;
 import utn.tacs.grupo5.entity.post.ConservationStatus;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.mapper.PostMapper;
-import utn.tacs.grupo5.repository.PostRepository;
+import utn.tacs.grupo5.repository.impl.MongoPostRepository;
+import utn.tacs.grupo5.service.impl.CardService;
 import utn.tacs.grupo5.service.impl.PostService;
+import utn.tacs.grupo5.service.impl.UserService;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
-
     @Mock
-    PostRepository postRepository;
+    MongoPostRepository postRepository;
 
     @Mock
     PostMapper postMapper;
+
+    @Mock
+    CardService cardService;
+
+    @Mock
+    UserService userService;
 
     @InjectMocks
     PostService postService;
@@ -71,6 +76,9 @@ public class PostServiceTest {
         Post existingPost = new Post();
         existingPost.setId(UUID.randomUUID());
         existingPost.setEstimatedValue(BigDecimal.ONE);
+        existingPost.setUserId(UUID.randomUUID());
+        existingPost.setCardId(UUID.randomUUID());
+        existingPost.setWantedCardsIds(new ArrayList<>());
 
         Post updatedPost = new Post();
         updatedPost.setId(existingPost.getId());
@@ -79,6 +87,8 @@ public class PostServiceTest {
         when(postRepository.findById(any(UUID.class))).thenReturn(Optional.of(existingPost));
         when(postMapper.toEntity(requestDto)).thenReturn(updatedPost);
         when(postRepository.save(updatedPost)).thenReturn(updatedPost);
+        when(cardService.get(any(UUID.class))).thenReturn(Optional.of(new Card()));
+        when(userService.get(any(UUID.class))).thenReturn(Optional.of(new User()));
 
         Post result = postService.update(existingPost.getId(), requestDto);
 

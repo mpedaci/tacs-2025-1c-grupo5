@@ -42,6 +42,7 @@ class InMemoryCardRepositoryTest {
 
         repository.save(updatedCard);
 
+        assertTrue(repository.findById(cardId).isPresent());
         assertEquals("card2", repository.findById(cardId).get().getName());
         assertEquals(1, repository.findAll().size());
     }

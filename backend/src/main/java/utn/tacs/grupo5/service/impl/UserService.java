@@ -1,27 +1,26 @@
 package utn.tacs.grupo5.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.UUID;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import utn.tacs.grupo5.controller.exceptions.ConflictException;
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.user.UserInputDto;
 import utn.tacs.grupo5.entity.User;
 import utn.tacs.grupo5.mapper.UserMapper;
-import utn.tacs.grupo5.repository.UserRepository;
+import utn.tacs.grupo5.repository.impl.MongoUserRepository;
 import utn.tacs.grupo5.service.IUserService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {
 
-    private final UserRepository userRepository;
+    private final MongoUserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(MongoUserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
