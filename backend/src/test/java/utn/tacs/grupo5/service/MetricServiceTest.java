@@ -10,8 +10,6 @@ import utn.tacs.grupo5.entity.post.Offer;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.repository.OfferRepository;
 import utn.tacs.grupo5.repository.PostRepository;
-import utn.tacs.grupo5.repository.impl.MongoOfferRepository;
-import utn.tacs.grupo5.repository.impl.MongoPostRepository;
 import utn.tacs.grupo5.service.impl.MetricService;
 
 import java.time.LocalDateTime;
@@ -23,10 +21,10 @@ import static org.mockito.Mockito.when;
 class MetricServiceTest {
 
     @Mock
-    private MongoOfferRepository offerRepository;
+    private OfferRepository offerRepository;
 
     @Mock
-    private MongoPostRepository postRepository;
+    private PostRepository postRepository;
 
     @InjectMocks
     private MetricService metricService;

@@ -15,13 +15,12 @@ import utn.tacs.grupo5.dto.game.GameInputDto;
 import utn.tacs.grupo5.entity.card.Game;
 import utn.tacs.grupo5.mapper.GameMapper;
 import utn.tacs.grupo5.repository.GameRepository;
-import utn.tacs.grupo5.repository.impl.MongoGameRepository;
 import utn.tacs.grupo5.service.impl.GameService;
 
 @ExtendWith(MockitoExtension.class)
 public class GameServiceTest {
     @Mock
-    private MongoGameRepository gameRepository;
+    private GameRepository gameRepository;
 
     @Mock
     private GameMapper gameMapper;

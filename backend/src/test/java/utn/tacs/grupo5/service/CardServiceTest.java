@@ -10,8 +10,8 @@ import utn.tacs.grupo5.dto.card.CardInputDto;
 import utn.tacs.grupo5.entity.card.Card;
 import utn.tacs.grupo5.entity.card.Game;
 import utn.tacs.grupo5.mapper.CardMapper;
-import utn.tacs.grupo5.repository.impl.MongoCardRepository;
-import utn.tacs.grupo5.repository.impl.MongoGameRepository;
+import utn.tacs.grupo5.repository.CardRepository;
+import utn.tacs.grupo5.repository.GameRepository;
 import utn.tacs.grupo5.service.impl.CardService;
 
 import java.util.ArrayList;
@@ -27,13 +27,13 @@ import static org.mockito.Mockito.*;
 public class CardServiceTest {
 
     @Mock
-    MongoCardRepository cardRepository;
+    CardRepository cardRepository;
 
     @Mock
     CardMapper cardMapper;
 
     @Mock
-    MongoGameRepository gameRepository;
+    GameRepository gameRepository;
 
     @Mock
     IExternalCardService externalCardClient;

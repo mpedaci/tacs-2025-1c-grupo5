@@ -12,7 +12,7 @@ import utn.tacs.grupo5.entity.card.Card;
 import utn.tacs.grupo5.entity.post.ConservationStatus;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.mapper.PostMapper;
-import utn.tacs.grupo5.repository.impl.MongoPostRepository;
+import utn.tacs.grupo5.repository.PostRepository;
 import utn.tacs.grupo5.service.impl.CardService;
 import utn.tacs.grupo5.service.impl.PostService;
 import utn.tacs.grupo5.service.impl.UserService;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
     @Mock
-    MongoPostRepository postRepository;
+    PostRepository postRepository;
 
     @Mock
     PostMapper postMapper;

@@ -8,8 +8,6 @@ import utn.tacs.grupo5.entity.post.Offer;
 import utn.tacs.grupo5.entity.post.Post;
 import utn.tacs.grupo5.repository.OfferRepository;
 import utn.tacs.grupo5.repository.PostRepository;
-import utn.tacs.grupo5.repository.impl.MongoOfferRepository;
-import utn.tacs.grupo5.repository.impl.MongoPostRepository;
 import utn.tacs.grupo5.service.IMetricService;
 
 import java.time.LocalDate;
@@ -20,10 +18,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class MetricService implements IMetricService {
-    private final MongoOfferRepository offerRepository;
-    private final MongoPostRepository postRepository;
+    private final OfferRepository offerRepository;
+    private final PostRepository postRepository;
 
-    public MetricService(MongoOfferRepository offerRepository, MongoPostRepository postRepository) {
+    public MetricService(OfferRepository offerRepository, PostRepository postRepository) {
         this.offerRepository = offerRepository;
         this.postRepository = postRepository;
     }
@@ -64,8 +62,7 @@ public class MetricService implements IMetricService {
                 buildMetric("Publicaciones creadas", createdByDate),
                 buildMetric("Publicaciones finalizadas", finishedByDate),
                 buildMetric("Publicaciones en progreso", publishedByDate),
-                buildMetric("Publicaciones rechazadas", cancelledByDate)
-        );
+                buildMetric("Publicaciones rechazadas", cancelledByDate));
     }
 
     @Override
@@ -78,7 +75,8 @@ public class MetricService implements IMetricService {
         Map<LocalDate, Long> pendingCountByDate = new TreeMap<>();
 
         for (Offer offer : offers) {
-            if (offer.getPublishedAt() == null) continue;
+            if (offer.getPublishedAt() == null)
+                continue;
             LocalDate date = offer.getPublishedAt().toLocalDate();
 
             createdCountByDate.put(date, createdCountByDate.getOrDefault(date, 0L) + 1);
@@ -100,8 +98,7 @@ public class MetricService implements IMetricService {
                 buildMetric("Ofertas creadas", createdCountByDate),
                 buildMetric("Ofertas aceptadas", acceptedCountByDate),
                 buildMetric("Ofertas rechazadas", rejectedCountByDate),
-                buildMetric("Ofertas en progreso", pendingCountByDate)
-        );
+                buildMetric("Ofertas en progreso", pendingCountByDate));
     }
 
     private MetricOutputDto buildMetric(String title, Map<LocalDate, Long> counts) {
