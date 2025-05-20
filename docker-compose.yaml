@@ -14,11 +14,12 @@ services:
       dockerfile: Dockerfile
     image: tacs-2025-1c-grupo5-backend:latest
     environment:
-      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - SPRING_DATA_MONGODB_URI=${SPRING_DATA_MONGODB_URI}
       - YUGIOH_API_URL=${YUGIOH_API_URL}
       - MAGIC_API_URL=${MAGIC_API_URL}
       - POKEMON_API_URL=${POKEMON_API_URL}
-      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/tacsdb
+      - FRONTEND_URL=${FRONTEND_URL}
     ports:
       - "8080:8080"
     networks:
@@ -31,7 +32,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_API_URL=http://localhost:8080/api
+        - NEXT_PUBLIC_API_URL=${BACKEND_URL}/api
     image: tacs-2025-1c-grupo5-frontend:latest
     ports:
       - "3000:3000"

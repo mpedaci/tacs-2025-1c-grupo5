@@ -16,7 +16,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
                 .components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
-                .info(new Info().title("My API").version("1.0").description("API Documentation"));
+                .info(new Info().title("TP TACS 2025 - C1").version("1.0").description("API Documentation"));
     }
 
     private SecurityScheme createAPIKeyScheme() {

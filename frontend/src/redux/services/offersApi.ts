@@ -53,7 +53,7 @@ export const offersApi = createApi({
       query: ({ offerId, body }) => ({
         url: `/offers/${offerId}`,
         method: "PATCH",
-        params: {
+        body: {
           status: body.state,
         },
       }),

@@ -27,6 +27,18 @@
 
 Insert .env file in the root directory of the project, or know where it's located in your machine.
 
+The content of the .env file should look like this:
+
+```bash
+SPRING_PROFILES_ACTIVE=dev
+SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/tacsdb
+YUGIOH_API_URL=https://db.ygoprodeck.com/api/v7/
+MAGIC_API_URL=https://api.magicthegathering.io/v1/
+POKEMON_API_URL=https://api.pokemontcg.io/v2/
+FRONTEND_URL=http://localhost:3000
+BACKEND_URL=http://localhost:8080
+```
+
 ---
 
 #### 2. Build the app
