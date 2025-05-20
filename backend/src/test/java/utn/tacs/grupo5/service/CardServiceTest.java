@@ -1,19 +1,10 @@
 package utn.tacs.grupo5.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.card.CardInputDto;
 import utn.tacs.grupo5.entity.card.Card;
@@ -22,6 +13,15 @@ import utn.tacs.grupo5.mapper.CardMapper;
 import utn.tacs.grupo5.repository.CardRepository;
 import utn.tacs.grupo5.repository.GameRepository;
 import utn.tacs.grupo5.service.impl.CardService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CardServiceTest {
@@ -48,6 +48,7 @@ public class CardServiceTest {
         card.setId(cardId);
 
         when(cardRepository.findById(cardId)).thenReturn(Optional.of(card));
+        when(gameRepository.findById(any())).thenReturn(Optional.of(new Game()));
 
         Optional<Card> result = cardService.get(cardId);
 
@@ -149,10 +150,12 @@ public class CardServiceTest {
         Card card1 = new Card();
         card1.setName("Card One");
         card1.setGame(game);
+        card1.setGameId(gameId);
 
         Card card2 = new Card();
         card2.setName("Another Card");
         card2.setGame(game);
+        card2.setGameId(UUID.randomUUID());
 
         List<Card> cards = List.of(card1, card2);
 
@@ -163,8 +166,8 @@ public class CardServiceTest {
 
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals("Card One", result.get(0).getName());
-        verify(gameRepository, times(1)).findById(gameId);
+        assertEquals("Card One", result.getFirst().getName());
+        verify(gameRepository, times(2)).findById(gameId);
         verify(cardRepository, times(1)).findAll();
     }
 
@@ -185,7 +188,7 @@ public class CardServiceTest {
         cardsInDbSecondTime.add(externalCard);
 
         when(gameRepository.findById(gameId)).thenReturn(Optional.of(game));
-        when(cardRepository.findAll()).thenReturn(new ArrayList<Card>()).thenReturn(cardsInDbSecondTime);
+        when(cardRepository.findAll()).thenReturn(new ArrayList<>()).thenReturn(cardsInDbSecondTime);
         when(externalCardClient.getCardsByName(game, "External")).thenReturn(List.of(externalCard));
         when(cardRepository.save(any(Card.class))).thenReturn(externalCard);
 
@@ -193,8 +196,8 @@ public class CardServiceTest {
 
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals("External Card", result.get(0).getName());
-        verify(gameRepository, times(1)).findById(gameId);
+        assertEquals("External Card", result.getFirst().getName());
+        verify(gameRepository, times(2)).findById(gameId);
         verify(cardRepository, times(2)).findAll();
         verify(externalCardClient, times(1)).getCardsByName(game, "External");
         verify(cardRepository, times(1)).save(externalCard);

@@ -21,7 +21,7 @@ public class PokemonClient implements ICardClient {
     private WebClient pokemonClient;
     private final Game.Name gameName = Game.Name.POKEMON;
 
-    @Value("${external.api.pokemon.url}")
+    @Value("${POKEMON_API_URL}")
     private String apiBaseUrl;
 
     @PostConstruct
@@ -54,6 +54,7 @@ public class PokemonClient implements ICardClient {
             return Collections.emptyList();
 
         return response.data.stream().map(dto -> {
+            logger.info("Fetched pokemon card: {}", dto.name);
             Card card = new Card();
             card.setName(dto.name);
             card.setExternalId(dto.id);

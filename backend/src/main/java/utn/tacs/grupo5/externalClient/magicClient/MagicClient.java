@@ -21,7 +21,7 @@ public class MagicClient implements ICardClient {
     private WebClient magicClient;
     private final Game.Name gameName = Game.Name.MAGIC;
 
-    @Value("${external.api.magic.url}")
+    @Value("${MAGIC_API_URL}")
     private String apiBaseUrl;
 
     @PostConstruct
@@ -52,6 +52,7 @@ public class MagicClient implements ICardClient {
             return Collections.emptyList();
 
         return response.cards.stream().map(dto -> {
+            logger.info("Fetched magic card: {}", dto.name);
             Card card = new Card();
             card.setName(dto.name);
             card.setExternalId(String.valueOf(dto.id));

@@ -1,10 +1,13 @@
 # Tecnologías Avanzadas en la Construcción de Software
 
 ## TP - Grupo 5
+
 ### **Backend**: Java (Spring Boot)
+
 ### **Frontend**: Typescript (Next.js, React, MaterialUI)
 
 ## Participants
+
 - Molina, Francisco
 - Pedaci, Marcos
 - Romano, Santiago
@@ -16,32 +19,63 @@
 
 - **Docker** or **Docker Desktop** installed
 - **Docker Compose** installed
+- .env file provided via email
 
 ## Project Setup
 
-#### 1. Build the app
-****
+#### 1. Provide .env file
+
+Insert .env file in the root directory of the project, or know where it's located in your machine.
+
+The content of the .env file should look like this:
+
+```bash
+SPRING_PROFILES_ACTIVE=dev
+SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/tacsdb
+YUGIOH_API_URL=https://db.ygoprodeck.com/api/v7/
+MAGIC_API_URL=https://api.magicthegathering.io/v1/
+POKEMON_API_URL=https://api.pokemontcg.io/v2/
+FRONTEND_URL=http://localhost:3000
+BACKEND_URL=http://localhost:8080
+```
+
+---
+
+#### 2. Build the app
+
 Run the following command to create the development environment using docker:
 
 ```bash
-docker-compose up --build
+docker compose --env-file ./.env up --build
 ```
 
-#### 2. Run the app
-****
+Or this one if the .env file is not located at the root directory of the project (change the path to env file):
+
+```bash
+docker compose --env-file ./path/to/env/file/.env up --build
+```
+
+---
+
+#### 3. Run the app
+
 Run the following command to start the app:
 
 ```bash
 docker-compose up
 ```
 
-#### 3. Access the app
-****
+---
+
+#### 4. Access the app
+
 The backend will be available at `http://localhost:8080`\
 The frontend will be available at `http://localhost:3000`
 
-#### 4. Admin access
-****
+---
+
+#### 5. Admin access
+
 To create an admin user, run the following command:
 
 ```bash

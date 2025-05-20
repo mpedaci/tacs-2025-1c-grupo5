@@ -19,7 +19,6 @@ import utn.tacs.grupo5.service.impl.GameService;
 
 @ExtendWith(MockitoExtension.class)
 public class GameServiceTest {
-
     @Mock
     private GameRepository gameRepository;
 
