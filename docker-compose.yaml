@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mongo:
@@ -13,16 +13,18 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     image: tacs-2025-1c-grupo5-backend:latest
-    ports:
-      - '8080:8080'
-    networks:
-      - default
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+      - YUGIOH_API_URL=${YUGIOH_API_URL}
+      - MAGIC_API_URL=${MAGIC_API_URL}
+      - POKEMON_API_URL=${POKEMON_API_URL}
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/tacsdb
+    ports:
+      - "8080:8080"
+    networks:
+      - default
     depends_on:
       - mongo
-
 
   frontend:
     build:
@@ -32,7 +34,7 @@ services:
         - NEXT_PUBLIC_API_URL=http://localhost:8080/api
     image: tacs-2025-1c-grupo5-frontend:latest
     ports:
-      - '3000:3000'
+      - "3000:3000"
     networks:
       - default
 

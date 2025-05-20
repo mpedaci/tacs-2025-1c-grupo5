@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -42,14 +43,14 @@ public class ApplicationExceptionHandler {
                 HttpStatus.NOT_FOUND, "Not Found");
     }
 
-    @ExceptionHandler(CredentialException.class)
+    @ExceptionHandler({ CredentialException.class, AuthorizationDeniedException.class })
     public ResponseEntity<CustomError> handleCredentialException(Exception e) {
         logger.info("Credential Exception: " + e.getMessage());
         return ResponseGenerator.generateResponseError(
                 HttpStatus.UNAUTHORIZED, "Unauthorized", e.getMessage());
     }
 
-    @ExceptionHandler({RuntimeException.class, Exception.class})
+    @ExceptionHandler({ RuntimeException.class, Exception.class })
     public ResponseEntity<CustomError> handleInternalServerError(Exception e) {
         logger.error("Internal Server Error: " + e);
         return ResponseGenerator.generateResponseError(

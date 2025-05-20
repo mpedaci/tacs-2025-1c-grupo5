@@ -30,5 +30,6 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /docs
+    tagsSorter: alpha
   packages-to-scan: utn.tacs.grupo5.controller
   pathsToMatch: /**
