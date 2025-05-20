@@ -1,6 +1,9 @@
 spring:
   application:
     name: tacs-2025-1c-grupo5
+  data:
+    mongodb:
+      uri: mongodb://mongo:27017/tacsdb
   profiles:
     active: dev
   web:
@@ -8,6 +11,15 @@ spring:
       add-mappings: false
   codec:
     max-in-memory-size: 10MB
+
+external:
+  api:
+    magic:
+      url: http://localhost:8081
+    pokemon:
+      url: http://localhost:8082
+    yugioh:
+      url: http://localhost:8083
 
 server:
   servlet:

@@ -14,7 +14,6 @@ import utn.tacs.grupo5.repository.CardRepository;
 
 @Repository
 public class InMemoryCardRepository implements CardRepository {
-
     private final List<Card> cards = Collections.synchronizedList(new ArrayList<>());
 
     @Override
@@ -59,5 +58,4 @@ public class InMemoryCardRepository implements CardRepository {
                     .toList();
         }
     }
-
 }

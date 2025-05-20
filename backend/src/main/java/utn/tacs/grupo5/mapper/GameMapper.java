@@ -21,7 +21,7 @@ public class GameMapper implements IMapper<Game, GameInputDto, GameOutputDto> {
     @Override
     public Game toEntity(GameInputDto dto) {
         Game game = new Game();
-        game.setTitle(dto.getName());
+        game.setTitle(dto.getTitle());
         game.setName(Game.Name.fromString(dto.getName()));
         game.setDescription(dto.getDescription());
         return game;

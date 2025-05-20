@@ -1,13 +1,17 @@
 package utn.tacs.grupo5.entity.card;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.UUID;
 
+@Document(collection = "games")
 @Data
 public class Game {
 
-    private UUID id;
+    @Id
+    private UUID id = UUID.randomUUID();
     private String title;
     private String description;
     private Name name;
