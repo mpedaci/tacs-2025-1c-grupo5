@@ -91,7 +91,7 @@ public class CardController extends BaseController {
                 return ResponseGenerator.generateResponseOK("Card deleted successfully");
         }
 
-        @GetMapping(value = "/games/{id}/cards") // TODO hacer pageable en un futuro
+        @GetMapping(value = "/cards/{gameId}/{cardName}") // TODO hacer pageable en un futuro
         @Operation(summary = "Get all card by game id and name", description = "Get all cards by game id and name")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "404", content = {
@@ -101,9 +101,10 @@ public class CardController extends BaseController {
                                         @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CardOutputDto.class)))
                         })
         })
-        public ResponseEntity<List<CardOutputDto>> getAllCardsByGameIdAndCardName(@PathVariable UUID id,
-                        @RequestParam(required = false) String name) {
-                List<CardOutputDto> cards = cardService.getAllByGameId(id, name)
+
+        public ResponseEntity<List<CardOutputDto>> getAllCardsByGameIdAndCardName(@PathVariable UUID gameId,
+                                                                                  @PathVariable String cardName) {
+                List<CardOutputDto> cards = cardService.getAllByGameId(gameId, cardName)
                                 .stream()
                                 .map(cardMapper::toDto)
                                 .toList();

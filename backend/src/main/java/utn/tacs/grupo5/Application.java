@@ -15,16 +15,5 @@ public class Application {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
-        try {
-            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            UserService userService = ctx.getBean(UserService.class);
-            UserInputDto inputDto = new UserInputDto();
-            inputDto.setUsername("jaime");
-            inputDto.setPassword("jaime");
-            userService.save(inputDto);
-            botsApi.registerBot(ctx.getBean("telegramBot", AbilityBot.class));
-        } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
