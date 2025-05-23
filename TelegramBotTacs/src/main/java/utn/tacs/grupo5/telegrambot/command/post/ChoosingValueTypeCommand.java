@@ -2,31 +2,27 @@ package utn.tacs.grupo5.telegrambot.command.post;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import utn.tacs.grupo5.bot.KeyboardFactory;
-import utn.tacs.grupo5.bot.handler.ResponseHandler;
-import utn.tacs.grupo5.bot.handler.command.StateCommand;
-import utn.tacs.grupo5.bot.handler.exception.BotException;
+import utn.tacs.grupo5.telegrambot.ChatData;
+import utn.tacs.grupo5.telegrambot.command.StateCommand;
+import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
+import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
+import utn.tacs.grupo5.telegrambot.validator.ValidatedStateCommand;
+import utn.tacs.grupo5.telegrambot.validator.ValueTypeValidator;
 
 /**
  * Command for handling choosing value type state
  */
 @Component
-public class ChoosingValueTypeCommand implements StateCommand {
+public class ChoosingValueTypeCommand extends ValidatedStateCommand {
+
+    public ChoosingValueTypeCommand(ValueTypeValidator validator) {
+        super(validator);
+    }
+
     @Override
-    public void execute(long chatId, Message message, ResponseHandler handler) {
-        switch (message.getText()) { //TODO refactor
-            case "Dinero" -> {
-                handler.getChatData().get(chatId).setHelpStringValue(message.getText());
-            }
-            case "Cartas" -> {
-                handler.getChatData().get(chatId).setHelpStringValue(message.getText());
-            }
-            case "Ambos" -> {
-                handler.getChatData().get(chatId).setHelpStringValue(message.getText());
-            }
-            default -> {throw new BotException("Opcion no valida");
-            }
-        }
+    protected void executeValidated(long chatId, Message message, ResponseHandler handler, ChatData chatData) {
+        chatData.setHelpStringValue(message.getText());
     }
 
     @Override

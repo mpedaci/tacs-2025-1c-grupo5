@@ -1,11 +1,12 @@
 package utn.tacs.grupo5.telegrambot.command.session;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClientException;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import utn.tacs.grupo5.bot.KeyboardFactory;
-import utn.tacs.grupo5.bot.handler.ResponseHandler;
-import utn.tacs.grupo5.bot.handler.command.StateCommand;
-import utn.tacs.grupo5.bot.handler.exception.BotException;
+import utn.tacs.grupo5.telegrambot.command.StateCommand;
+import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
+import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
 /**
  * Command for handling registration state
@@ -15,9 +16,14 @@ public class RegisterCommand implements StateCommand {
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
         try {
-            handler.getBotService().registerUser(message.getText());
+            String[] credentials = message.getText().split(",");
+            String name = credentials[0].trim();
+            String username = credentials[1].trim();
+            String password = credentials[2].trim();
+            String userId = handler.getBotService().registerUser(name, username, password).getId();
+            handler.getChatData().get(chatId).setUserId(userId);
             handler.reply(chatId, "Registrado con éxito", KeyboardFactory.getCardsOption());
-        } catch (BotException e) {
+        } catch (WebClientException e) {
             throw new BotException(e.getMessage());
         }
     }

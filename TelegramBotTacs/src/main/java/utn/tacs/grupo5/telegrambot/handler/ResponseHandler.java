@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.telegrambot;
+package utn.tacs.grupo5.telegrambot.handler;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;
@@ -13,19 +13,21 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import utn.tacs.grupo5.bot.Chatdata;
-import utn.tacs.grupo5.bot.Constants;
-import utn.tacs.grupo5.bot.UserState;
-import utn.tacs.grupo5.bot.handler.command.StateCommand;
-import utn.tacs.grupo5.bot.handler.command.StateCommandFactory;
-import utn.tacs.grupo5.bot.handler.exception.BotException;
-import utn.tacs.grupo5.service.impl.BotService;
+import utn.tacs.grupo5.telegrambot.ChatData;
+import utn.tacs.grupo5.telegrambot.Constants;
+import utn.tacs.grupo5.telegrambot.UserState;
+import utn.tacs.grupo5.telegrambot.command.StateCommand;
+import utn.tacs.grupo5.telegrambot.command.StateCommandFactory;
+import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.flow.FlowManager;
+import utn.tacs.grupo5.telegrambot.service.impl.BotService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static utn.tacs.grupo5.bot.UserState.*;
+import static utn.tacs.grupo5.telegrambot.UserState.*;
+
 
 @Component
 public class ResponseHandler {
@@ -36,14 +38,16 @@ public class ResponseHandler {
     @Getter
     private Map<Long, UserState> chatStates;
     @Getter
-    private Map<Long, Chatdata> chatData = new HashMap<>();
+    private Map<Long, ChatData> chatData = new HashMap<>();
     @Getter
     private BotService botService;
     private StateCommandFactory commandFactory;
+    private final FlowManager flowManager;
 
-    public ResponseHandler(BotService botService, StateCommandFactory commandFactory) {
+    public ResponseHandler(BotService botService, StateCommandFactory commandFactory, FlowManager flowManager) {
         this.botService = botService;
         this.commandFactory = commandFactory;
+        this.flowManager = flowManager;
     }
 
     public void init(SilentSender sender, DBContext db, AbsSender absSender) {
@@ -78,7 +82,7 @@ public class ResponseHandler {
         sender.execute(message);
     }
 
-    public void enviarFoto(Long chatId, String caption, String imageUrl) {
+    public void replyWithPhoto(Long chatId, String caption, String imageUrl) {
         SendPhoto sendPhoto = new SendPhoto();
         sendPhoto.setChatId(chatId.toString());
         sendPhoto.setCaption(caption);
@@ -93,7 +97,7 @@ public class ResponseHandler {
 
 
     public void replyToStart(long chatId) {
-        chatData.put(chatId, new Chatdata());
+        chatData.put(chatId, new ChatData());
         StateCommand command = commandFactory.getCommand(AWAITING_SESSION);
         command.onEnter(chatId, this);
 
@@ -114,37 +118,96 @@ public class ResponseHandler {
             stopChat(chatId);
             return;
         }
-
-        UserState state = chatStates.get(chatId);
-        StateCommand command = commandFactory.getCommand(state);
-
-        try {
-            command.execute(chatId, message, this);
-        }catch (BotException e){
-            reply(chatId, e.getMessage(), null);
-            reply(chatId, "intente nuevamente", chatData.get(chatId).getReplyKeyboard());
+        if (message.getText().equalsIgnoreCase("/cancel")) {
+            UserState firstState = flowManager.getfirstStateInFlow(chatData.get(chatId).getFlow());
+            reply(chatId, "Cancelando", null);
+            commandFactory.getCommand(firstState).onEnter(chatId, this);
+            chatData.get(chatId).clearFlowData();
             return;
         }
 
-        if(!chatStates.get(chatId).equals(CHOOSING_PHOTO)) {
-            UserState nextUserState = commandFactory.nextUserStateInFlow(chatData.get(chatId).getFlow(), state);
-            this.chatStates.put(chatId, nextUserState);
-            StateCommand nextCommand = commandFactory.getCommand(nextUserState);
+        UserState currentState = chatStates.get(chatId);
+        StateCommand command = commandFactory.getCommand(currentState);
+        ChatData currentChatData = chatData.get(chatId);
+
+        try {
+            // Execute the command first
+            command.execute(chatId, message, this);
+
+            // Handle state transitions
+            if (currentState == CHOOSING_PHOTO) {
+                String messageText = message.getText();
+
+                // Only transition if user said "continuar" or "omitir"
+                if (messageText != null &&
+                        (messageText.equalsIgnoreCase("continuar") || messageText.equalsIgnoreCase("omitir"))) {
+
+                    // Force transition to next state
+                    transitionToNextState(chatId, currentState, currentChatData);
+                }
+                // If it's not "continuar" or "omitir", stay in the same state (user is still sending photos or gave instructions)
+
+            } else {
+                // Normal state transition processing for all other states
+                transitionToNextState(chatId, currentState, currentChatData);
+            }
+
+        } catch (BotException e) {
+            handleBotException(chatId, e, currentChatData);
+        } catch (Exception e) {
+            handleUnexpectedException(chatId, e, currentChatData);
+        }
+    }
+
+    private void transitionToNextState(long chatId, UserState currentState, ChatData chatData) {
+        String flowName = chatData.getFlow();
+        UserState nextState = flowManager.getNextState(flowName, currentState, chatData);
+
+        if (nextState != currentState) {
+            chatStates.put(chatId, nextState);
+            StateCommand nextCommand = commandFactory.getCommand(nextState);
             nextCommand.onEnter(chatId, this);
         }
     }
+
+    private void handleBotException(long chatId, BotException e, ChatData chatData) {
+        reply(chatId, e.getMessage(), null);
+        reply(chatId, "Intente nuevamente", chatData.getReplyKeyboard());
+    }
+
+    private void handleUnexpectedException(long chatId, Exception e, ChatData chatData) {
+        //logger.error("Unexpected error in chat {}: {}", chatId, e.getMessage(), e);
+        reply(chatId, "Ocurrió un error inesperado. Por favor intente nuevamente.", null);
+        reply(chatId, "Si el problema persiste, use /stop para reiniciar.", chatData.getReplyKeyboard());
+    }
+
     public void replyToPhoto(long chatId, List<PhotoSize> photos) {
-        UserState state = chatStates.get(chatId);
-        StateCommand command = commandFactory.getCommand(state);
-        command.handlePhoto(chatId, photos, this);
+        UserState currentState = chatStates.get(chatId);
 
+        if (currentState == null) {
+            reply(chatId, "⚠️ Sesión no iniciada. Use /start para comenzar.", null);
+            return;
+        }
 
+        // Only handle photos in the photo collection state
+        if (currentState.equals(CHOOSING_PHOTO)) {
+            StateCommand command = commandFactory.getCommand(CHOOSING_PHOTO);
 
-        chatStates.put(chatId, CHOOSING_PHOTO_OPTION);//TODO refactor
+            try {
+                command.handlePhoto(chatId, photos, this, absSender);
 
-        UserState nextUserState = commandFactory.nextUserStateInFlow(chatData.get(chatId).getFlow(), chatStates.get(chatId));
-        StateCommand nextCommand = commandFactory.getCommand(nextUserState);
-        nextCommand.onEnter(chatId, this);
-        chatStates.put(chatId, nextUserState);
+                // Don't auto-transition - let the user decide when to continue
+                // The command itself will provide feedback about the photo being saved
+
+            } catch (Exception e) {
+                ChatData currentChatData = chatData.get(chatId);
+                handleUnexpectedException(chatId, e, currentChatData);
+            }
+
+        } else {
+            // User sent photo in wrong state
+            reply(chatId, "⚠️ No se esperan fotos en este momento. " +
+                    "Siga las instrucciones en pantalla.", null);
+        }
     }
 }

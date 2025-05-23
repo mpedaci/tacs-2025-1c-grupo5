@@ -2,14 +2,12 @@ package utn.tacs.grupo5.telegrambot.command.card;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import utn.tacs.grupo5.bot.KeyboardFactory;
-import utn.tacs.grupo5.bot.handler.ResponseHandler;
-import utn.tacs.grupo5.bot.handler.command.StateCommand;
-import utn.tacs.grupo5.bot.handler.exception.BotException;
-import utn.tacs.grupo5.service.impl.BotService;
+import utn.tacs.grupo5.telegrambot.command.StateCommand;
+import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
+import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
+import utn.tacs.grupo5.telegrambot.service.impl.BotService;
 
-import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Command for handling choosing game state
@@ -24,11 +22,12 @@ public class ChoosingGameCommand implements StateCommand {
 
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
-        Optional<UUID> gameId = botService.findGame(message.getText());
-        if (gameId.isPresent()) {
-            handler.getChatData().get(chatId).setGame(message.getText());
-        }else throw new BotException("Juego no encontrado");
-
+        try{
+            String gameId = botService.findGame(message.getText());
+            handler.getChatData().get(chatId).setGameId(gameId);
+        }catch (RuntimeException e){
+            throw new BotException("Juego no encontrado");
+        }
     }
 
     @Override

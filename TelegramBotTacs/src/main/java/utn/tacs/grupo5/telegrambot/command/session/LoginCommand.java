@@ -1,11 +1,14 @@
 package utn.tacs.grupo5.telegrambot.command.session;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import utn.tacs.grupo5.bot.KeyboardFactory;
-import utn.tacs.grupo5.bot.handler.ResponseHandler;
-import utn.tacs.grupo5.bot.handler.command.StateCommand;
-import utn.tacs.grupo5.bot.handler.exception.NotFoundException;
+import utn.tacs.grupo5.telegrambot.command.StateCommand;
+import utn.tacs.grupo5.telegrambot.exception.NotFoundException;
+import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
+import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
+
+import java.util.UUID;
 
 /**
  * Command for handling login state
@@ -14,13 +17,15 @@ import utn.tacs.grupo5.bot.handler.exception.NotFoundException;
 public class LoginCommand implements StateCommand {
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
-        String username = message.getText();
-        var user = handler.getBotService().findUser(username);
-            if (user.isPresent()) {
-                handler.getChatData().get(chatId).setUser(user.get().getId());
-                String stringResponse = "Bienvenido " + user.get().getName();
-                handler.reply(chatId, stringResponse, KeyboardFactory.getCardsOption());
-        } else {
+        String[] credentials = message.getText().split(",");
+        String username = credentials[0].trim();
+        String password = credentials[1].trim();
+        try {
+            String userId = handler.getBotService().logInUser(username, password);
+            handler.getChatData().get(chatId).setUserId(userId);
+            String stringResponse = "Bienvenido " + username + "!";
+            handler.reply(chatId, stringResponse, KeyboardFactory.getCardsOption());
+        }catch (WebClientResponseException e){
             throw new NotFoundException("Usuario " + username);
         }
     }

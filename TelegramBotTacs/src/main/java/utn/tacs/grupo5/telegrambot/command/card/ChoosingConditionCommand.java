@@ -2,11 +2,11 @@ package utn.tacs.grupo5.telegrambot.command.card;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import utn.tacs.grupo5.bot.KeyboardFactory;
-import utn.tacs.grupo5.bot.handler.ResponseHandler;
-import utn.tacs.grupo5.bot.handler.command.StateCommand;
-import utn.tacs.grupo5.bot.handler.exception.BotException;
-import utn.tacs.grupo5.entity.post.ConservationStatus;
+import utn.tacs.grupo5.telegrambot.ConservationStatus;
+import utn.tacs.grupo5.telegrambot.command.StateCommand;
+import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
+import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
 /**
  * Command for handling choosing condition state
@@ -17,7 +17,7 @@ public class ChoosingConditionCommand implements StateCommand {
     public void execute(long chatId, Message message, ResponseHandler handler) {
         try {
             handler.getChatData().get(chatId)
-                    .setConservationStatus(ConservationStatus.valueOf(message.getText().toUpperCase()));
+                    .setConservationStatus(ConservationStatus.fromString(message.getText()));
         } catch (IllegalArgumentException e) {
             throw new BotException("Estado de conservación inválido. Intente nuevamente.");
         }

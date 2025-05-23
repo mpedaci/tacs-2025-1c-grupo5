@@ -2,8 +2,9 @@ package utn.tacs.grupo5.telegrambot.command;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
-import utn.tacs.grupo5.bot.handler.ResponseHandler;
-import utn.tacs.grupo5.bot.handler.exception.BotException;
+import org.telegram.telegrambots.meta.bots.AbsSender;
+import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public interface StateCommand {
      * @param photos The photos received
      * @param handler The response handler context
      */
-    default void handlePhoto(long chatId, List<PhotoSize> photos, ResponseHandler handler) {
+    default void handlePhoto(long chatId, List<PhotoSize> photos, ResponseHandler handler, AbsSender absSender) {
         // Default implementation does nothing
     }
 

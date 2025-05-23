@@ -7,7 +7,7 @@ import org.telegram.abilitybots.api.bot.BaseAbilityBot;
 import org.telegram.abilitybots.api.objects.Ability;
 import org.telegram.abilitybots.api.objects.Reply;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import utn.tacs.grupo5.bot.handler.ResponseHandler;
+import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
 import java.util.function.BiConsumer;
 

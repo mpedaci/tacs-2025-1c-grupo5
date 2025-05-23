@@ -2,8 +2,8 @@ package utn.tacs.grupo5.telegrambot.command.post;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import utn.tacs.grupo5.bot.handler.ResponseHandler;
-import utn.tacs.grupo5.bot.handler.command.StateCommand;
+import utn.tacs.grupo5.telegrambot.command.StateCommand;
+import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
 /**
  * Command for handling choosing description state

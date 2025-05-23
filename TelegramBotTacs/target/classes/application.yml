@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: TelegramBotTacs
+
+server:
+  port: 9090
+
+
+telegram:
+  bot:
+    token: ${TELEGRAM_BOT_TOKEN}
+    name: ${TELEGRAM_BOT_NAME}
+    cid: ${TELEGRAM_CREATOR_ID}
+
+api:
+  baseUrl: ${API_BASE_URL}
+  autEndpoint: ${API_AUT_ENDPOINT}
+  cardEndpoint: ${API_CARDS_ENDPOINT}
+  gameEndpoint: ${API_GAME_ENDPOINT}
+  postEndpoint: ${API_POST_ENDPOINT}
+  userEndpoint: ${API_USER_ENDPOINT}

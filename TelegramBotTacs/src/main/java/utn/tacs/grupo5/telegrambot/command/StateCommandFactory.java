@@ -1,19 +1,19 @@
 package utn.tacs.grupo5.telegrambot.command;
 
 import org.springframework.stereotype.Component;
-import utn.tacs.grupo5.bot.UserState;
-import utn.tacs.grupo5.bot.handler.ResponseHandler;
-import utn.tacs.grupo5.bot.handler.command.card.*;
-import utn.tacs.grupo5.bot.handler.command.post.*;
-import utn.tacs.grupo5.bot.handler.command.session.AwaitingSessionCommand;
-import utn.tacs.grupo5.bot.handler.command.session.LoginCommand;
-import utn.tacs.grupo5.bot.handler.command.session.RegisterCommand;
+import utn.tacs.grupo5.telegrambot.UserState;
+import utn.tacs.grupo5.telegrambot.command.card.*;
+import utn.tacs.grupo5.telegrambot.command.post.*;
+import utn.tacs.grupo5.telegrambot.command.session.AwaitingSessionCommand;
+import utn.tacs.grupo5.telegrambot.command.session.LoginCommand;
+import utn.tacs.grupo5.telegrambot.command.session.RegisterCommand;
+import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static utn.tacs.grupo5.bot.UserState.*;
+import static utn.tacs.grupo5.telegrambot.UserState.*;
 
 /**
  * Factory for creating state commands based on the user state
@@ -33,10 +33,13 @@ public class StateCommandFactory {
             ChoosingCardCommand choosingCardCommand,
             ChoosingConditionCommand choosingConditionCommand,
             ChoosingPhotoCommand choosingPhotoCommand,
+            ChoosingPhotoCollectionCommand choosingPhotoCollectionCommand,
             ChoosingValueTypeCommand choosingValueTypeCommand,
             ChoosingValueCommand choosingValueCommand,
             ChoosingDescriptionCommand choosingDescriptionCommand,
-            SavePostCommand savePostCommand) {
+            SavePostCommand savePostCommand,
+            SelectingCardCommand selectingCardCommand,
+            ChoosingWantedCardsCommand choosingWantedCardsCommand) {
 
         commands.put(AWAITING_SESSION, awaitingSessionCommand);
         commands.put(LOGIN_IN, loginCommand);
@@ -46,10 +49,14 @@ public class StateCommandFactory {
         commands.put(CHOOSING_CARD, choosingCardCommand);
         commands.put(CHOOSING_CONDITION, choosingConditionCommand);
         commands.put(CHOOSING_PHOTO_OPTION, choosingPhotoCommand);
+        commands.put(CHOOSING_PHOTO, choosingPhotoCollectionCommand);
         commands.put(CHOOSING_VALUE_TYPE, choosingValueTypeCommand);
         commands.put(CHOOSING_VALUE, choosingValueCommand);
         commands.put(CHOOSING_DESCRIPTION, choosingDescriptionCommand);
         commands.put(CREATING_POST, savePostCommand);
+        commands.put(SELECTING_CARD, selectingCardCommand);
+        commands.put(SELECTING_OFFERED_CARD, selectingCardCommand);
+        commands.put(SELECTING_WANTED_CARDS, choosingWantedCardsCommand);
         
         flows.put("register", List.of(
                 REGISTERING
@@ -69,13 +76,12 @@ public class StateCommandFactory {
         ));
     }
 
-    public void addFlow(String flowName, List<UserState> commands) {
-        flows.put(flowName, commands);
-    }
-    
     public UserState nextUserStateInFlow(String flowName, UserState currentUserState) {
         List<UserState> flow = flows.get(flowName);
         int currentIndex = flow.indexOf(currentUserState);
+        if (currentUserState == SELECTING_CARD){
+            return SELECTING_CARD;
+        }
         if (currentIndex < flow.size() - 1) {
             return flow.get(currentIndex + 1);
         }else return CHOOSING_OPTIONS;
