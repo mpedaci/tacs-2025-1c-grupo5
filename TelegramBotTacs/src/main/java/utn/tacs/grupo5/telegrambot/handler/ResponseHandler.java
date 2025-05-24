@@ -1,6 +1,7 @@
 package utn.tacs.grupo5.telegrambot.handler;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 import org.telegram.abilitybots.api.db.DBContext;
 import org.telegram.abilitybots.api.sender.SilentSender;
@@ -35,7 +36,7 @@ public class ResponseHandler {
     private SilentSender sender;
     private AbsSender absSender;
     // Getter and setter methods for the state commands to access
-    @Getter
+    @Getter @Setter
     private Map<Long, UserState> chatStates;
     @Getter
     private Map<Long, ChatData> chatData = new HashMap<>();

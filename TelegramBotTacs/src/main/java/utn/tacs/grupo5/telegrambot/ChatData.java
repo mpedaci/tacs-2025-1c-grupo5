@@ -29,6 +29,7 @@ public class ChatData implements Serializable {
     private boolean shouldCollectPhotos = false;
     private CardSelectionContext cardSelectionContext;
     private boolean photoCollectionCompleted = false;
+    private boolean choosingAnotherCard = false;
 
     public boolean needsMoreCardSelection() {
         return needsMoreCardSelection;
