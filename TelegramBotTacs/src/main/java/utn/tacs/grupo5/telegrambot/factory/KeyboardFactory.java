@@ -87,5 +87,21 @@ public class KeyboardFactory {
         return keyboard;
     }
 
+    public static ReplyKeyboard getOtherOrFinish() {
+        ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup();
+        keyboard.setSelective(true);
+        keyboard.setResizeKeyboard(true);
+        keyboard.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboardRows = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.add(new KeyboardButton("Otra"));
+        row.add(new KeyboardButton("Finalizar"));
+        keyboardRows.add(row);
+
+        keyboard.setKeyboard(keyboardRows);
+        return keyboard;
+    }
+
 
 }

@@ -19,8 +19,8 @@ public class FlowManagerImpl implements FlowManager {
     }
 
     private void initializeFlows() {
-        // Post creation flow with conditional logic
-        FlowDefinition postFlow = new FlowDefinition(List.of(
+        // Post creation flow with proper conditional logic
+        AdvancedFlowDefinition postFlow = new AdvancedFlowDefinition(List.of(
                 CHOOSING_OPTIONS,
                 CHOOSING_GAME,
                 CHOOSING_CARD,
@@ -33,47 +33,72 @@ public class FlowManagerImpl implements FlowManager {
                 SELECTING_WANTED_CARDS,
                 CHOOSING_DESCRIPTION,
                 CREATING_POST
-        ))
-                .addTransition(CHOOSING_CARD,
-                        FlowTransition.conditional(
-                                chatData -> chatData.getCurrentCards() != null && chatData.getCurrentCards().size() > 1,
-                                SELECTING_OFFERED_CARD,
-                                CHOOSING_CONDITION
-                        ))
-                .addTransition(SELECTING_OFFERED_CARD,
-                        FlowTransition.conditional(
-                                chatData -> chatData.needsMoreCardSelection(),
-                                SELECTING_OFFERED_CARD,
-                                CHOOSING_CONDITION
-                        ))
-                .addTransition(CHOOSING_PHOTO_OPTION,
-                        FlowTransition.conditional(
-                                chatData -> chatData.shouldCollectPhotos(),
-                                CHOOSING_PHOTO,
-                                CHOOSING_VALUE_TYPE
-                        ))
-                // Nueva transición desde CHOOSING_PHOTO
-                .addTransition(CHOOSING_PHOTO,
-                        FlowTransition.direct(CHOOSING_VALUE_TYPE)
-                )
-                .addTransition(CHOOSING_VALUE,
-                        FlowTransition.conditional(
-                                chatData -> "Cartas".equals(chatData.getHelpStringValue()) || "Ambos".equals(chatData.getHelpStringValue()),
-                                SELECTING_WANTED_CARDS,
-                                CHOOSING_DESCRIPTION
-                        ))
-                .addTransition(SELECTING_WANTED_CARDS,
-                        FlowTransition.conditional(
-                                chatData -> chatData.needsMoreCardSelection(),
-                                SELECTING_WANTED_CARDS,
-                                CHOOSING_DESCRIPTION
-                        ));
+        ));
+
+        // Configure post flow transitions
+        configurePostFlow(postFlow);
 
         flows.put("post", postFlow);
 
         // Simple flows
-        flows.put("register", new FlowDefinition(List.of(AWAITING_SESSION,REGISTERING)));
-        flows.put("login", new FlowDefinition(List.of(AWAITING_SESSION,LOGIN_IN)));
+        flows.put("register", new AdvancedFlowDefinition(List.of(AWAITING_SESSION, REGISTERING)));
+        flows.put("login", new AdvancedFlowDefinition(List.of(AWAITING_SESSION, LOGIN_IN)));
+    }
+
+    private void configurePostFlow(AdvancedFlowDefinition postFlow) {
+        // Multiple cards selection logic
+        postFlow.addConditionalTransition(
+                CHOOSING_CARD,
+                chatData -> chatData.getCurrentCards() != null && chatData.getCurrentCards().size() > 1,
+                SELECTING_OFFERED_CARD,
+                CHOOSING_CONDITION
+        );
+
+        // Offered card selection with proper loop handling
+        postFlow.addConditionalTransition(
+                SELECTING_OFFERED_CARD,
+                chatData -> chatData.needsMoreCardSelection(),
+                SELECTING_OFFERED_CARD,  // Stay in same state if more selection needed
+                CHOOSING_CONDITION       // Continue to next step if done
+        );
+
+        // Photo collection decision
+        postFlow.addConditionalTransition(
+                CHOOSING_PHOTO_OPTION,
+                chatData -> chatData.shouldCollectPhotos(),
+                CHOOSING_PHOTO,
+                CHOOSING_VALUE_TYPE
+        );
+
+        // Direct transition from photo selection
+        postFlow.addDirectTransition(CHOOSING_PHOTO, CHOOSING_VALUE_TYPE);
+
+        // Value type determines if cards are needed
+        postFlow.addConditionalTransition(
+                CHOOSING_VALUE,
+                chatData -> {
+                    String helpValue = chatData.getHelpStringValue();
+                    return "Cartas".equals(helpValue) || "Ambos".equals(helpValue);
+                },
+                SELECTING_WANTED_CARDS,
+                CHOOSING_DESCRIPTION
+        );
+
+        // Wanted cards selection with multiple conditions using priority transitions
+        postFlow.addPriorityTransition(
+                SELECTING_WANTED_CARDS,
+                ChatData::needsMoreCardSelection,
+                SELECTING_WANTED_CARDS,
+                1  // High priority - stay in selection if more cards needed
+        );
+
+        postFlow.addPriorityTransition(
+                SELECTING_WANTED_CARDS,
+                ChatData::isChoosingAnotherCard,
+                CHOOSING_VALUE,
+                2  // Medium priority - go back to value selection
+        );
+
     }
 
     @Override
@@ -84,11 +109,28 @@ public class FlowManagerImpl implements FlowManager {
     @Override
     public UserState getNextState(String flowName, UserState currentState, ChatData chatData) {
         FlowDefinition flow = flows.get(flowName);
-        return flow != null ? flow.getNextState(currentState, chatData) : CHOOSING_OPTIONS;
+        if (flow == null) {
+            return CHOOSING_OPTIONS; // Safe fallback
+        }
+
+        try {
+            UserState nextState = flow.getNextState(currentState, chatData);
+            return nextState != null ? nextState : CHOOSING_OPTIONS;
+        } catch (Exception e) {
+            // Log the error in a real application
+            System.err.println("Error in flow transition: " + e.getMessage());
+            return CHOOSING_OPTIONS; // Safe fallback
+        }
     }
 
     @Override
     public void registerFlow(String flowName, FlowDefinition flowDefinition) {
+        if (flowName == null || flowName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Flow name cannot be null or empty");
+        }
+        if (flowDefinition == null) {
+            throw new IllegalArgumentException("Flow definition cannot be null");
+        }
         flows.put(flowName, flowDefinition);
     }
 
@@ -96,5 +138,39 @@ public class FlowManagerImpl implements FlowManager {
     public UserState getfirstStateInFlow(String flowName) {
         FlowDefinition flow = flows.get(flowName);
         return flow != null ? flow.getFirstState() : null;
+    }
+
+    /**
+     * Get all registered flow names
+     */
+    public java.util.Set<String> getFlowNames() {
+        return flows.keySet();
+    }
+
+    /**
+     * Check if a flow exists
+     */
+    public boolean hasFlow(String flowName) {
+        return flows.containsKey(flowName);
+    }
+
+    /**
+     * Remove a flow
+     */
+    public void removeFlow(String flowName) {
+        flows.remove(flowName);
+    }
+
+    /**
+     * Validate all flows
+     */
+    public boolean validateFlows() {
+        for (Map.Entry<String, FlowDefinition> entry : flows.entrySet()) {
+            if (!entry.getValue().isValid()) {
+                System.err.println("Invalid flow: " + entry.getKey());
+                return false;
+            }
+        }
+        return true;
     }
 }

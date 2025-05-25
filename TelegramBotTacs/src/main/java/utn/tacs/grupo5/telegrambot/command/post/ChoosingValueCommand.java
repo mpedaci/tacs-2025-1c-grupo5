@@ -21,6 +21,7 @@ public class ChoosingValueCommand implements StateCommand {
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
         ChatData chatData = handler.getChatData().get(chatId);
+        chatData.setChoosingAnotherCard(false);
         String helpStringValue = chatData.getHelpStringValue();
         String input = message.getText().trim();
 

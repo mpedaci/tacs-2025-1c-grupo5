@@ -45,7 +45,6 @@ public class ChatData implements Serializable {
 
     public void clearFlowData() {
         // Limpiar datos del flujo de post
-        this.gameId = null;
         this.cardId = null;
         this.conservationStatus = null;
         this.images = new ArrayList<>();
@@ -56,6 +55,13 @@ public class ChatData implements Serializable {
         this.helpStringValue = null;
         this.shouldCollectPhotos = false;
         this.photoCollectionCompleted = false;
+        this.gameId = null;
+        this.flow = null;
+        this.publicationId = null;
+        this.currentIndex = 0;
+        this.needsMoreCardSelection = false;
+        this.cardSelectionContext = null;
+        this.choosingAnotherCard = false;
 
         // Limpiar keyboard actual
         this.replyKeyboard = null;

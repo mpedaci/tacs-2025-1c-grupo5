@@ -19,29 +19,23 @@ import java.util.List;
 @Component
 public class ChoosingWantedCardsCommand implements StateCommand {
     private static final int CARDS_PER_PAGE = 5;
-    private final ChoosingValueCommand choosingValueCommand;
-
-    public ChoosingWantedCardsCommand(ChoosingValueCommand choosingValueCommand) {
-        this.choosingValueCommand = choosingValueCommand;
-    }
 
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
         ChatData chatData = handler.getChatData().get(chatId);
         String messageText = message.getText();
 
-        if(!chatData.isChoosingAnotherCard())
-            if ("Mas".equals(messageText)) {
-                showMoreCards(chatId, handler, chatData);
-            } else if ("Finalizar".equals(messageText)) {
-                finishWantedCardSelection(chatId, handler, chatData);
-            } else if (isCardSelection(messageText)) {
-                selectWantedCard(chatId, messageText, handler, chatData);
-            } else {
-                throw new BotException("Seleccione un número de carta, 'Mas' para ver más opciones, o 'Finalizar' para terminar.");
-            }
-        else {
-            choosingValueCommand.onEnter(chatId, handler);
+        if ("Mas".equals(messageText)) {
+            showMoreCards(chatId, handler, chatData);
+        } else if ("Finalizar".equals(messageText)) {
+            finishWantedCardSelection(chatId, handler, chatData);
+        }else if ("Otra".equals(messageText)) {
+            chatData.setNeedsMoreCardSelection(false);
+            chatData.setChoosingAnotherCard(true);
+        } else if (isCardSelection(messageText)) {
+            selectWantedCard(chatId, messageText, handler, chatData);
+        } else {
+            throw new BotException("Seleccione un número de carta, 'Mas' para ver más opciones, o 'Finalizar' para terminar.");
         }
     }
 
@@ -96,8 +90,7 @@ public class ChoosingWantedCardsCommand implements StateCommand {
             handler.reply(chatId,
                     String.format("Cartas seleccionadas: %d. ¿Desea agregar mas cartas?",
                             chatData.getWantedCardIds().size()),
-                    KeyboardFactory.getMoreOrFinish());
-            chatData.setChoosingAnotherCard(true);
+                    KeyboardFactory.getOtherOrFinish());
         } catch (NumberFormatException e) {
             throw new BotException("Por favor ingrese un número válido");
         }
