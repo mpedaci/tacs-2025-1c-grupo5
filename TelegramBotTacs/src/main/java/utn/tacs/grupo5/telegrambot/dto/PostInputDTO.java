@@ -1,23 +1,25 @@
 package utn.tacs.grupo5.telegrambot.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class PostInputDTO {
-    private String userId;
+    private String id;
+    private UserInputDTO user;
     private List<String> images;
-    private String cardId;
+    private CardInputDTO card;
     private String conservationStatus;
-    private BigDecimal estimatedValue;
-    private List<String> wantedCardsIds;
+    private int estimatedValue;
+    private List<CardInputDTO> wantedCards;
     private String description;
+    private String status;
+    private String publishedAt;
+    private String updatedAt;
+    private String finishedAt;
 }

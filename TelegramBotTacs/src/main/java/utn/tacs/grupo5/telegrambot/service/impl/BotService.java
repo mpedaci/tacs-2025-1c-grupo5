@@ -3,17 +3,16 @@ package utn.tacs.grupo5.telegrambot.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import utn.tacs.grupo5.telegrambot.ChatData;
-import utn.tacs.grupo5.telegrambot.dto.PostInputDTO;
+import utn.tacs.grupo5.telegrambot.dto.PostCreationDTO;
 import utn.tacs.grupo5.telegrambot.dto.CardOutputDTO;
+import utn.tacs.grupo5.telegrambot.dto.PostInputDTO;
 import utn.tacs.grupo5.telegrambot.dto.RegisterOutputDTO;
 import utn.tacs.grupo5.telegrambot.service.IBotService;
 import utn.tacs.grupo5.telegrambot.util.JwtUtil;
 import utn.tacs.grupo5.telegrambot.util.PasswordVerifier;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -69,7 +68,7 @@ public class BotService implements IBotService {
         List<String> wantedCardsIds = chatData.getWantedCardIds();
         BigDecimal estimatedValue = chatData.getEstimatedValue();
 
-        PostInputDTO post = PostInputDTO.builder()
+        PostCreationDTO post = PostCreationDTO.builder()
                 .userId(userId)
                 .cardId(cardId)
                 .conservationStatus(conservationStatus)
@@ -102,5 +101,9 @@ public class BotService implements IBotService {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public List<PostInputDTO> getPosts(String cardName, String gameId, String state) {
+        return postService.getPosts(cardName, gameId, state);
     }
 }
