@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c0df92d8-643e-4b5f-9e18-acb73f84d1a0" name="Changes" comment="chatData no longer uses PostInputDto" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Exception" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;SRomano6&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/mpedaci/tacs-2025-1c-grupo5.git&quot;,
+    &quot;accountId&quot;: &quot;4e40cdb3-9929-49f8-acda-90ef94ad0733&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2wYkLHyYidd8UnWcfiP3NPHY69Z" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Docker.backend/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yaml.frontend: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Application.executor&quot;: &quot;Debug&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;telegramBot&quot;,
+    &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/santiago/IdeaProjects/tacs-2025-1c-grupo5/TelegramBotTacs&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend/src/main/resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend/src/main/java/utn/tacs/grupo5/bot" />
+      <recent name="$PROJECT_DIR$/backend/src/main/java/utn/tacs/grupo5" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.Application">
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="ms-21" />
+      <envs>
+        <env name="TELEGRAM_BOT_TOKEN" value="7419881340:AAHoboaIik9jv_LsSUo79Mlrs3VcEmttYHU" />
+        <env name="TELEGRAM_BOT_NAME" value="CardsTradingbot" />
+        <env name="TELEGRAM_CREATOR_ID" value="6149031583" />
+      </envs>
+      <module name="tacs-2025-1c-grupo5" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="utn.tacs.grupo5.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="backend/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="backend/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="envFilePath" value="" />
+          <option name="envVars">
+            <list>
+              <DockerEnvVarImpl>
+                <option name="name" value="TELEGRAM_BOT_NAME" />
+                <option name="value" value="CardsTradingbot" />
+              </DockerEnvVarImpl>
+              <DockerEnvVarImpl>
+                <option name="name" value="TELEGRAM_BOT_TOKEN" />
+                <option name="value" value="7419881340:AAHoboaIik9jv_LsSUo79Mlrs3VcEmttYHU" />
+              </DockerEnvVarImpl>
+              <DockerEnvVarImpl>
+                <option name="name" value="TELEGRAM_CREATOR_ID" />
+                <option name="value" value="6149031583" />
+              </DockerEnvVarImpl>
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yaml.frontend: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="frontend" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Docker.docker-compose.yaml.frontend: Compose Deployment" />
+      <item itemvalue="Docker.backend/Dockerfile" />
+      <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
+      <item itemvalue="Spring Boot.Application" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.docker-compose.yaml.frontend: Compose Deployment" />
+        <item itemvalue="Docker.backend/Dockerfile" />
+        <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c0df92d8-643e-4b5f-9e18-acb73f84d1a0" name="Changes" comment="" />
+      <created>1746225837714</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746225837714</updated>
+      <workItem from="1746225839980" duration="682000" />
+      <workItem from="1746386891771" duration="1110000" />
+      <workItem from="1746388092740" duration="2266000" />
+      <workItem from="1746546813125" duration="8530000" />
+      <workItem from="1746722620368" duration="63000" />
+      <workItem from="1746722719041" duration="85000" />
+      <workItem from="1746885949688" duration="402000" />
+      <workItem from="1746886375809" duration="4740000" />
+      <workItem from="1746894474534" duration="148000" />
+      <workItem from="1746894664411" duration="1422000" />
+      <workItem from="1746920129061" duration="4517000" />
+      <workItem from="1747012580420" duration="1735000" />
+      <workItem from="1747014332150" duration="29950000" />
+      <workItem from="1747102981559" duration="2058000" />
+      <workItem from="1747106058349" duration="1142000" />
+      <workItem from="1747150578697" duration="17401000" />
+      <workItem from="1747408656418" duration="762000" />
+      <workItem from="1747507446598" duration="68000" />
+      <workItem from="1747660300340" duration="22000" />
+    </task>
+    <task id="LOCAL-00001" summary="log in and register">
+      <option name="closed" value="true" />
+      <created>1746929367884</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746929367884</updated>
+    </task>
+    <task id="LOCAL-00002" summary="wip card publication">
+      <option name="closed" value="true" />
+      <created>1747020757045</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1747020757045</updated>
+    </task>
+    <task id="LOCAL-00003" summary="card publication done">
+      <option name="closed" value="true" />
+      <created>1747088743204</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1747088743204</updated>
+    </task>
+    <task id="LOCAL-00004" summary="modular solution">
+      <option name="closed" value="true" />
+      <created>1747103068999</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1747103068999</updated>
+    </task>
+    <task id="LOCAL-00005" summary="messages unlinked">
+      <option name="closed" value="true" />
+      <created>1747168856283</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1747168856283</updated>
+    </task>
+    <task id="LOCAL-00006" summary="chatData no longer uses PostInputDto">
+      <option name="closed" value="true" />
+      <created>1747408816014</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1747408816015</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="log in and register" />
+    <MESSAGE value="wip card publication" />
+    <MESSAGE value="card publication done" />
+    <MESSAGE value="modular solution" />
+    <MESSAGE value="messages unlinked" />
+    <MESSAGE value="chatData no longer uses PostInputDto" />
+    <option name="LAST_COMMIT_MESSAGE" value="chatData no longer uses PostInputDto" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="utn.tacs.grupo5.bot.handler.ResponseHandler" memberName="chatStates" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>
