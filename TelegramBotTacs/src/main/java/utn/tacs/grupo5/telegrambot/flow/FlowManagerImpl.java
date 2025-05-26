@@ -47,8 +47,6 @@ public class FlowManagerImpl implements FlowManager {
                 CHOOSING_VALUE_TYPE,
                 CHOOSING_VALUE,
                 SELECTING_WANTED_CARDS,
-                CHOOSING_PHOTO_OPTION,
-                CHOOSING_PHOTO,
                 CREATING_OFFER
         ));
 
@@ -162,7 +160,7 @@ public class FlowManagerImpl implements FlowManager {
                     return "Cartas".equals(helpValue) || "Ambos".equals(helpValue);
                 },
                 SELECTING_WANTED_CARDS,
-                CHOOSING_PHOTO_OPTION
+                CREATING_OFFER
         );
 
         // Wanted cards selection with multiple conditions using priority transitions

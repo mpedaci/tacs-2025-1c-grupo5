@@ -5,7 +5,6 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import utn.tacs.grupo5.telegrambot.CardSelectionContext;
 import utn.tacs.grupo5.telegrambot.ChatData;
-import utn.tacs.grupo5.telegrambot.UserState;
 import utn.tacs.grupo5.telegrambot.command.StateCommand;
 import utn.tacs.grupo5.telegrambot.dto.CardOutputDTO;
 import utn.tacs.grupo5.telegrambot.exception.BotException;
@@ -91,7 +90,7 @@ public class SelectingCardCommand implements StateCommand {
                 handler.reply(chatId, "Carta agregada a lista de intercambio: " + selectedCardName, null);
                 handler.reply(chatId,
                         String.format("Cartas seleccionadas: %d. ¿Desea agregar más cartas?",
-                                chatData.getWantedCardIds().size()),
+                                chatData.getSelectedCardsIds().size()),
                         KeyboardFactory.getMoreOrFinish());
             }
 
@@ -101,14 +100,14 @@ public class SelectingCardCommand implements StateCommand {
     }
 
     private void finishWantedCardSelection(long chatId, ResponseHandler handler, ChatData chatData) {
-        if (chatData.getWantedCardIds().isEmpty()) {
+        if (chatData.getSelectedCardsIds().isEmpty()) {
             throw new BotException("Debe seleccionar al menos una carta para intercambio");
         }
 
         chatData.setNeedsMoreCardSelection(false);
         handler.reply(chatId,
                 String.format("Selección finalizada. %d cartas agregadas para intercambio.",
-                        chatData.getWantedCardIds().size()), null);
+                        chatData.getSelectedCardsIds().size()), null);
     }
 
     private boolean isCardSelection(String text) {

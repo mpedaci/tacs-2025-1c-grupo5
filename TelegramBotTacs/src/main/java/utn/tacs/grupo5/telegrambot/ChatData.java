@@ -1,7 +1,6 @@
 package utn.tacs.grupo5.telegrambot;
 
 import lombok.Data;
-import org.apache.commons.lang3.tuple.Pair;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import utn.tacs.grupo5.telegrambot.dto.CardOutputDTO;
 import utn.tacs.grupo5.telegrambot.dto.PostInputDTO;
@@ -21,8 +20,9 @@ public class ChatData implements Serializable {
     private String cardName;
     private ConservationStatus conservationStatus;
     private BigDecimal estimatedValue;
-    private List<String> wantedCardIds = new ArrayList<>();
-    private List<String> wantedCardStates = new ArrayList<>();
+    private List<String> selectedCardsIds = new ArrayList<>();
+    private List<String> selectedCardsNames = new ArrayList<>(); //porfavor no me critiques, soy solo un bot
+    private List<String> selectedCardsStates = new ArrayList<>();
     private String description;
     private String helpStringValue;
     private String flow;
@@ -44,8 +44,9 @@ public class ChatData implements Serializable {
         return shouldCollectPhotos;
     }
 
-    public void addWantedCard(String cardId) {
-        this.wantedCardIds.add(cardId);
+    public void addWantedCard(String cardId, String cardName) {
+        this.selectedCardsIds.add(cardId);
+        this.selectedCardsNames.add(cardName);
     }
 
     public void clearFlowData() {
@@ -55,8 +56,9 @@ public class ChatData implements Serializable {
         this.conservationStatus = null;
         this.images = new ArrayList<>();
         this.description = null;
-        this.wantedCardIds = new ArrayList<>();
-        this.wantedCardStates = new ArrayList<>();
+        this.selectedCardsIds = new ArrayList<>();
+        this.selectedCardsNames = new ArrayList<>();
+        this.selectedCardsStates = new ArrayList<>();
         this.estimatedValue = null;
         this.currentCards = new ArrayList<>();
         this.helpStringValue = null;

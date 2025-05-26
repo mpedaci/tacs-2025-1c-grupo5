@@ -111,6 +111,11 @@ public class KeyboardFactory {
         return new ReplyKeyboardMarkup(List.of(row));
     }
 
+    public static ReplyKeyboard getNext() {
+        KeyboardRow row = new KeyboardRow();
+        row.add("Siguiente");
+        return new ReplyKeyboardMarkup(List.of(row));
+    }
 
     public static ReplyKeyboard getContinueOrCancel() {
         KeyboardRow row = new KeyboardRow();

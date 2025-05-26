@@ -6,7 +6,6 @@ import utn.tacs.grupo5.telegrambot.CardSelectionContext;
 import utn.tacs.grupo5.telegrambot.ChatData;
 import utn.tacs.grupo5.telegrambot.ConservationStatus;
 import utn.tacs.grupo5.telegrambot.command.StateCommand;
-import utn.tacs.grupo5.telegrambot.command.post.ChoosingValueCommand;
 import utn.tacs.grupo5.telegrambot.dto.CardOutputDTO;
 import utn.tacs.grupo5.telegrambot.exception.BotException;
 import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
@@ -30,14 +29,16 @@ public class ChoosingWantedCardsCommand implements StateCommand {
             showMoreCards(chatId, handler, chatData);
         } else if ("Finalizar".equals(messageText)) {
             finishWantedCardSelection(chatId, handler, chatData);
+            chatData.setCurrentIndex(0);
         }else if ("Otra".equals(messageText)) {
             chatData.setNeedsMoreCardSelection(false);
             chatData.setChoosingAnotherCard(true);
+            chatData.setHelpStringValue("Cartas");
         } else if (isCardSelection(messageText)) {
             chatData.setCurrentIndex(Integer.parseInt(message.getText()));
             handler.reply(chatId,"Elija el estado de conservacion", KeyboardFactory.getCardConditionOption());
         }else if (matchesConservationStatus(messageText)){
-            chatData.getWantedCardStates().add(messageText);
+            chatData.getSelectedCardsStates().add(messageText);
             selectWantedCard(chatId,String.valueOf(chatData.getCurrentIndex()), handler, chatData);
         } else {
             throw new BotException("Seleccione un número de carta, 'Mas' para ver más opciones, o 'Finalizar' para terminar.");
@@ -89,12 +90,12 @@ public class ChoosingWantedCardsCommand implements StateCommand {
             String selectedCardName = cards.get(selectedIndex).getName();
 
             // Agregar carta a la lista de cartas deseadas
-            chatData.addWantedCard(selectedCardId);
+            chatData.addWantedCard(selectedCardId, selectedCardName);
 
             handler.reply(chatId, "Carta agregada: " + selectedCardName, null);
             handler.reply(chatId,
                     String.format("Cartas seleccionadas: %d. ¿Desea agregar mas cartas?",
-                            chatData.getWantedCardIds().size()),
+                            chatData.getSelectedCardsIds().size()),
                     KeyboardFactory.getOtherOrFinish());
         } catch (NumberFormatException e) {
             throw new BotException("Por favor ingrese un número válido");
@@ -102,14 +103,14 @@ public class ChoosingWantedCardsCommand implements StateCommand {
     }
 
     private void finishWantedCardSelection(long chatId, ResponseHandler handler, ChatData chatData) {
-        if (chatData.getWantedCardIds().isEmpty()) {
+        if (chatData.getSelectedCardsIds().isEmpty()) {
             throw new BotException("Debe seleccionar al menos una carta para intercambio");
         }
 
         chatData.setNeedsMoreCardSelection(false);
         handler.reply(chatId,
                 String.format("Selección finalizada. %d cartas agregadas para intercambio.",
-                        chatData.getWantedCardIds().size()), null);
+                        chatData.getSelectedCardsIds().size()), null);
     }
 
     private boolean isCardSelection(String text) {

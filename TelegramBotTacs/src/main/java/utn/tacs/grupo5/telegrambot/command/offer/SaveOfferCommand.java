@@ -7,6 +7,8 @@ import utn.tacs.grupo5.telegrambot.command.StateCommand;
 import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
 import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
+import static utn.tacs.grupo5.telegrambot.UserState.CHOOSING_OPTIONS;
+
 @Component
 public class SaveOfferCommand implements StateCommand {
     @Override
@@ -15,7 +17,7 @@ public class SaveOfferCommand implements StateCommand {
         String offerId = handler.getBotService().createOffer(chatData);
         handler.reply(chatId, "✅ Oferta guardada exitosamente.", null);
         handler.reply(chatId, offerId, null);
-        handler.reply(chatId, "Volviendo al menú principal...", KeyboardFactory.getCardsOption());
+        handler.reply(chatId, "Volviendo al menú principal...", KeyboardFactory.getCardsOption(), CHOOSING_OPTIONS);
     }
 
     @Override

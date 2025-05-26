@@ -3,6 +3,7 @@ package utn.tacs.grupo5.telegrambot.command.offer;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import utn.tacs.grupo5.telegrambot.ChatData;
+import utn.tacs.grupo5.telegrambot.UserState;
 import utn.tacs.grupo5.telegrambot.command.StateCommand;
 import utn.tacs.grupo5.telegrambot.dto.PostInputDTO;
 import utn.tacs.grupo5.telegrambot.exception.BotException;
@@ -10,6 +11,8 @@ import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
 import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
 import java.util.List;
+
+import static utn.tacs.grupo5.telegrambot.UserState.CHOOSING_OPTIONS;
 
 @Component
 public class ShowPostFiltersCommand implements StateCommand {
@@ -38,7 +41,8 @@ public class ShowPostFiltersCommand implements StateCommand {
             if (posts.isEmpty()) {
                 handler.reply(chatId,
                         "❌ No se encontraron publicaciones con los filtros seleccionados.\n" +
-                                "Intente con filtros diferentes.", null);
+                                "Intente con filtros diferentes.", null, CHOOSING_OPTIONS);
+
                 return;
             }
 

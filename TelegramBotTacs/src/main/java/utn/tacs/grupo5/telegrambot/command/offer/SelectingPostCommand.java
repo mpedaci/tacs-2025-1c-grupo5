@@ -102,7 +102,7 @@ public class SelectingPostCommand implements StateCommand {
                                     "🎮 Juego: %s\n" +
                                     "💰 Valor: %s\n" +
                                     "📝 Estado: %s\n\n" +
-                                    "Ahora seleccione la carta que desea ofrecer a cambio...",
+                                    "Ahora seleccione lo que desea ofrecer a cambio...",
                             selectedPost.getCard().getName(),
                             selectedPost.getCard().getGame().getTitle(),
                             selectedPost.getEstimatedValue(),

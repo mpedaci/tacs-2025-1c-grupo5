@@ -65,7 +65,7 @@ public class BotService implements IBotService {
         String conservationStatus = String.valueOf(chatData.getConservationStatus());
         List<String> images = chatData.getImages();
         String description = chatData.getDescription();
-        List<String> wantedCardsIds = chatData.getWantedCardIds();
+        List<String> wantedCardsIds = chatData.getSelectedCardsIds();
         BigDecimal estimatedValue = chatData.getEstimatedValue();
 
         PostCreationDTO post = PostCreationDTO.builder()
@@ -92,10 +92,10 @@ public class BotService implements IBotService {
         String postId = chatData.getPublicationId();
         String userId = chatData.getUserId();
         List<OfferedCardsOutputDTO> offeredCards = new ArrayList<>();
-        for (int i = 0; i < chatData.getWantedCardIds().size(); i++) {
+        for (int i = 0; i < chatData.getSelectedCardsIds().size(); i++) {
             OfferedCardsOutputDTO offeredCard = OfferedCardsOutputDTO.builder()
-                    .cardId(chatData.getWantedCardIds().get(i))
-                    .conservationStatus(chatData.getWantedCardStates().get(i).toUpperCase())
+                    .cardId(chatData.getSelectedCardsIds().get(i))
+                    .conservationStatus(chatData.getSelectedCardsStates().get(i).toUpperCase())
                     .build();
             offeredCards.add(offeredCard);
         }
