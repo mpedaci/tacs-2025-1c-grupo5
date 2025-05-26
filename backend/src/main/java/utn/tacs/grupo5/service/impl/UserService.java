@@ -1,11 +1,7 @@
 package utn.tacs.grupo5.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.UUID;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import utn.tacs.grupo5.controller.exceptions.ConflictException;
 import utn.tacs.grupo5.controller.exceptions.NotFoundException;
 import utn.tacs.grupo5.dto.user.UserInputDto;
@@ -13,7 +9,10 @@ import utn.tacs.grupo5.entity.User;
 import utn.tacs.grupo5.mapper.UserMapper;
 import utn.tacs.grupo5.repository.UserRepository;
 import utn.tacs.grupo5.service.IUserService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {

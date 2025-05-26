@@ -1,33 +1,43 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  # mongodb:
-  #   image: 'mongo:latest'
-  #   environment:
-  #     - 'MONGO_INITDB_DATABASE=mydatabase'
-  #     - 'MONGO_INITDB_ROOT_PASSWORD=secret'
-  #     - 'MONGO_INITDB_ROOT_USERNAME=root'
-  #   ports:
-  #     - '27017'
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     image: tacs-2025-1c-grupo5-backend:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - SPRING_DATA_MONGODB_URI=${SPRING_DATA_MONGODB_URI}
+      - YUGIOH_API_URL=${YUGIOH_API_URL}
+      - MAGIC_API_URL=${MAGIC_API_URL}
+      - POKEMON_API_URL=${POKEMON_API_URL}
+      - FRONTEND_URL=${FRONTEND_URL}
     ports:
-      - '8080:8080'
+      - "8080:8080"
     networks:
       - default
+    depends_on:
+      - mongo
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_API_URL=http://localhost:8080/api
+        - NEXT_PUBLIC_API_URL=${BACKEND_URL}/api
     image: tacs-2025-1c-grupo5-frontend:latest
     ports:
-      - '3000:3000'
+      - "3000:3000"
     networks:
       - default
+
+volumes:
+  mongo-data:

@@ -28,6 +28,7 @@ const userSlice = createSlice({
             state.id = '';
             state.name = '';
             state.isAdmin = false;
+            state.token = '';
         },
         setUserName: (state, action: PayloadAction<string>) => {
             state.name = action.payload;

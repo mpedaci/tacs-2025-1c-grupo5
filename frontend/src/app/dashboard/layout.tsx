@@ -1,5 +1,6 @@
 import React from "react";
 import MainLayout from "@components/Layouts/MainLayout"
+import AuthValidation from "@components/Validations/AuthValidation";
 
 export default function Layout({
                                    children,
@@ -7,8 +8,10 @@ export default function Layout({
     children: React.ReactNode;
 }) {
     return (
-        <MainLayout>
-            {children}
-        </MainLayout>
+        <AuthValidation>
+            <MainLayout>
+                {children}
+            </MainLayout>
+        </AuthValidation>
     );
 }

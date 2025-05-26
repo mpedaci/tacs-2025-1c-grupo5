@@ -62,8 +62,7 @@ public class MetricService implements IMetricService {
                 buildMetric("Publicaciones creadas", createdByDate),
                 buildMetric("Publicaciones finalizadas", finishedByDate),
                 buildMetric("Publicaciones en progreso", publishedByDate),
-                buildMetric("Publicaciones rechazadas", cancelledByDate)
-        );
+                buildMetric("Publicaciones rechazadas", cancelledByDate));
     }
 
     @Override
@@ -76,7 +75,8 @@ public class MetricService implements IMetricService {
         Map<LocalDate, Long> pendingCountByDate = new TreeMap<>();
 
         for (Offer offer : offers) {
-            if (offer.getPublishedAt() == null) continue;
+            if (offer.getPublishedAt() == null)
+                continue;
             LocalDate date = offer.getPublishedAt().toLocalDate();
 
             createdCountByDate.put(date, createdCountByDate.getOrDefault(date, 0L) + 1);
@@ -98,8 +98,7 @@ public class MetricService implements IMetricService {
                 buildMetric("Ofertas creadas", createdCountByDate),
                 buildMetric("Ofertas aceptadas", acceptedCountByDate),
                 buildMetric("Ofertas rechazadas", rejectedCountByDate),
-                buildMetric("Ofertas en progreso", pendingCountByDate)
-        );
+                buildMetric("Ofertas en progreso", pendingCountByDate));
     }
 
     private MetricOutputDto buildMetric(String title, Map<LocalDate, Long> counts) {

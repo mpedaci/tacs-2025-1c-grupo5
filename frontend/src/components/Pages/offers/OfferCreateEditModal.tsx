@@ -57,7 +57,7 @@ export default function OfferCreateEditModal({
                 cardId: { id: string };
                 imageBase64: string;
                 conservationStatus: string;
-            }[]).map((card) => ({
+            }[] || []).map((card) => ({
                 cardId: card.cardId.id,
                 image: card.imageBase64,
                 conservationStatus: card.conservationStatus,

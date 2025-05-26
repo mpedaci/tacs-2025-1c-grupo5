@@ -3,6 +3,7 @@ package utn.tacs.grupo5.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -23,6 +24,7 @@ import org.junit.jupiter.api.Test;
 
 @WebMvcTest(controllers = MetricController.class)
 @Import(TestSecurityConfig.class)
+@WithMockUser(roles = "ADMIN")
 public class MetricsControllerTest {
 
     @Autowired

@@ -16,6 +16,7 @@ import utn.tacs.grupo5.controller.response.CustomError;
 import utn.tacs.grupo5.controller.response.ResponseGenerator;
 import utn.tacs.grupo5.dto.offer.OfferInputDto;
 import utn.tacs.grupo5.dto.offer.OfferOutputDto;
+import utn.tacs.grupo5.dto.offer.OfferStatusInputDto;
 import utn.tacs.grupo5.entity.post.Offer;
 import utn.tacs.grupo5.mapper.OfferMapper;
 import utn.tacs.grupo5.service.IOfferService;
@@ -58,9 +59,9 @@ public class OfferController extends BaseController {
             }),
             @ApiResponse(responseCode = "200", description = "OK")
     })
-    public ResponseEntity<String> patch(@PathVariable UUID id, @RequestParam(required = true) Offer.Status status) {
+    public ResponseEntity<String> patch(@PathVariable UUID id, @RequestBody OfferStatusInputDto status) {
         offerService.updateStatus(id, status);
-        return ResponseGenerator.generateResponseOK("Offer state updated successfully");
+        return ResponseGenerator.generateResponseOK("Offer status updated successfully");
     }
 
     @PutMapping(value = "/offers/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
