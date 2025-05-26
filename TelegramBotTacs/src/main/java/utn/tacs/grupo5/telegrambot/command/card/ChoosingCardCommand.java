@@ -30,6 +30,7 @@ public class ChoosingCardCommand implements StateCommand {
                 chatData.setNeedsMoreCardSelection(true);
             } else {
                 chatData.setCardId(cards.get(0).getId());
+                chatData.setCardName(cards.get(0).getName());
             }
         } catch (BotException e) {
             throw new BotException(e.getMessage());
@@ -38,6 +39,6 @@ public class ChoosingCardCommand implements StateCommand {
 
     @Override
     public void onEnter(long chatId, ResponseHandler handler) {
-        handler.reply(chatId, "Elija la carta que está ofreciendo (el nombre debe ser exacto)", null);
+        handler.reply(chatId, "Escriba el nombre de la carta", null);
     }
 }

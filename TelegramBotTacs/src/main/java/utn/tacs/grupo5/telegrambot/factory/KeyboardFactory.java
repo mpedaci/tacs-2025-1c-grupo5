@@ -87,6 +87,7 @@ public class KeyboardFactory {
         return keyboard;
     }
 
+
     public static ReplyKeyboard getOtherOrFinish() {
         ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup();
         keyboard.setSelective(true);
@@ -103,5 +104,18 @@ public class KeyboardFactory {
         return keyboard;
     }
 
+    public static ReplyKeyboard getNextOrNo() {
+        KeyboardRow row = new KeyboardRow();
+        row.add("Siguiente");
+        row.add("No");
+        return new ReplyKeyboardMarkup(List.of(row));
+    }
 
+
+    public static ReplyKeyboard getContinueOrCancel() {
+        KeyboardRow row = new KeyboardRow();
+        row.add("Continuar");
+        row.add("/cancelar");
+        return new ReplyKeyboardMarkup(List.of(row));
+    }
 }

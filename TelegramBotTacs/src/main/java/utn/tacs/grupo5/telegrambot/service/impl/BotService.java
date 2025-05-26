@@ -106,4 +106,7 @@ public class BotService implements IBotService {
     public List<PostInputDTO> getPosts(String cardName, String gameId, String state) {
         return postService.getPosts(cardName, gameId, state);
     }
+
+    public void createOffer(ChatData chatData) {
+    }
 }

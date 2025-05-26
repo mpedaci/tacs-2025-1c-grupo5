@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import utn.tacs.grupo5.telegrambot.CardSelectionContext;
 import utn.tacs.grupo5.telegrambot.ChatData;
+import utn.tacs.grupo5.telegrambot.ConservationStatus;
 import utn.tacs.grupo5.telegrambot.command.StateCommand;
 import utn.tacs.grupo5.telegrambot.command.post.ChoosingValueCommand;
 import utn.tacs.grupo5.telegrambot.dto.CardOutputDTO;
@@ -33,7 +34,11 @@ public class ChoosingWantedCardsCommand implements StateCommand {
             chatData.setNeedsMoreCardSelection(false);
             chatData.setChoosingAnotherCard(true);
         } else if (isCardSelection(messageText)) {
-            selectWantedCard(chatId, messageText, handler, chatData);
+            chatData.setCurrentIndex(Integer.parseInt(message.getText()));
+            handler.reply(chatId,"Elija el estado de conservacion", KeyboardFactory.getCardConditionOption());
+        }else if (matchesConservationStatus(messageText)){
+            chatData.getWantedCardStates().add(messageText);
+            selectWantedCard(chatId,String.valueOf(chatData.getCurrentIndex()), handler, chatData);
         } else {
             throw new BotException("Seleccione un número de carta, 'Mas' para ver más opciones, o 'Finalizar' para terminar.");
         }
@@ -44,7 +49,7 @@ public class ChoosingWantedCardsCommand implements StateCommand {
         List<CardOutputDTO> allCards = chatData.getCurrentCards();
 
         if (currentIndex >= allCards.size()) {
-            handler.reply(chatId, "No hay más cartas disponibles", KeyboardFactory.getMoreOrFinish());
+            handler.reply(chatId, "No hay más cartas disponibles", KeyboardFactory.getMore());
             return;
         }
 
@@ -68,7 +73,7 @@ public class ChoosingWantedCardsCommand implements StateCommand {
             chatData.setNeedsMoreCardSelection(false);
         }
 
-        handler.reply(chatId, "¿Más cartas o finalizar selección?", KeyboardFactory.getMoreOrFinish());
+        handler.reply(chatId, "¿Más cartas?", KeyboardFactory.getMore());
     }
 
     private void selectWantedCard(long chatId, String messageText, ResponseHandler handler, ChatData chatData) {
@@ -111,6 +116,15 @@ public class ChoosingWantedCardsCommand implements StateCommand {
         return text != null && text.matches("\\d+");
     }
 
+    public boolean matchesConservationStatus(String input) {
+        for (ConservationStatus status : ConservationStatus.values()) {
+            if (status.name().equalsIgnoreCase(input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onEnter(long chatId, ResponseHandler handler) {
         ChatData chatData = handler.getChatData().get(chatId);
@@ -128,7 +142,7 @@ public class ChoosingWantedCardsCommand implements StateCommand {
             handler.reply(chatId, "Selecciona las cartas que te interesan para intercambio:", null);
             showMoreCards(chatId, handler, chatData);
         } else {
-            handler.reply(chatId, "¿Más cartas o finalizar selección?", KeyboardFactory.getMoreOrFinish());
+            handler.reply(chatId, "¿Más cartas o finalizar selección?", KeyboardFactory.getOtherOrFinish());
         }
     }
 }

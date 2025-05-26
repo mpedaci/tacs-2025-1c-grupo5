@@ -35,11 +35,29 @@ public class FlowManagerImpl implements FlowManager {
                 CREATING_POST
         ));
 
+        AdvancedFlowDefinition offerFlow = new AdvancedFlowDefinition(List.of(
+                CHOOSING_OPTIONS,
+                CHOOSING_POST_FILTERS,
+                CHOOSING_GAME,
+                CHOOSING_CARD,
+                SELECTING_OFFERED_CARD,
+                CHOOSING_CONDITION,
+                SHOWING_POSTS_FILTERS_RESULTS,
+                SELECTING_POST,
+                CHOOSING_VALUE_TYPE,
+                CHOOSING_VALUE,
+                SELECTING_WANTED_CARDS,
+                CHOOSING_PHOTO_OPTION,
+                CHOOSING_PHOTO,
+                CREATING_OFFER
+        ));
+
         // Configure post flow transitions
         configurePostFlow(postFlow);
+        configureOfferFlow(offerFlow);
 
         flows.put("post", postFlow);
-
+        flows.put("offer", offerFlow);
         // Simple flows
         flows.put("register", new AdvancedFlowDefinition(List.of(AWAITING_SESSION, REGISTERING)));
         flows.put("login", new AdvancedFlowDefinition(List.of(AWAITING_SESSION, LOGIN_IN)));
@@ -57,7 +75,7 @@ public class FlowManagerImpl implements FlowManager {
         // Offered card selection with proper loop handling
         postFlow.addConditionalTransition(
                 SELECTING_OFFERED_CARD,
-                chatData -> chatData.needsMoreCardSelection(),
+                ChatData::needsMoreCardSelection,
                 SELECTING_OFFERED_CARD,  // Stay in same state if more selection needed
                 CHOOSING_CONDITION       // Continue to next step if done
         );
@@ -65,7 +83,7 @@ public class FlowManagerImpl implements FlowManager {
         // Photo collection decision
         postFlow.addConditionalTransition(
                 CHOOSING_PHOTO_OPTION,
-                chatData -> chatData.shouldCollectPhotos(),
+                ChatData::shouldCollectPhotos,
                 CHOOSING_PHOTO,
                 CHOOSING_VALUE_TYPE
         );
@@ -93,6 +111,69 @@ public class FlowManagerImpl implements FlowManager {
         );
 
         postFlow.addPriorityTransition(
+                SELECTING_WANTED_CARDS,
+                ChatData::isChoosingAnotherCard,
+                CHOOSING_VALUE,
+                2  // Medium priority - go back to value selection
+        );
+
+    }
+
+    private void configureOfferFlow(AdvancedFlowDefinition offerFlow) {
+        // Offered card selection with proper loop handling
+        offerFlow.addConditionalTransition(
+                CHOOSING_POST_FILTERS,
+                chatData -> chatData.getHelpStringValue().equals("No filters"),
+                SHOWING_POSTS_FILTERS_RESULTS,
+                CHOOSING_GAME
+        );
+
+        offerFlow.addConditionalTransition(
+                CHOOSING_CARD,
+                chatData -> chatData.getCurrentCards() != null && chatData.getCurrentCards().size() > 1,
+                SELECTING_OFFERED_CARD,
+                CHOOSING_CONDITION
+        );
+
+        // Offered card selection with proper loop handling
+        offerFlow.addConditionalTransition(
+                SELECTING_OFFERED_CARD,
+                ChatData::needsMoreCardSelection,
+                SELECTING_OFFERED_CARD,  // Stay in same state if more selection needed
+                CHOOSING_CONDITION       // Continue to next step if done
+        );
+
+        // Photo collection decision
+        offerFlow.addConditionalTransition(
+                CHOOSING_PHOTO_OPTION,
+                ChatData::shouldCollectPhotos,
+                CHOOSING_PHOTO,
+                CREATING_OFFER
+        );
+
+        // Direct transition from photo selection
+        offerFlow.addDirectTransition(CHOOSING_PHOTO, CREATING_OFFER);
+
+        // Value type determines if cards are needed
+        offerFlow.addConditionalTransition(
+                CHOOSING_VALUE,
+                chatData -> {
+                    String helpValue = chatData.getHelpStringValue();
+                    return "Cartas".equals(helpValue) || "Ambos".equals(helpValue);
+                },
+                SELECTING_WANTED_CARDS,
+                CHOOSING_PHOTO_OPTION
+        );
+
+        // Wanted cards selection with multiple conditions using priority transitions
+        offerFlow.addPriorityTransition(
+                SELECTING_WANTED_CARDS,
+                ChatData::needsMoreCardSelection,
+                SELECTING_WANTED_CARDS,
+                1  // High priority - stay in selection if more cards needed
+        );
+
+        offerFlow.addPriorityTransition(
                 SELECTING_WANTED_CARDS,
                 ChatData::isChoosingAnotherCard,
                 CHOOSING_VALUE,

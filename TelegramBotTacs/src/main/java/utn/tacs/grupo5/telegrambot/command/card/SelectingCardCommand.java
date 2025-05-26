@@ -87,7 +87,7 @@ public class SelectingCardCommand implements StateCommand {
 
             } else if (isWantedCardsContext(chatData)) {
                 // Seleccionando cartas que quiere a cambio
-                chatData.addWantedCard(selectedCardId);
+                chatData.setCardId(selectedCardId);
                 handler.reply(chatId, "Carta agregada a lista de intercambio: " + selectedCardName, null);
                 handler.reply(chatId,
                         String.format("Cartas seleccionadas: %d. ¿Desea agregar más cartas?",

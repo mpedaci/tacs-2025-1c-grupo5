@@ -1,8 +1,10 @@
 package utn.tacs.grupo5.telegrambot;
 
 import lombok.Data;
+import org.apache.commons.lang3.tuple.Pair;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import utn.tacs.grupo5.telegrambot.dto.CardOutputDTO;
+import utn.tacs.grupo5.telegrambot.dto.PostInputDTO;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,9 +18,11 @@ public class ChatData implements Serializable {
     private String userId;
     private List<String> images = new ArrayList<>();
     private String cardId;
+    private String cardName;
     private ConservationStatus conservationStatus;
     private BigDecimal estimatedValue;
-    private List<String> wantedCardIds = new ArrayList<>();;
+    private List<String> wantedCardIds = new ArrayList<>();
+    private List<String> wantedCardStates = new ArrayList<>();
     private String description;
     private String helpStringValue;
     private String flow;
@@ -30,6 +34,7 @@ public class ChatData implements Serializable {
     private CardSelectionContext cardSelectionContext;
     private boolean photoCollectionCompleted = false;
     private boolean choosingAnotherCard = false;
+    private List<PostInputDTO> currentPost;
 
     public boolean needsMoreCardSelection() {
         return needsMoreCardSelection;
@@ -46,10 +51,12 @@ public class ChatData implements Serializable {
     public void clearFlowData() {
         // Limpiar datos del flujo de post
         this.cardId = null;
+        this.cardName = null;
         this.conservationStatus = null;
         this.images = new ArrayList<>();
         this.description = null;
         this.wantedCardIds = new ArrayList<>();
+        this.wantedCardStates = new ArrayList<>();
         this.estimatedValue = null;
         this.currentCards = new ArrayList<>();
         this.helpStringValue = null;

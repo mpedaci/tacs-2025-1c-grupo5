@@ -3,7 +3,12 @@ package utn.tacs.grupo5.telegrambot.command;
 import org.springframework.stereotype.Component;
 import utn.tacs.grupo5.telegrambot.UserState;
 import utn.tacs.grupo5.telegrambot.command.card.*;
+import utn.tacs.grupo5.telegrambot.command.offer.ChoosingPostFiltersCommand;
+import utn.tacs.grupo5.telegrambot.command.offer.SaveOfferCommand;
+import utn.tacs.grupo5.telegrambot.command.offer.SelectingPostCommand;
+import utn.tacs.grupo5.telegrambot.command.offer.ShowPostFiltersCommand;
 import utn.tacs.grupo5.telegrambot.command.post.*;
+import utn.tacs.grupo5.telegrambot.command.post.ChoosingPhotoCollectionCommand;
 import utn.tacs.grupo5.telegrambot.command.session.AwaitingSessionCommand;
 import utn.tacs.grupo5.telegrambot.command.session.LoginCommand;
 import utn.tacs.grupo5.telegrambot.command.session.RegisterCommand;
@@ -21,7 +26,6 @@ import static utn.tacs.grupo5.telegrambot.UserState.*;
 @Component
 public class StateCommandFactory {
     private final Map<UserState, StateCommand> commands = new HashMap<>();
-    private final Map<String, List<UserState>> flows = new HashMap<>();
 
     // Inject all command implementations
     public StateCommandFactory(
@@ -39,7 +43,11 @@ public class StateCommandFactory {
             ChoosingDescriptionCommand choosingDescriptionCommand,
             SavePostCommand savePostCommand,
             SelectingCardCommand selectingCardCommand,
-            ChoosingWantedCardsCommand choosingWantedCardsCommand) {
+            ChoosingWantedCardsCommand choosingWantedCardsCommand,
+            ChoosingPostFiltersCommand choosingPostFiltersCommand,
+            SelectingPostCommand selectingPostCommand,
+            ShowPostFiltersCommand showPostFiltersCommand,
+            SaveOfferCommand saveOfferCommand) {
 
         commands.put(AWAITING_SESSION, awaitingSessionCommand);
         commands.put(LOGIN_IN, loginCommand);
@@ -57,34 +65,10 @@ public class StateCommandFactory {
         commands.put(SELECTING_CARD, selectingCardCommand);
         commands.put(SELECTING_OFFERED_CARD, selectingCardCommand);
         commands.put(SELECTING_WANTED_CARDS, choosingWantedCardsCommand);
-        
-        flows.put("register", List.of(
-                REGISTERING
-        ));
-        flows.put("login", List.of(
-                LOGIN_IN
-        ));
-        flows.put("post", List.of(
-                CHOOSING_GAME,
-                CHOOSING_CARD,
-                CHOOSING_CONDITION,
-                CHOOSING_PHOTO_OPTION,
-                CHOOSING_VALUE_TYPE,
-                CHOOSING_VALUE,
-                CHOOSING_DESCRIPTION,
-                CREATING_POST
-        ));
-    }
-
-    public UserState nextUserStateInFlow(String flowName, UserState currentUserState) {
-        List<UserState> flow = flows.get(flowName);
-        int currentIndex = flow.indexOf(currentUserState);
-        if (currentUserState == SELECTING_CARD){
-            return SELECTING_CARD;
-        }
-        if (currentIndex < flow.size() - 1) {
-            return flow.get(currentIndex + 1);
-        }else return CHOOSING_OPTIONS;
+        commands.put(CHOOSING_POST_FILTERS, choosingPostFiltersCommand);
+        commands.put(SELECTING_POST, selectingPostCommand);
+        commands.put(SHOWING_POSTS_FILTERS_RESULTS, showPostFiltersCommand);
+        commands.put(CREATING_OFFER, saveOfferCommand);
     }
     
     

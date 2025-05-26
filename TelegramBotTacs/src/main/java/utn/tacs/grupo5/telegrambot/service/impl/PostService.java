@@ -33,7 +33,6 @@ public class PostService {
     public List<PostInputDTO> getPosts(String cardName, String gameId, String state) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/posts")
                         .queryParamIfPresent("name", Optional.ofNullable(cardName))
                         .queryParamIfPresent("gameId", Optional.ofNullable(gameId))
                         .queryParamIfPresent("state", Optional.ofNullable(state))
