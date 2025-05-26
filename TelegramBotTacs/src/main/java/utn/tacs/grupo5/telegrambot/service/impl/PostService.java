@@ -5,13 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import utn.tacs.grupo5.telegrambot.dto.PostCreationDTO;
 import utn.tacs.grupo5.telegrambot.dto.PostInputDTO;
-import utn.tacs.grupo5.telegrambot.dto.PostOutputDTO;
+import utn.tacs.grupo5.telegrambot.dto.IdOutputDTO;
+import utn.tacs.grupo5.telegrambot.service.IPostService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PostService {
+public class PostService implements IPostService {
     private WebClient webClient;
 
     public PostService(WebClient.Builder webClientBuilder,
@@ -25,8 +26,8 @@ public class PostService {
         return webClient.post()
                 .bodyValue(postCreationDto)
                 .retrieve()
-                .bodyToMono(PostOutputDTO.class)
-                .map(PostOutputDTO::getId)
+                .bodyToMono(IdOutputDTO.class)
+                .map(IdOutputDTO::getId)
                 .block();
     }
 

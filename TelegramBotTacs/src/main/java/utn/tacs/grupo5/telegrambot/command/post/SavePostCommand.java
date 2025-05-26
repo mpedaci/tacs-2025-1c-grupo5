@@ -22,7 +22,7 @@ public class SavePostCommand implements StateCommand {
             handler.getChatData().get(chatId).setPublicationId(postid);
             handler.reply(chatId, "Publicación creada con éxito", null);
             handler.reply(chatId, "ID de publicación: " + postid, null, UserState.CHOOSING_OPTIONS);
-
+            handler.reply(chatId, "Volviendo al menú principal...", KeyboardFactory.getCardsOption());
             //TODO devolver imagen del post junto con el link
         } catch (BotException e) {
             throw new BotException(e.getMessage());

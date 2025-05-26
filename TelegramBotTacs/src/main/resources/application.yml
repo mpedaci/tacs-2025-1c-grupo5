@@ -19,3 +19,4 @@ api:
   gameEndpoint: ${API_GAME_ENDPOINT}
   postEndpoint: ${API_POST_ENDPOINT}
   userEndpoint: ${API_USER_ENDPOINT}
+  offerEndpoint: ${API_OFFER_ENDPOINT}

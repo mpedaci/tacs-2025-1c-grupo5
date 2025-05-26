@@ -3,20 +3,19 @@ package utn.tacs.grupo5.telegrambot.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import utn.tacs.grupo5.telegrambot.ChatData;
-import utn.tacs.grupo5.telegrambot.dto.PostCreationDTO;
-import utn.tacs.grupo5.telegrambot.dto.CardOutputDTO;
-import utn.tacs.grupo5.telegrambot.dto.PostInputDTO;
-import utn.tacs.grupo5.telegrambot.dto.RegisterOutputDTO;
+import utn.tacs.grupo5.telegrambot.dto.*;
 import utn.tacs.grupo5.telegrambot.service.IBotService;
 import utn.tacs.grupo5.telegrambot.util.JwtUtil;
 import utn.tacs.grupo5.telegrambot.util.PasswordVerifier;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
 public class BotService implements IBotService {
+    private final OfferService offerService;
     private GameService gameService;
     private AutService autService;
     private UserService userService;
@@ -27,12 +26,13 @@ public class BotService implements IBotService {
                       AutService autService,
                       UserService userService,
                       CardService cardService,
-                      PostService postService) {
+                      PostService postService, OfferService offerService) {
         this.gameService = gameService;
         this.autService = autService;
         this.userService = userService;
         this.cardService = cardService;
         this.postService = postService;
+        this.offerService = offerService;
     }
 
     public String logInUser(String username, String password) {
@@ -81,32 +81,31 @@ public class BotService implements IBotService {
         return postService.createPost(post);
     }
 
-    public void saveCardValue(String text, ChatData chatData) {
-        if (text == null || text.isBlank()) {
-            throw new IllegalArgumentException("El texto no puede estar vacío.");
-        }
 
-        // Solo procesar valores monetarios - las cartas se manejan por selección individual
-        if (isNumeric(text.trim())) {
-            chatData.setEstimatedValue(new BigDecimal(text.trim()));
-        } else {
-            throw new IllegalArgumentException("Solo se permiten valores numéricos. Use la selección individual para cartas.");
-        }
-    }
-
-    private boolean isNumeric(String str) {
-        try {
-            new BigDecimal(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 
     public List<PostInputDTO> getPosts(String cardName, String gameId, String state) {
         return postService.getPosts(cardName, gameId, state);
     }
 
-    public void createOffer(ChatData chatData) {
+    public String createOffer(ChatData chatData) {
+        String money = chatData.getEstimatedValue() != null? chatData.getEstimatedValue().toString() : null;
+        String postId = chatData.getPublicationId();
+        String userId = chatData.getUserId();
+        List<OfferedCardsOutputDTO> offeredCards = new ArrayList<>();
+        for (int i = 0; i < chatData.getWantedCardIds().size(); i++) {
+            OfferedCardsOutputDTO offeredCard = OfferedCardsOutputDTO.builder()
+                    .cardId(chatData.getWantedCardIds().get(i))
+                    .conservationStatus(chatData.getWantedCardStates().get(i).toUpperCase())
+                    .build();
+            offeredCards.add(offeredCard);
+        }
+        OfferOutputDTO offer = OfferOutputDTO.builder()
+                .money(money)
+                .postId(postId)
+                .offererId(userId)
+                .offeredCards(offeredCards)
+                .build();
+
+        return offerService.createOffer(offer);
     }
 }

@@ -108,6 +108,8 @@ public class SelectingPostCommand implements StateCommand {
                             selectedPost.getEstimatedValue(),
                             selectedPost.getConservationStatus()), null);
 
+            chatData.setGameId(selectedPost.getCard().getGame().getId());
+
         } catch (NumberFormatException e) {
             throw new BotException("Por favor ingrese un número válido");
         }

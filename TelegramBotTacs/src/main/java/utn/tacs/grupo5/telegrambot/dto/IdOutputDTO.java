@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PostOutputDTO {
+public class IdOutputDTO {
     String id;
 }
