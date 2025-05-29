@@ -7,6 +7,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - default
 
   backend:
     build:
@@ -27,6 +29,22 @@ services:
     depends_on:
       - mongo
 
+  backend-telegram-bot:
+    build:
+      context: ./backend-telegram-bot
+      dockerfile: Dockerfile
+    image: tacs-2025-1c-grupo5-backend-telegram-bot:latest
+    environment:
+      - BACKEND_URL=${BACKEND_URL_LOCAL}
+      - TELEGRAM_BOT_NAME=${TELEGRAM_BOT_NAME}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CREATOR_ID=${TELEGRAM_CREATOR_ID}
+    networks:
+      - default
+    depends_on:
+      - backend
+
+
   frontend:
     build:
       context: ./frontend
@@ -38,6 +56,8 @@ services:
       - "3000:3000"
     networks:
       - default
+    depends_on:
+      - backend
 
 volumes:
   mongo-data:
