@@ -1,4 +1,7 @@
-﻿package utn.tacs.grupo5.telegrambot.dto.post;
+package utn.tacs.grupo5.telegrambot.dto.post;
 
-public class PostStatus {
+public enum PostStatus {
+    PUBLISHED,
+    FINISHED,
+    CANCELLED
 }

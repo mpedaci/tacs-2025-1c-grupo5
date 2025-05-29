@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.telegrambot.command.post;
+package utn.tacs.grupo5.telegrambot.command.card;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -134,7 +134,7 @@ public class ChoosingPhotoCollectionCommand implements StateCommand {
         // Download and encode
         try (InputStream in = new URL(imageUrl).openStream()) {
             byte[] buffer = in.readAllBytes();
-            return java.util.Base64.getEncoder().encodeToString(buffer);
+            return "data:image/jpeg;base64, " + java.util.Base64.getEncoder().encodeToString(buffer);
         }
     }
 }

@@ -1,20 +1,17 @@
-package utn.tacs.grupo5.dto.post;
+package utn.tacs.grupo5.telegrambot.dto.post;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import utn.tacs.grupo5.entity.post.ConservationStatus;
+import utn.tacs.grupo5.telegrambot.dto.ConservationStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * This dto represents the post data received to create a new post.
- */
 @Data
 @NoArgsConstructor
-@Schema(name = "Post Input", description = "Post schema for input")
+@AllArgsConstructor
 public class PostInputDto {
 
     private UUID userId;

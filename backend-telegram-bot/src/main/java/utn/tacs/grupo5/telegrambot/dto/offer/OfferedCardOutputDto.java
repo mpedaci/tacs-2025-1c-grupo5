@@ -1,14 +1,12 @@
-package utn.tacs.grupo5.dto.offer;
+package utn.tacs.grupo5.telegrambot.dto.offer;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import utn.tacs.grupo5.dto.card.CardOutputDto;
-import utn.tacs.grupo5.entity.post.ConservationStatus;
+import utn.tacs.grupo5.telegrambot.dto.ConservationStatus;
+import utn.tacs.grupo5.telegrambot.dto.card.CardOutputDto;
 
 @Data
 @NoArgsConstructor
-@Schema(name = "Offered card", description = "Offered card")
 public class OfferedCardOutputDto {
 
     private String image;

@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.dto.auth;
+package utn.tacs.grupo5.telegrambot.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

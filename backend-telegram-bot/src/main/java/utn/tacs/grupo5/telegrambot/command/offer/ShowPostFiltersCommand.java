@@ -2,20 +2,26 @@ package utn.tacs.grupo5.telegrambot.command.offer;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import utn.tacs.grupo5.telegrambot.ChatData;
-import utn.tacs.grupo5.telegrambot.UserState;
+import utn.tacs.grupo5.telegrambot.dto.post.PostOutputDto;
+import utn.tacs.grupo5.telegrambot.service.IPostService;
+import utn.tacs.grupo5.telegrambot.telegram.ChatData;
 import utn.tacs.grupo5.telegrambot.command.StateCommand;
-import utn.tacs.grupo5.telegrambot.dto.PostInputDTO;
-import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.dto.post.PostInputDto;
+import utn.tacs.grupo5.telegrambot.exceptions.BotException;
 import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
 import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
 import java.util.List;
 
-import static utn.tacs.grupo5.telegrambot.UserState.CHOOSING_OPTIONS;
+import static utn.tacs.grupo5.telegrambot.telegram.UserState.CHOOSING_OPTIONS;
 
 @Component
 public class ShowPostFiltersCommand implements StateCommand {
+    private final IPostService postService;
+    public ShowPostFiltersCommand(IPostService postService) {
+        this.postService = postService;
+    }
+
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
         // Este command se ejecuta automáticamente al entrar
@@ -28,14 +34,12 @@ public class ShowPostFiltersCommand implements StateCommand {
 
         try {
             handler.reply(chatId, "🔍 Buscando publicaciones...", null);
-
-            String gameId = chatData.getGameId();
-            String stateOfCard = chatData.getConservationStatus() != null ?
-                    chatData.getConservationStatus().toString() : null;
-            String cardName = chatData.getCardName();
-
             // Buscar publicaciones
-            List<PostInputDTO> posts = handler.getBotService().getPosts(cardName, gameId, stateOfCard);
+            List<PostOutputDto> posts = postService.getPosts(
+                    chatData.getToken(),
+                    chatData.getGameId().toString(),
+                    chatData.getCardName()
+            );
             chatData.setCurrentPost(posts);
 
             if (posts.isEmpty()) {

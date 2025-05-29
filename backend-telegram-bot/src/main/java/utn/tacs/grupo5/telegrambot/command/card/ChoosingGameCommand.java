@@ -3,10 +3,14 @@ package utn.tacs.grupo5.telegrambot.command.card;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import utn.tacs.grupo5.telegrambot.command.StateCommand;
-import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.dto.game.GameOutputDto;
+import utn.tacs.grupo5.telegrambot.exceptions.BotException;
 import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
 import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
-import utn.tacs.grupo5.telegrambot.service.impl.BotService;
+import utn.tacs.grupo5.telegrambot.service.IGameService;
+import utn.tacs.grupo5.telegrambot.telegram.ChatData;
+
+import java.util.List;
 
 
 /**
@@ -14,25 +18,32 @@ import utn.tacs.grupo5.telegrambot.service.impl.BotService;
  */
 @Component
 public class ChoosingGameCommand implements StateCommand {
-    private final BotService botService;
+    private final IGameService gameService;
 
-    public ChoosingGameCommand(BotService botService) {
-        this.botService = botService;
+    public ChoosingGameCommand(IGameService gameService) {
+        this.gameService = gameService;
     }
 
     @Override
     public void execute(long chatId, Message message, ResponseHandler handler) {
-        try{
-            String gameId = botService.findGame(message.getText());
-            handler.getChatData().get(chatId).setGameId(gameId);
-        }catch (RuntimeException e){
+        try {
+            ChatData chatData = handler.getChatData().get(chatId);
+            List<GameOutputDto> games = gameService.getGames(chatData.getToken());
+            GameOutputDto game = games.stream()
+                    .filter(g -> g.getTitle().equalsIgnoreCase(message.getText()))
+                    .findFirst()
+                    .orElseThrow(() -> new BotException("Juego no encontrado"));
+            handler.getChatData().get(chatId).setGameId(game.getId());
+        } catch (RuntimeException e) {
             throw new BotException("Juego no encontrado");
         }
     }
 
     @Override
     public void onEnter(long chatId, ResponseHandler handler) {
-        handler.reply(chatId, "Elija el juego", KeyboardFactory.getGameOption());
+        ChatData chatData = handler.getChatData().get(chatId);
+        List<GameOutputDto> games = gameService.getGames(chatData.getToken());
+        handler.reply(chatId, "Elija el juego", KeyboardFactory.getGameOption(games));
     }
 }
 

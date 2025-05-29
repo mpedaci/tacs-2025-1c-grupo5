@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.telegrambot;
+package utn.tacs.grupo5.telegrambot.telegram;
 
 public enum CardSelectionContext {
     CHOOSING_OFFERED_CARD,    // Carta que está ofreciendo

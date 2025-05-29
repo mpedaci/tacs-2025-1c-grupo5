@@ -1,12 +1,10 @@
 package utn.tacs.grupo5.telegrambot.command.card;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import utn.tacs.grupo5.telegrambot.ChatData;
-import utn.tacs.grupo5.telegrambot.ConservationStatus;
+import utn.tacs.grupo5.telegrambot.dto.ConservationStatus;
 import utn.tacs.grupo5.telegrambot.command.StateCommand;
-import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.exceptions.BotException;
 import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
 import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 

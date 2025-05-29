@@ -1,40 +1,43 @@
-package utn.tacs.grupo5.telegrambot;
+package utn.tacs.grupo5.telegrambot.telegram;
 
 import lombok.Data;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
-import utn.tacs.grupo5.telegrambot.dto.CardOutputDTO;
-import utn.tacs.grupo5.telegrambot.dto.PostInputDTO;
+import utn.tacs.grupo5.telegrambot.dto.ConservationStatus;
+import utn.tacs.grupo5.telegrambot.dto.card.CardOutputDto;
+import utn.tacs.grupo5.telegrambot.dto.post.PostOutputDto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class ChatData implements Serializable {
     ReplyKeyboard replyKeyboard;
-    private String gameId;
-    private String userId;
+    private UUID gameId;
+    private UUID userId;
     private List<String> images = new ArrayList<>();
-    private String cardId;
+    private UUID cardId;
     private String cardName;
     private ConservationStatus conservationStatus;
     private BigDecimal estimatedValue;
-    private List<String> selectedCardsIds = new ArrayList<>();
-    private List<String> selectedCardsNames = new ArrayList<>(); //porfavor no me critiques, soy solo un bot
-    private List<String> selectedCardsStates = new ArrayList<>();
+    private List<UUID> selectedCardsIds = new ArrayList<>();
+    private List<String> selectedCardsNames = new ArrayList<>();
+    private List<ConservationStatus> selectedCardsStates = new ArrayList<>();
     private String description;
     private String helpStringValue;
     private String flow;
-    private String publicationId;
-    private List<CardOutputDTO> currentCards;
+    private UUID publicationId;
+    private List<CardOutputDto> currentCards;
     private int currentIndex;
     private boolean needsMoreCardSelection = false;
     private boolean shouldCollectPhotos = false;
     private CardSelectionContext cardSelectionContext;
     private boolean photoCollectionCompleted = false;
     private boolean choosingAnotherCard = false;
-    private List<PostInputDTO> currentPost;
+    private List<PostOutputDto> currentPost;
+    private String token;
 
     public boolean needsMoreCardSelection() {
         return needsMoreCardSelection;
@@ -44,7 +47,7 @@ public class ChatData implements Serializable {
         return shouldCollectPhotos;
     }
 
-    public void addWantedCard(String cardId, String cardName) {
+    public void addWantedCard(UUID cardId, String cardName) {
         this.selectedCardsIds.add(cardId);
         this.selectedCardsNames.add(cardName);
     }

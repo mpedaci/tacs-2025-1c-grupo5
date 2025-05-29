@@ -1,7 +1,7 @@
 package utn.tacs.grupo5.telegrambot.validator;
 
 import org.springframework.stereotype.Component;
-import utn.tacs.grupo5.telegrambot.ChatData;
+import utn.tacs.grupo5.telegrambot.telegram.ChatData;
 
 import java.util.Set;
 

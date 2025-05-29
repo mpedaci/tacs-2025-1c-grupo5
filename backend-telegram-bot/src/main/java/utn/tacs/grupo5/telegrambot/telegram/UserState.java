@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.telegrambot;
+package utn.tacs.grupo5.telegrambot.telegram;
 
 public enum UserState {
     AWAITING_SESSION,
@@ -18,5 +18,9 @@ public enum UserState {
     SELECTING_INDEX,
     SELECTING_OFFERED_CARD,
     SELECTING_WANTED_CARDS,
-    CHOOSING_POST_FILTERS, SELECTING_POST, SHOWING_POSTS_FILTERS_RESULTS, CREATING_OFFER, MAKING_OFFER
+    CHOOSING_POST_FILTERS,
+    SELECTING_POST,
+    SHOWING_POSTS_FILTERS_RESULTS,
+    CREATING_OFFER,
+    MAKING_OFFER
 }

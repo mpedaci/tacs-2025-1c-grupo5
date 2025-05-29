@@ -2,10 +2,11 @@ package utn.tacs.grupo5.telegrambot.command.offer;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import utn.tacs.grupo5.telegrambot.ChatData;
+import utn.tacs.grupo5.telegrambot.dto.post.PostOutputDto;
+import utn.tacs.grupo5.telegrambot.telegram.ChatData;
 import utn.tacs.grupo5.telegrambot.command.StateCommand;
-import utn.tacs.grupo5.telegrambot.dto.PostInputDTO;
-import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.dto.post.PostInputDto;
+import utn.tacs.grupo5.telegrambot.exceptions.BotException;
 import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
 import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
@@ -32,7 +33,7 @@ public class SelectingPostCommand implements StateCommand {
     @Override
     public void onEnter(long chatId, ResponseHandler handler) {
         ChatData chatData = handler.getChatData().get(chatId);
-        List<PostInputDTO> posts = chatData.getCurrentPost();
+        List<PostOutputDto> posts = chatData.getCurrentPost();
 
         if (posts == null || posts.isEmpty()) {
             handler.reply(chatId, "❌ No hay publicaciones disponibles.", null);
@@ -45,7 +46,7 @@ public class SelectingPostCommand implements StateCommand {
     }
 
     private void showMorePosts(long chatId, ResponseHandler handler, ChatData chatData) {
-        List<PostInputDTO> allPosts = chatData.getCurrentPost();
+        List<PostOutputDto> allPosts = chatData.getCurrentPost();
         int currentIndex = chatData.getCurrentIndex();
 
         if (currentIndex >= allPosts.size()) {
@@ -54,12 +55,12 @@ public class SelectingPostCommand implements StateCommand {
         }
 
         int endIndex = Math.min(currentIndex + POSTS_PER_PAGE, allPosts.size());
-        List<PostInputDTO> postsToShow = allPosts.subList(currentIndex, endIndex);
+        List<PostOutputDto> postsToShow = allPosts.subList(currentIndex, endIndex);
 
         StringBuilder message = new StringBuilder("📋 **Publicaciones disponibles:**\n\n");
 
         for (int i = 0; i < postsToShow.size(); i++) {
-            PostInputDTO post = postsToShow.get(i);
+            PostOutputDto post = postsToShow.get(i);
             int postNumber = currentIndex + i;
 
             message.append(String.format("**%d** - %s\n", postNumber, post.getCard().getName()));
@@ -87,13 +88,13 @@ public class SelectingPostCommand implements StateCommand {
     private void selectPost(long chatId, String messageText, ResponseHandler handler, ChatData chatData) {
         try {
             int selectedIndex = Integer.parseInt(messageText);
-            List<PostInputDTO> posts = chatData.getCurrentPost();
+            List<PostOutputDto> posts = chatData.getCurrentPost();
 
             if (selectedIndex < 0 || selectedIndex >= posts.size()) {
                 throw new BotException("Número de publicación inválido");
             }
 
-            PostInputDTO selectedPost = posts.get(selectedIndex);
+            PostOutputDto selectedPost = posts.get(selectedIndex);
             chatData.setPublicationId(selectedPost.getId());
 
             handler.reply(chatId,

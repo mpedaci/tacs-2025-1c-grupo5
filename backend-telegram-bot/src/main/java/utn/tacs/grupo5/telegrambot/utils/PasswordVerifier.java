@@ -1,7 +1,6 @@
-package utn.tacs.grupo5.telegrambot.util;
+package utn.tacs.grupo5.telegrambot.utils;
 
-
-import utn.tacs.grupo5.telegrambot.exception.InvalidPasswordException;
+import utn.tacs.grupo5.telegrambot.exceptions.InvalidPasswordException;
 
 public class PasswordVerifier {
     public static void validatePassword(String password) {

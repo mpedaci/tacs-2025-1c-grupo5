@@ -2,16 +2,17 @@ package utn.tacs.grupo5.telegrambot.command.card;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import utn.tacs.grupo5.telegrambot.CardSelectionContext;
-import utn.tacs.grupo5.telegrambot.ChatData;
-import utn.tacs.grupo5.telegrambot.ConservationStatus;
+import utn.tacs.grupo5.telegrambot.dto.ConservationStatus;
+import utn.tacs.grupo5.telegrambot.telegram.CardSelectionContext;
+import utn.tacs.grupo5.telegrambot.telegram.ChatData;
 import utn.tacs.grupo5.telegrambot.command.StateCommand;
-import utn.tacs.grupo5.telegrambot.dto.CardOutputDTO;
-import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.dto.card.CardOutputDto;
+import utn.tacs.grupo5.telegrambot.exceptions.BotException;
 import utn.tacs.grupo5.telegrambot.factory.KeyboardFactory;
 import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Command specifically for choosing wanted cards in exchange
@@ -38,7 +39,8 @@ public class ChoosingWantedCardsCommand implements StateCommand {
             chatData.setCurrentIndex(Integer.parseInt(message.getText()));
             handler.reply(chatId,"Elija el estado de conservacion", KeyboardFactory.getCardConditionOption());
         }else if (matchesConservationStatus(messageText)){
-            chatData.getSelectedCardsStates().add(messageText);
+            ConservationStatus conservationStatus = ConservationStatus.fromString(messageText);
+            chatData.getSelectedCardsStates().add(conservationStatus);
             selectWantedCard(chatId,String.valueOf(chatData.getCurrentIndex()), handler, chatData);
         } else {
             throw new BotException("Seleccione un número de carta, 'Mas' para ver más opciones, o 'Finalizar' para terminar.");
@@ -47,7 +49,7 @@ public class ChoosingWantedCardsCommand implements StateCommand {
 
     private void showMoreCards(long chatId, ResponseHandler handler, ChatData chatData) {
         int currentIndex = chatData.getCurrentIndex();
-        List<CardOutputDTO> allCards = chatData.getCurrentCards();
+        List<CardOutputDto> allCards = chatData.getCurrentCards();
 
         if (currentIndex >= allCards.size()) {
             handler.reply(chatId, "No hay más cartas disponibles", KeyboardFactory.getMore());
@@ -55,10 +57,10 @@ public class ChoosingWantedCardsCommand implements StateCommand {
         }
 
         int endIndex = Math.min(currentIndex + CARDS_PER_PAGE, allCards.size());
-        List<CardOutputDTO> cardsToShow = allCards.subList(currentIndex, endIndex);
+        List<CardOutputDto> cardsToShow = allCards.subList(currentIndex, endIndex);
 
         for (int i = 0; i < cardsToShow.size(); i++) {
-            CardOutputDTO card = cardsToShow.get(i);
+            CardOutputDto card = cardsToShow.get(i);
             int cardNumber = currentIndex + i;
             handler.replyWithPhoto(chatId,
                     String.format("%d - %s", cardNumber, card.getName()),
@@ -80,13 +82,13 @@ public class ChoosingWantedCardsCommand implements StateCommand {
     private void selectWantedCard(long chatId, String messageText, ResponseHandler handler, ChatData chatData) {
         try {
             int selectedIndex = Integer.parseInt(messageText);
-            List<CardOutputDTO> cards = chatData.getCurrentCards();
+            List<CardOutputDto> cards = chatData.getCurrentCards();
 
             if (selectedIndex < 0 || selectedIndex >= cards.size()) {
                 throw new BotException("Número de carta inválido");
             }
 
-            String selectedCardId = cards.get(selectedIndex).getId();
+            UUID selectedCardId = cards.get(selectedIndex).getId();
             String selectedCardName = cards.get(selectedIndex).getName();
 
             // Agregar carta a la lista de cartas deseadas

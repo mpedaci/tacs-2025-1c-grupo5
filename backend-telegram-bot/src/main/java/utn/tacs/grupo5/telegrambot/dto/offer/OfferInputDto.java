@@ -1,16 +1,16 @@
-package utn.tacs.grupo5.dto.offer;
+package utn.tacs.grupo5.telegrambot.dto.offer;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Data
 @NoArgsConstructor
-@Schema(name = "Offer Input", description = "Offer schema for input")
+@AllArgsConstructor
 public class OfferInputDto {
 
     private BigDecimal money;

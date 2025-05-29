@@ -1,14 +1,14 @@
 package utn.tacs.grupo5.telegrambot.flow;
 
 import org.springframework.stereotype.Component;
-import utn.tacs.grupo5.telegrambot.ChatData;
-import utn.tacs.grupo5.telegrambot.UserState;
+import utn.tacs.grupo5.telegrambot.telegram.ChatData;
+import utn.tacs.grupo5.telegrambot.telegram.UserState;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static utn.tacs.grupo5.telegrambot.UserState.*;
+import static utn.tacs.grupo5.telegrambot.telegram.UserState.*;
 
 @Component
 public class FlowManagerImpl implements FlowManager {

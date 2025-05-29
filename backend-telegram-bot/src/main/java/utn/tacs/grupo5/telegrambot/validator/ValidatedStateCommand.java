@@ -1,9 +1,9 @@
 package utn.tacs.grupo5.telegrambot.validator;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
-import utn.tacs.grupo5.telegrambot.ChatData;
+import utn.tacs.grupo5.telegrambot.telegram.ChatData;
 import utn.tacs.grupo5.telegrambot.command.StateCommand;
-import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.exceptions.BotException;
 import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
 public abstract class ValidatedStateCommand implements StateCommand {

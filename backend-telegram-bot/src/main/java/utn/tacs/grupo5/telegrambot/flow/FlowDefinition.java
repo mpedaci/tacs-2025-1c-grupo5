@@ -1,12 +1,13 @@
 package utn.tacs.grupo5.telegrambot.flow;
 
-import utn.tacs.grupo5.telegrambot.ChatData;
-import utn.tacs.grupo5.telegrambot.UserState;
+
+import utn.tacs.grupo5.telegrambot.telegram.ChatData;
+import utn.tacs.grupo5.telegrambot.telegram.UserState;
 
 import java.util.*;
 import java.util.function.Predicate;
 
-import static utn.tacs.grupo5.telegrambot.UserState.CHOOSING_OPTIONS;
+import static utn.tacs.grupo5.telegrambot.telegram.UserState.CHOOSING_OPTIONS;
 
 /**
  * Defines a conversation flow with its states and transitions

@@ -3,7 +3,7 @@ package utn.tacs.grupo5.telegrambot.command;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.bots.AbsSender;
-import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.exceptions.BotException;
 import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
 
 import java.util.List;

@@ -5,20 +5,14 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import utn.tacs.grupo5.telegrambot.ConservationStatus;
-import utn.tacs.grupo5.telegrambot.dto.GameOutputDTO;
-import utn.tacs.grupo5.telegrambot.service.impl.GameService;
+import utn.tacs.grupo5.telegrambot.dto.ConservationStatus;
+import utn.tacs.grupo5.telegrambot.dto.game.GameOutputDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class KeyboardFactory {
-    private static List<GameOutputDTO> games;
-
-    public KeyboardFactory(GameService gameService) {
-        games = gameService.getGamesOnMemory();
-    }
 
     public static ReplyKeyboard getStartOption() {
         KeyboardRow row = new KeyboardRow();
@@ -41,9 +35,9 @@ public class KeyboardFactory {
         return new ReplyKeyboardMarkup(List.of(row));
     }
 
-    public static ReplyKeyboard getGameOption() {
+    public static ReplyKeyboard getGameOption(List<GameOutputDto> games) {
         KeyboardRow row = new KeyboardRow();
-        for (String gameName : games.stream().map(GameOutputDTO::getTitle).toList()) {
+        for (String gameName : games.stream().map(GameOutputDto::getTitle).toList()) {
             row.add(gameName.toLowerCase());
         }
         return new ReplyKeyboardMarkup(List.of(row));

@@ -14,20 +14,20 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import utn.tacs.grupo5.telegrambot.ChatData;
-import utn.tacs.grupo5.telegrambot.Constants;
-import utn.tacs.grupo5.telegrambot.UserState;
+import utn.tacs.grupo5.telegrambot.telegram.ChatData;
+import utn.tacs.grupo5.telegrambot.telegram.Constants;
+import utn.tacs.grupo5.telegrambot.telegram.UserState;
 import utn.tacs.grupo5.telegrambot.command.StateCommand;
 import utn.tacs.grupo5.telegrambot.command.StateCommandFactory;
-import utn.tacs.grupo5.telegrambot.exception.BotException;
+import utn.tacs.grupo5.telegrambot.exceptions.BotException;
 import utn.tacs.grupo5.telegrambot.flow.FlowManager;
-import utn.tacs.grupo5.telegrambot.service.impl.BotService;
+//import utn.tacs.grupo5.telegrambot.service.impl.BotService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static utn.tacs.grupo5.telegrambot.UserState.*;
+import static utn.tacs.grupo5.telegrambot.telegram.UserState.*;
 
 
 @Component
@@ -40,13 +40,11 @@ public class ResponseHandler {
     private Map<Long, UserState> chatStates;
     @Getter
     private Map<Long, ChatData> chatData = new HashMap<>();
-    @Getter
-    private BotService botService;
     private StateCommandFactory commandFactory;
     private final FlowManager flowManager;
 
-    public ResponseHandler(BotService botService, StateCommandFactory commandFactory, FlowManager flowManager) {
-        this.botService = botService;
+    public ResponseHandler(StateCommandFactory commandFactory, FlowManager flowManager) {
+        /*this.botService = botService;*/
         this.commandFactory = commandFactory;
         this.flowManager = flowManager;
     }

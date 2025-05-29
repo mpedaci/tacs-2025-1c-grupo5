@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.telegrambot;
+package utn.tacs.grupo5.telegrambot.telegram;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -23,9 +23,9 @@ public class TelegramBot extends AbilityBot {
     //private final AbsSender absSender;
 
     public TelegramBot (
-            @Value("${telegram.bot.token}") String botToken,
-            @Value("${telegram.bot.name}") String botUsername,
-            @Value("${telegram.bot.cid}")Long botCreatorId,
+            @Value("${TELEGRAM_BOT_TOKEN}") String botToken,
+            @Value("${TELEGRAM_BOT_NAME}") String botUsername,
+            @Value("${TELEGRAM_CREATOR_ID}")Long botCreatorId,
             ResponseHandler responseHandler) {
         super(botToken, botUsername);
         this.botCreatorId = botCreatorId;

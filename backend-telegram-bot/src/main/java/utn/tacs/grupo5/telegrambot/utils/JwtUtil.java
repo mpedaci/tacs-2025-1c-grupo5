@@ -1,4 +1,4 @@
-package utn.tacs.grupo5.telegrambot.util;
+package utn.tacs.grupo5.telegrambot.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Base64;

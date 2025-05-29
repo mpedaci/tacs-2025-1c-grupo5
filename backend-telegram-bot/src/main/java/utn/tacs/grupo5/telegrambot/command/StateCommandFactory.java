@@ -1,20 +1,19 @@
 package utn.tacs.grupo5.telegrambot.command;
 
 import org.springframework.stereotype.Component;
-import utn.tacs.grupo5.telegrambot.UserState;
 import utn.tacs.grupo5.telegrambot.command.card.*;
 import utn.tacs.grupo5.telegrambot.command.offer.*;
 import utn.tacs.grupo5.telegrambot.command.post.*;
-import utn.tacs.grupo5.telegrambot.command.post.ChoosingPhotoCollectionCommand;
 import utn.tacs.grupo5.telegrambot.command.session.AwaitingSessionCommand;
 import utn.tacs.grupo5.telegrambot.command.session.LoginCommand;
 import utn.tacs.grupo5.telegrambot.command.session.RegisterCommand;
 import utn.tacs.grupo5.telegrambot.handler.ResponseHandler;
+import utn.tacs.grupo5.telegrambot.telegram.UserState;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static utn.tacs.grupo5.telegrambot.UserState.*;
+import static utn.tacs.grupo5.telegrambot.telegram.UserState.*;
 
 /**
  * Factory for creating state commands based on the user state

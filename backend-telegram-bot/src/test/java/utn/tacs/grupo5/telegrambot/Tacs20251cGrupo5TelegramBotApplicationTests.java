@@ -1,4 +1,4 @@
-package utn.tacs.tacs20251cgrupo5telegrambot;
+package utn.tacs.grupo5.telegrambot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
