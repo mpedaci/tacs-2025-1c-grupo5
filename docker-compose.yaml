@@ -21,7 +21,6 @@ services:
       - YUGIOH_API_URL=${YUGIOH_API_URL}
       - MAGIC_API_URL=${MAGIC_API_URL}
       - POKEMON_API_URL=${POKEMON_API_URL}
-      - FRONTEND_URL=${FRONTEND_URL}
     ports:
       - "8080:8080"
     networks:
@@ -43,7 +42,6 @@ services:
       - default
     depends_on:
       - backend
-
 
   frontend:
     build:
