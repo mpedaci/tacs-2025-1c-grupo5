@@ -50,6 +50,8 @@ services:
       args:
         - NEXT_PUBLIC_API_URL=${BACKEND_URL}/api
     image: tacs-2025-1c-grupo5-frontend:latest
+    environment:
+      - NEXT_PUBLIC_API_URL=${BACKEND_URL}/api
     ports:
       - "3000:3000"
     networks:
