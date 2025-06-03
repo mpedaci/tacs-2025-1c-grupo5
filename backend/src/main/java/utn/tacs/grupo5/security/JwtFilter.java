@@ -64,7 +64,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 "/docs",
                 "/api-docs",
                 "/swagger-ui",
-                "/error");
+                "/error",
+                "/health-check");
 
         String path = request.getRequestURI();
         String method = request.getMethod();
