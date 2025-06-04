@@ -34,7 +34,7 @@ public class RegisterCommand implements StateCommand {
             handler.getChatData().get(chatId).setUserId(user.getId());
             handler.reply(chatId, "Registrado con éxito", KeyboardFactory.getCardsOption());
         } catch (WebClientException e) {
-            throw new BotException(e.getMessage());
+            throw new BotException("Error al registrar el usuario, intente nuevamente mas tarde");
         }
     }
     @Override

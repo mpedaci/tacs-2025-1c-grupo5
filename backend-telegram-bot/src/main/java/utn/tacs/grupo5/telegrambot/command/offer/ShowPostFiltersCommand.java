@@ -37,7 +37,7 @@ public class ShowPostFiltersCommand implements StateCommand {
             // Buscar publicaciones
             List<PostOutputDto> posts = postService.getPosts(
                     chatData.getToken(),
-                    chatData.getGameId().toString(),
+                    chatData.getGameId() != null ? chatData.getGameId().toString() : null,
                     chatData.getCardName()
             );
             chatData.setCurrentPost(posts);
