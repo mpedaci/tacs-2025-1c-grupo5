@@ -35,11 +35,13 @@ SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/tacsdb
 YUGIOH_API_URL=https://db.ygoprodeck.com/api/v7/
 MAGIC_API_URL=https://api.magicthegathering.io/v1/
 POKEMON_API_URL=https://api.pokemontcg.io/v2/
+FRONTEND_URL=http://localhost:3000
 BACKEND_URL=http://localhost:8080
 BACKEND_URL_LOCAL=http://backend:8080
 TELEGRAM_BOT_NAME=CardsTradingbot
 TELEGRAM_BOT_TOKEN=CardsTradingbotToken
 TELEGRAM_CREATOR_ID=1234567890
+JWT_SECRET=wOzW8kFODQPht6SHvmjhg67dYutx3U+PEfV3izXlRnc=
 ```
 
 ---
